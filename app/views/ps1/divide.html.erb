@@ -1,0 +1,21 @@
+<h1>Divide/</h1>
+
+<hr>
+<h2>Implementation details</h2>
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+no sea takimata sanctus est Lorem ipsum dolor sit amet.
+<hr>
+
+<% if @error %>
+  divide by zero attempted.
+<% else %>
+  Divided with <%= @denominator %>
+<% end %>
+
+<%= form_with(url: '/ps1/divide', method: 'get', local: true) do |form| %>
+  <%= form.label(:denominator, "Denominator:") %>
+  <%= form.number_field(:denominator) %>
+  <%= form.submit("divide!") %>
+<% end %>

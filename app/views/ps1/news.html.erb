@@ -1,0 +1,19 @@
+<h1>News#index</h1>
+
+<hr>
+<h3>Implementation Details</h3>
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+no sea takimata sanctus est Lorem ipsum dolor sit amet.
+<hr>
+
+<% for i in 0..@img_urls.length %>
+  <a href=<%= @urls[i] %>>
+      <h3><%= @headlines[i] %></h3>
+      <br>
+      <img src=<%= @img_urls[i] %> />
+  </a>
+  <hr>
+<% end %>
+
