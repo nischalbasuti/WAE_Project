@@ -2,16 +2,46 @@
 
 <hr>
 <h2>Implementation details</h2>
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-no sea takimata sanctus est Lorem ipsum dolor sit amet.
+<ol>
+    <li>
+        With Exeption Handling
+        <ul>
+            <li>
+            The denominator is obtained using the 'denominator' get parameter.
+            </li>
+            <li>
+            A 'ZeroDivisionError' is caught and "About to divide by 0" is logged
+            to 'log/production.log' using the 'Logger' class.
+            </li>
+        </ul>
+    </li>
+    <li>
+        Without Exeption Handling
+        <ul>
+            <li>
+            Set 'config.consider_all_requests_local = true' in 
+            config/environments/production.rb to show stack trace when errors
+            occur.
+            </li>
+            <li>
+            Before the zero division is done,"About to divide by 0" is logged to
+            'log/production.log' using the 'Logger' class.
+            </li>
+        </ul>
+    </li>
+</ol>
 <hr>
 
-<% if @error %>
-  divide by zero attempted.
-<% else %>
-  Divided with <%= @denominator %>
+<% if params.has_key?(:denominator) %>
+    <% if @error%>
+        <span style="color:red;">
+            divide by zero attempted.
+        </span>
+    <% else %>
+        <span style="color:blue">
+            Divided with <%= @denominator %>
+        </span>
+    <% end %>
 <% end %>
 <ul>
 

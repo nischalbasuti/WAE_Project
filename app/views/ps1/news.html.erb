@@ -1,11 +1,19 @@
-<h1>News#index</h1>
+<h1>News</h1>
 
 <hr>
 <h3>Implementation Details</h3>
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-no sea takimata sanctus est Lorem ipsum dolor sit amet.
+<ul>
+    <li>
+    The html from the google news is opened using the 'open' function from the
+    'OpenURI' module
+    </li> 
+    <li>
+    The 'Nokogiri' module is used to parse the html obtained from google news.
+    </li>
+    <li>
+    The headlines, image urls and links are found using their html class names.
+    </li>
+</ul>
 <hr>
 
 <% for i in 0..@img_urls.length %>

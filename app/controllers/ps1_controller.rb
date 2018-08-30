@@ -18,6 +18,7 @@ class Ps1Controller < ApplicationController
       # raise ZeroDivisionError
     end
   end
+
   def divide_exception
     @logger = Logger.new("log/production.log")
     @logger.error "About to divide by 0"
