@@ -18,6 +18,9 @@ class Ps1Controller < ApplicationController
       # raise ZeroDivisionError
     end
   end
+  def divide_exception
+    10/0
+  end
 
   def news
     require 'open-uri'

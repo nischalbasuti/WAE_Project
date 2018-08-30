@@ -13,16 +13,11 @@ no sea takimata sanctus est Lorem ipsum dolor sit amet.
 <% else %>
   Divided with <%= @denominator %>
 <% end %>
-<ul>
 
-    <li>
-        <%= form_with(url: '/ps1/divide', method: 'get', local: true) do |form| %>
-            <%= form.label(:denominator, "Denominator:") %>
-            <%= form.number_field(:denominator, :value=>0) %>
-            <%= form.submit("divide with exception handling!") %>
-        <% end %>
-    </li>
-    <li>
-        <a href="/ps1/divide_exception">divide by 0 without exception handling</a>
-    </li>
-</ul>
+<%= form_with(url: '/ps1/divide', method: 'get', local: true) do |form| %>
+  <%= form.label(:denominator, "Denominator:") %>
+  <%= form.number_field(:denominator) %>
+  <%= form.submit("divide with pretty exception handling!") %>
+<% end %>
+
+<a href="/ps1/divide_exception">Click here for boring stacktrace.</a>
