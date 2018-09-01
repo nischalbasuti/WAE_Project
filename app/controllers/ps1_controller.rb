@@ -27,8 +27,10 @@ class Ps1Controller < ApplicationController
 
   def news
     require 'open-uri'
+
     url = "https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx1YlY4U0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen"
-    doc = Nokogiri::HTML(open(url))
+    proxy_uri = URI.parse("http://192.41.170.23:3128/")
+    doc = Nokogiri::HTML( open(url, :proxy_http_basic_authentication => [proxy_uri, "", ""]).read )
     
     @body = doc.css(".FVeGwb.NLCVwf")[0]
 
