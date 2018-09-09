@@ -23,7 +23,12 @@
     </div>
     <div class="form_row">
       <%= form.label :category %>
-      <%= form.text_field :category, :size => 20, :maxlength => 40 %>
+      <%= form.select(:category, options_for_select(@category_options)) %>
+    </div>
+    <div class="form_row">
+      <%= form.label :new_category %>
+      <%# <%= form.text_field :new_category, :size => 20, :maxlength => 40 %1> %>
+      <input type="text" value="" name="new_category" id="new_category"/>
     </div>
     <div class="form_row">
       <%= form.label :quote %>
