@@ -1,15 +1,41 @@
 <h3>Quotations</h3>
+
+
 <ul>
   <% for quotation in @quotations %>
     <li><%= h quotation.author_name %>: <%= h quotation.quote %></li>
   <% end %>
 </ul>
-<br/>
-<% if params[:sort_by] == "date" %>
-  <%= link_to "Sort by category", :action => :quotation, :sort_by => :category %>
-<% else %>
-  <%= link_to "Sort by date", :action => :quotation, :sort_by => :date %>
-<% end %>
+
+<div id=search_form style="padding:5%;">
+  <hr>
+  <h5>Search</h5>
+  <%= form_with(url: "/ps2/quotation", method: "get", local:true) do |form| %>
+    <%= form.label(:search_query, "Search for:") %>
+    <%= form.text_field(:search_query, :value=>@original_query) %>
+    <%= form.submit("Search") %> <%= link_to "clear search", :action=> :quotation %>
+
+    <% if params[:sort_by] == "date" %>
+      <%= form.hidden_field(:sort_by, :value => "date")%>
+    <% else %>
+      <%= form.hidden_field(:sort_by, :value => "category")%>
+    <% end %>
+
+  <% end %>
+
+  <%= form_with(url: "/ps2/quotation", method: "get", local:true) do |form| %>
+    <%= form.hidden_field(:search_query, :value => @original_query)%>
+    <% if params[:sort_by] == "date" %>
+      <%= form.submit("Sort by category") %>
+      <%= form.hidden_field(:sort_by, :value => "category")%>
+    <% else %>
+      <%= form.submit("Sort by date") %>
+      <%= form.hidden_field(:sort_by, :value => "date")%>
+    <% end %>
+
+  <% end %>
+  <hr>
+</div>
 <hr/>
 
 <h3>New quotation</h3>
@@ -27,7 +53,6 @@
     </div>
     <div class="form_row">
       <%= form.label :new_category %>
-      <%# <%= form.text_field :new_category, :size => 20, :maxlength => 40 %1> %>
       <input type="text" value="" name="new_category" id="new_category"/>
     </div>
     <div class="form_row">

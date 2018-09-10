@@ -7,6 +7,27 @@ class Ps2Controller < ApplicationController
     @category_options = Quotation.distinct.pluck(:category).map do |category|
       [category, category]
     end
+    
+    @search_query = ""
+    @original_query = ""
+    if params[:search_query]
+      @search_query = params[:search_query]
+      @original_query = params[:search_query]
+    end
+    @search_query = "%"+@search_query+"%"
+
+    if params[:sort_by] == "date"
+      @quotations = Quotation.where("LOWER(author_name) LIKE ? or LOWER(quote) LIKE ?",
+                                    @search_query.downcase, @search_query.downcase)
+        .order(:created_at)
+    else
+      @quotations = Quotation.where("LOWER(author_name) LIKE ? or LOWER(quote) LIKE ?",
+                                    @search_query.downcase, @search_query.downcase)
+        .order(:category)
+    end
+    
+    logger = Logger.new(STDOUT)
+    logger.info @search_query
 
     # Create a new quotation if passed.
     if params[:quotation]
@@ -20,13 +41,6 @@ class Ps2Controller < ApplicationController
       end
     else
       @quotation = Quotation.new
-    end
-
-    # Order of quotations.
-    if params[:sort_by] == "date"
-      @quotations = Quotation.order(:created_at)
-    else
-      @quotations = Quotation.order(:category)
     end
   end
 end
