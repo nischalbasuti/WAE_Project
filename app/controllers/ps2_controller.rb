@@ -9,7 +9,7 @@ class Ps2Controller < ApplicationController
     end
     
     # Search for words in autor and quote fields using regex in the SQL.
-    @search_query = "%"
+    @search_query = ""
     @original_query = ""
     if params[:search_query] and params[:search_query].strip != ""
       @search_query = params[:search_query]
