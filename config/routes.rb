@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'ps1/divide_exception'
   get 'ps1/news'
   get 'home/index'
+  get 'ps2/export'
 
   post 'ps2/quotation'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -1,5 +1,8 @@
 <h2>Quotations</h2>
 
+<%= link_to "export to xml", :action => :export, :file_type => "xml" %>
+<%= link_to "export to json", :action => :export, :file_type => "json" %>
+
 <ul>
   <% for quotation in @quotations %>
     <li>

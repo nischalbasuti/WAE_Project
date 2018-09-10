@@ -75,4 +75,18 @@ class Ps2Controller < ApplicationController
       @quotation = Quotation.new
     end
   end
+
+  def export
+    logger = Logger.new(STDOUT)
+    quotations = []
+    Quotation.all.each do |quotation|
+      quotations.push(quotation.as_json)
+    end
+
+    if params[:file_type] == "xml"
+      send_data quotations.to_xml.to_s, :filename => "quotations.xml"
+    else
+      send_data quotations.to_json.to_s, :filename => "quotations.json"
+    end
+  end
 end
