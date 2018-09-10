@@ -8,22 +8,25 @@ class Ps2Controller < ApplicationController
       [category, category]
     end
     
-    @search_query = ""
+    # Search for words in autor and quote fields using regex in the SQL.
+    @search_query = "%"
     @original_query = ""
-    if params[:search_query]
+    if params[:search_query] and params[:search_query].strip != ""
       @search_query = params[:search_query]
       @original_query = params[:search_query]
+      @search_query = "(\\m"+@search_query.downcase+"\\M)"
     end
-    @search_query = "%"+@search_query+"%"
 
     if params[:sort_by] == "date"
-      @quotations = Quotation.where("LOWER(author_name) LIKE ? or LOWER(quote) LIKE ?",
-                                    @search_query.downcase, @search_query.downcase)
-        .order(:created_at)
+      @quotations = Quotation.where("LOWER(author_name) ~* ?
+                                    or LOWER(quote) ~* ?",
+                                    @search_query, @search_query)
+                                    .order(:created_at)
     else
-      @quotations = Quotation.where("LOWER(author_name) LIKE ? or LOWER(quote) LIKE ?",
-                                    @search_query.downcase, @search_query.downcase)
-        .order(:category)
+      @quotations = Quotation.where("LOWER(author_name) ~* ?
+                                    or LOWER(quote) ~* ?",
+                                    @search_query, @search_query)
+                                    .order(:category)
     end
     
     logger = Logger.new(STDOUT)
