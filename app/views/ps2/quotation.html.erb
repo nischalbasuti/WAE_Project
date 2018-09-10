@@ -1,10 +1,18 @@
-<h3>Quotations</h3>
-
+<h2>Quotations</h2>
 
 <ul>
   <% for quotation in @quotations %>
-    <li><%= h quotation.author_name %>: <%= h quotation.quote %></li>
+    <li>
+    <strong><%= quotation.author_name %></strong>:
+    <%= quotation.quote %>
+    <span style="float:right;">
+      <%= link_to "Quote, I banish thee!", :action => :quotation, :kill_quote => quotation.id %>
+    </span>
+    </li>
   <% end %>
+  <span style="float:right;padding:3%;">
+    <%= link_to "Revive all quotes", :action => :quotation, :revive_quote => true %>
+  </span>
 </ul>
 
 <div id=search_form style="padding:5%;">
