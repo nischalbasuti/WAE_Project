@@ -35,13 +35,12 @@ class Ps2Controller < ApplicationController
     end
     
     if params[:kill_quote]
-      logger.info "KILLING QUOTE "+params[:kill_quote]
       kill_quote(params[:kill_quote])
     end
 
     @dead_quotes = get_dead_quotes
 
-    # Search for words in autor and quote fields using regex in the SQL.
+    # Search for words in author and quote fields using regex in the SQL.
     @search_query = ""
     @original_query = ""
     if params[:search_query] and params[:search_query].strip != ""
@@ -59,7 +58,6 @@ class Ps2Controller < ApplicationController
                                     @search_query, @search_query).where.not(id: get_dead_quotes)
                                     .order(:category)
     end
-    logger.info get_dead_quotes
 
     # Create a new quotation if passed.
     if params[:quotation]
@@ -74,6 +72,28 @@ class Ps2Controller < ApplicationController
     else
       @quotation = Quotation.new
     end
+  end
+
+  def import 
+    logger = Logger.new(STDOUT)
+    file = params[:import_file]
+    quotations = Hash.from_xml(file.read.as_json)["objects"]
+    logger.info quotations
+    quotations.each do |quotation|
+      logger.info quotation
+
+      new_quote = Quotation.new
+      new_quote.author_name = quotation["author_name"]
+      new_quote.category = quotation["category"]
+      new_quote.quote = quotation["quote"]
+      new_quote.created_at = quotation["created_at"]
+      new_quote.updated_at = quotation["updated_at"]
+
+      
+      new_quote.save
+    end
+
+    logger.info "import over"
   end
 
   def export
