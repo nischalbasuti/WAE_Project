@@ -94,6 +94,7 @@ class Ps2Controller < ApplicationController
     end
 
     logger.info "import over"
+    redirect_to :action => :quotation, status: 301
   end
 
   def export
