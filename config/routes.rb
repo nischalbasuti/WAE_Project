@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'ps1/news'
   get 'home/index'
   get 'ps2/export'
+  get 'ps2/kill_quote'
+  get 'ps2/revive_quotes'
   post 'ps2/import'
 
   post 'ps2/quotation'

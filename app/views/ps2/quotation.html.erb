@@ -13,12 +13,12 @@
     <strong><%= quotation.author_name %></strong>:
     <%= quotation.quote %>
     <span style="float:right;">
-      <%= link_to "Quote, I banish thee!", :action => :quotation, :kill_quote => quotation.id %>
+      <%= link_to "Quote, I banish thee!", :action => :kill_quote, :kill_quote => quotation.id %>
     </span>
     </li>
   <% end %>
   <span style="float:right;padding:3%;">
-    <%= link_to "Revive all quotes", :action => :quotation, :revive_quote => true %>
+    <%= link_to "Revive all quotes", :action => :revive_quotes, :revive_quote => true %>
   </span>
 </ul>
 

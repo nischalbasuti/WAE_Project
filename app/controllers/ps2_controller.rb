@@ -2,7 +2,8 @@ class Ps2Controller < ApplicationController
   def index
   end
 
-  def kill_quote(id)
+  def kill_quote
+    id = params[:kill_quote]
     id = id.to_i
     if cookies[:dead_quotes]
       dead_quotes = JSON.parse cookies[:dead_quotes]
@@ -12,6 +13,7 @@ class Ps2Controller < ApplicationController
     dead_quotes.push(id)
     dead_quotes = dead_quotes.uniq
     cookies[:dead_quotes] = JSON.generate(dead_quotes)
+    redirect_back(fallback_location: "/ps2/index")
   end
 
   def get_dead_quotes()
@@ -22,20 +24,20 @@ class Ps2Controller < ApplicationController
     end
   end
 
-  def quotation
-    logger = Logger.new(STDOUT)
-
+  def revive_quotes
     if params[:revive_quote]
       cookies[:dead_quotes] = JSON.generate []
     end
+    redirect_back(fallback_location: "/ps2/index")
+  end
+
+  def quotation
+    logger = Logger.new(STDOUT)
+
 
     # Get all distinct categories.
     @category_options = Quotation.distinct.pluck(:category).map do |category|
       [category, category]
-    end
-    
-    if params[:kill_quote]
-      kill_quote(params[:kill_quote])
     end
 
     @dead_quotes = get_dead_quotes
@@ -96,7 +98,7 @@ class Ps2Controller < ApplicationController
 
     logger.info "import over"
     flash[:notice] = 'Quotations successfully imported'
-    redirect_back(fallback_location: :quotation)
+    redirect_back(fallback_location: "/ps2/index")
   end
 
   def export
