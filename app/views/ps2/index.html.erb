@@ -1,9 +1,14 @@
 <h1>PS2: Basics Part II</h1>
 <hr>
 <ul>
+    <% if flash[:notice] %>
+        <div class="notice" style="color:blue;"><%= flash[:notice] %></div>
+    <% end %>
+
     <li>
     <a href="/ps2/quotation">Quotations</a>
     <ul>
+
 
         <li>
         <%= link_to "export to xml",{ :action => :export, :file_type => "xml" }, :target => :_blank %>

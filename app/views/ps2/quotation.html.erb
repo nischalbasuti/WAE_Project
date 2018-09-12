@@ -3,6 +3,10 @@
 <%= link_to "export to xml",{ :action => :export, :file_type => "xml" }, :target => :_blank %>
 <%= link_to "export to json",{ :action => :export, :file_type => "json"}, :target => :_blank%>
 
+  <% if flash[:notice] %>
+    <div class="notice" style="color:blue;"><%= flash[:notice] %></div>
+  <% end %>
+
 <ul>
   <% for quotation in @quotations %>
     <li>

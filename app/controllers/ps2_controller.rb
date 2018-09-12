@@ -75,6 +75,7 @@ class Ps2Controller < ApplicationController
   end
 
   def import 
+    # TODO:  handle format errors.
     logger = Logger.new(STDOUT)
     file = params[:import_file]
     quotations = Hash.from_xml(file.read.as_json)["objects"]
@@ -94,6 +95,7 @@ class Ps2Controller < ApplicationController
     end
 
     logger.info "import over"
+    flash[:notice] = 'Quotations successfully imported'
     redirect_back(fallback_location: :quotation)
   end
 
