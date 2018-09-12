@@ -3,12 +3,6 @@
 <%= link_to "export to xml",{ :action => :export, :file_type => "xml" }, :target => :_blank %>
 <%= link_to "export to json",{ :action => :export, :file_type => "json"}, :target => :_blank%>
 
-  <%= form_with(url: "/ps2/import", method: "post", local:true) do |form| %>
-    <%= form.file_field :import_file  %><br>
-    <%= form.submit "import quotations"%>
-  <% end %>
-
-
 <ul>
   <% for quotation in @quotations %>
     <li>
