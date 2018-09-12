@@ -77,27 +77,32 @@ class Ps2Controller < ApplicationController
   end
 
   def import 
-    # TODO:  handle format errors.
-    logger = Logger.new(STDOUT)
-    file = params[:import_file]
-    quotations = Hash.from_xml(file.read.as_json)["objects"]
-    logger.info quotations
-    quotations.each do |quotation|
-      logger.info quotation
+    begin
+      logger = Logger.new(STDOUT)
+      file = params[:import_file]
+      quotations = Hash.from_xml(file.read.as_json)["objects"]
+      logger.info quotations
+      quotations.each do |quotation|
+        logger.info quotation
 
-      new_quote = Quotation.new
-      new_quote.author_name = quotation["author_name"]
-      new_quote.category = quotation["category"]
-      new_quote.quote = quotation["quote"]
-      new_quote.created_at = quotation["created_at"]
-      new_quote.updated_at = quotation["updated_at"]
+        new_quote = Quotation.new
+        new_quote.author_name = quotation["author_name"]
+        new_quote.category = quotation["category"]
+        new_quote.quote = quotation["quote"]
+        new_quote.created_at = quotation["created_at"]
+        new_quote.updated_at = quotation["updated_at"]
 
-      
-      new_quote.save
+
+        new_quote.save
+      end
+
+      logger.info "import over"
+      flash[:notice] = 'Quotations successfully imported'
+    rescue StandardError => e
+      flash[:notice] = 'Quotations not imported: Invalid XML'
+      # flash[:notice] = 'Quotations not imported: '+e.message
     end
 
-    logger.info "import over"
-    flash[:notice] = 'Quotations successfully imported'
     redirect_back(fallback_location: "/ps2/index")
   end
 
