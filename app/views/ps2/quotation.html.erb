@@ -34,7 +34,9 @@
 </div>
 
 <% if flash[:notice] %>
+    <hr>
     <div class="notice" style="color:blue;"><%= flash[:notice] %></div>
+    <hr>
 <% end %>
 
 <%= form_with(url: "/ps2/quotation", method: "get", local:true) do |form| %>
