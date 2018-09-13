@@ -1,84 +1,119 @@
+<style type="text/css" media="screen">
+    tr:nth-child(even) {background-color: #f2f2f2;}
+    tr:hover {background-color: #f5f5f5;}
+    th, td {
+        border-bottom: 1px solid #ddd;
+    }
+    th, td {
+        padding: 15px;
+        text-align: center;
+    }
+</style>
+
 <h2>Quotations</h2>
 
 <%= link_to "export to xml",{ :action => :export, :file_type => "xml" }, :target => :_blank %>
 <%= link_to "export to json",{ :action => :export, :file_type => "json"}, :target => :_blank%>
 
-  <% if flash[:notice] %>
-    <div class="notice" style="color:blue;"><%= flash[:notice] %></div>
-  <% end %>
-
-<ul>
-  <% for quotation in @quotations %>
-    <li>
-    <strong><%= quotation.author_name %></strong>:
-    <%= quotation.quote %>
-    <span style="float:right;">
-      <%= link_to "Quote, I banish thee!", :action => :kill_quote, :kill_quote => quotation.id %>
-    </span>
-    </li>
-  <% end %>
-  <span style="float:right;padding:3%;">
-    <%= link_to "Revive all quotes", :action => :revive_quotes, :revive_quote => true %>
-  </span>
-</ul>
-
 <div id=search_form style="padding:5%;">
-  <hr>
-  <h5>Search</h5>
-  <%= form_with(url: "/ps2/quotation", method: "get", local:true) do |form| %>
-    <%= form.label(:search_query, "Search for:") %>
-    <%= form.text_field(:search_query, :value=>@original_query) %>
-    <%= form.submit("Search") %> <%= link_to "clear search", :action=> :quotation %>
+    <hr>
+    <h5>Search</h5>
+    <%= form_with(url: "/ps2/quotation", method: "get", local:true) do |form| %>
+        <%= form.label(:search_query, "Search for:") %>
+        <%= form.text_field(:search_query, :value=>@original_query) %>
+        <%= form.submit("Search") %> <%= link_to "clear search", :action=> :quotation %>
 
-    <% if params[:sort_by] == "date" %>
-      <%= form.hidden_field(:sort_by, :value => "date")%>
-    <% else %>
-      <%= form.hidden_field(:sort_by, :value => "category")%>
+        <% if params[:sort_by] == "date" %>
+            <%= form.hidden_field(:sort_by, :value => "date")%>
+        <% else %>
+            <%= form.hidden_field(:sort_by, :value => "category")%>
+        <% end %>
+
     <% end %>
+    <hr>
+</div>
 
-  <% end %>
+<% if flash[:notice] %>
+    <div class="notice" style="color:blue;"><%= flash[:notice] %></div>
+<% end %>
 
-  <%= form_with(url: "/ps2/quotation", method: "get", local:true) do |form| %>
+<%= form_with(url: "/ps2/quotation", method: "get", local:true) do |form| %>
+
     <%= form.hidden_field(:search_query, :value => @original_query)%>
     <% if params[:sort_by] == "date" %>
-      <%= form.submit("Sort by category") %>
-      <%= form.hidden_field(:sort_by, :value => "category")%>
+        <%= form.submit("Sort by category") %>
+        <%= form.hidden_field(:sort_by, :value => "category")%>
     <% else %>
-      <%= form.submit("Sort by date") %>
-      <%= form.hidden_field(:sort_by, :value => "date")%>
+        <%= form.submit("Sort by date") %>
+        <%= form.hidden_field(:sort_by, :value => "date")%>
     <% end %>
 
-  <% end %>
-  <hr>
-</div>
-<hr/>
+<% end %>
+
+<hr>
+
+
+<h3>Quotations</h3>
+<table>
+    <tr>
+        <td>
+            <strong>Author Name</strong>
+        </td>
+        <td>
+            <strong>Quote</strong>
+        </td>
+        <td>
+            <strong>Category</strong>
+        </td>
+    </tr>
+    <% for quotation in @quotations %>
+        <tr>
+            <td>
+                <%= quotation.author_name %>
+            </td>
+            <td>
+                <%= quotation.quote %>
+            </td>
+            <td>
+                <%= quotation.category %>
+            </td>
+            <td>
+                <%= link_to "Murder Quote", :action => :kill_quote, :kill_quote => quotation.id %>
+            </td>
+        </tr>
+    <% end %>
+</table>
+
+<span style="float:right;padding:3%;">
+    <%= link_to "Revive all quotes", :action => :revive_quotes, :revive_quote => true %>
+</span>
 
 <h3>New quotation</h3>
 <%= form_for @quotation, url: { action: "quotation" } do |form| %>
-  <%# <%= form.error_messages %1> %>
-  <fieldset>
-    <legend>Enter details</legend>
-    <div class="form_row">
-      <%= form.label :author_name %>
-      <%= form.text_field :author_name, :size => 20, :maxlength => 40 %>
-    </div>
-    <div class="form_row">
-      <%= form.label :category %>
-      <%= form.select(:category, options_for_select(@category_options)) %>
-    </div>
-    <div class="form_row">
-      <%= form.label :new_category %>
-      <input type="text" value="" name="new_category" id="new_category"/>
-    </div>
-    <div class="form_row">
-      <%= form.label :quote %>
-      <%= form.text_area :quote, :rows => 2, :cols => 40, :maxlength => 500 %>
-    </div>
-  </fieldset>
+    <%# <%= form.error_messages %1> %>
+    <fieldset>
+        <legend>Enter details</legend>
+        <div class="form_row">
+            <%= form.label :author_name %>
+            <%= form.text_field :author_name, :size => 20, :maxlength => 40 %>
+        </div>
+        <div class="form_row">
+            <%= form.label :category %>
+            <%= form.select(:category, options_for_select(@category_options)) %>
+        </div>
+        <div class="form_row">
+            <%= form.label :new_category %>
+            <input type="text" value="" name="new_category" id="new_category"/>
+        </div>
+        <div class="form_row">
+            <%= form.label :quote %>
+            <%= form.text_area :quote, :rows => 2, :cols => 40, :maxlength => 500 %>
+        </div>
+    </fieldset>
 
-  <p>
-  <div class="form_row">
-    <%= form.submit 'Create' %>
-  </div>
-  </p>
+    <p>
+    <div class="form_row">
+        <%= form.submit 'Create' %>
+    </div>
+    </p>
 <% end %>
