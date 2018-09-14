@@ -108,15 +108,11 @@ SELECT portfolio_value();
 
 -------------------------------12.---------------------------------------
 
-UPDATE my_stocks 
-SET date_acquired = current_date
-WHERE   my_stocks.symbol IN
- (
- 	SELECT my_stocks.symbol 
- 	FROM my_stocks, stock_prices
- 	WHERE my_stocks.symbol = stock_prices.symbol 
-	AND (SELECT AVG(price) FROM stock_prices) > stock_prices.price
- );
+INSERT INTO my_stocks (symbol, n_shares, date_acquired) 
+SELECT my_stocks.symbol, my_stocks.n_shares, CURRENT_DATE 
+FROM my_stocks, stock_prices
+WHERE my_stocks.symbol = stock_prices.symbol 
+AND (SELECT AVG(price) FROM stock_prices) < stock_prices.price;
 
 SELECT symbol, SUM(n_shares) AS total_shares FROM my_stocks GROUP BY symbol;
 
