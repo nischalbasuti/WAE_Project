@@ -1,35 +1,43 @@
 <h1>PS2: Basics Part II</h1>
 <hr>
-<ul>
+<ol>
     <% if flash[:notice] %>
         <div class="notice" style="color:blue;"><%= flash[:notice] %></div>
     <% end %>
 
     <li>
-    <a href="/ps2/quotation">Quotations</a>
-    <ul>
+        <a href="/ps2/quotation">Quotations</a>
+        <ul>
 
 
-        <li>
-        <%= link_to "export to xml",{ :action => :export, :file_type => "xml" }, :target => :_blank %>
-        </li>
-        <li>
-        <%= link_to "export to json",{ :action => :export, :file_type => "json"}, :target => :_blank%>
-        </li>
-        <li>
-        <%= form_with(url: "/ps2/import", method: "post", local:true) do |form| %>
-            <%= form.file_field :import_file  %> <br>
-            <%= form.submit "import quotations"%>
-        <% end %>
-        </li>
-    </ul>
+            <li>
+            <%= link_to "export to xml",{ :action => :export, :file_type => "xml" }, :target => :_blank %>
+            </li>
+            <li>
+            <%= link_to "export to json",{ :action => :export, :file_type => "json"}, :target => :_blank%>
+            </li>
+            <li>
+            <%= form_with(url: "/ps2/import", method: "post", local:true) do |form| %>
+                <%= form.file_field :import_file  %> <br>
+                <%= form.submit "import quotations"%>
+            <% end %>
+            </li>
+        </ul>
+
+        <h4>Implementation Details</h4>
 
     </li>
 
-    <%= link_to 'Data base session', '/stock.txt' -%>
+    <li>
+        <ul>
+            <li> <%= link_to 'Data base session', '/stock.txt' -%> </li>
 
-    <%= link_to 'Detail data', '/detail_stock.txt' -%>
+            <li> <%= link_to 'Detail data', '/detail_stock.txt' -%> </li>
 
-    <%= link_to 'SQL File', '/ps2_psql.sql' -%>
+            <li> <%= link_to 'SQL File', '/ps2_psql.sql' -%> </li>
+        </ul>
+        <h4>Implementation Details</h4>
 
-</ul>
+    </li>
+
+</ol>
