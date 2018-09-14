@@ -48,14 +48,25 @@
         <h4>Implementation Details</h4>
 
         <p>
-          The questions, which involve pure SQL is as follows; first,the datas was copied from a text file to database by called the
-'\copy mytable FROM '/path of file' WITH delimiter E'\t';'. The texts will be added in each column into a table according to type of the column of the table.
-Then, inserting data which unique information into stock_prices table by used the 'INSERT INTO mytable SELECT DISTINCT ON column1, column2, ... FROM mytable2 ;'.
-The DISTINCT ON() can specify the column by 'DISTINCT ON (column1) column1, column2, ... ' . Likewise,inserting a half of data to another table by
-'INSERT INTO table1 SELECT * FROM table2 limit (SELECT COUNT(field_in_table2 [e.g.id])/2 FROM table1 );' . The limit() can used for litmit the data which was inserted to others;
-for example , the 'limit (5);' is inserting 5 rows of datas. The Regexp_split_to_array() function was used to obtain individual characters of string which are looped over .
-In addition, ASCII() function was used to found the ASCII values of each characters.After then, The cursor loop was used to fetch the data which is used to sum the value.
-A view was created by 'CREATE VIEW name_view AS SELECT * FROM mytable' ;
+          The questions, which involve pure SQL is as follows; first,the datas was copied from a text file to database by called the <br><br>
+          <b>'\copy mytable FROM '/path of file' WITH delimiter E'\t';'. </b><br><br>
+          The texts will be added in each column into a table according to type of the column of the table.
+        </p>
+
+        <p>
+          Then, inserting data which unique information into stock_prices table by used the <br><br>
+          <b>'INSERT INTO mytable SELECT DISTINCT ON column1, column2, ... FROM mytable2 ;'.</b><br><br>
+          <b>The DISTINCT ON() </b>can specify the column by <b>'DISTINCT ON (column1) column1, column2, ... ' .</b>
+          Likewise,inserting a half of data to another table by<br><br>
+          <b>'INSERT INTO table1 SELECT * FROM table2 limit (SELECT COUNT(field_in_table2 [e.g.id])/2 FROM table1 );'. </b><br>
+          <b>The limit() </b> can used for litmit the data which was inserted to others;
+          for example , <b> the 'limit (5);'</b> is inserting 5 rows of datas. <br><br>
+
+
+          The <b> Regexp_split_to_array() </b> function was used to obtain individual characters of string which are looped over .
+          In addition, <b> ASCII() </b> function was used to found the ASCII values of each characters.<br>
+          After then, The cursor loop was used to fetch the data which is used to sum the value.<br>
+          A view was created by <br><br><b>'CREATE VIEW name_view AS SELECT * FROM mytable;'.</b>
 
         </p>
 
