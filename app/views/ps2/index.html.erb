@@ -25,8 +25,17 @@
         </ul>
 
         <h4>Implementation Details</h4>
+        <ul>
+            <li>Sequence in SQL is used to automatically set the id field when a row is entered without it's id. In rails' ActiveRecord the primary key is added using sequence when it is not specified when a row is created.</li>
+            <li>When a new quotations is added, the controller checks if the 'new category' field is an empty or blank string, if so, quotation is added using the value from the drop down box, otherwise the value from the </li>
+            <li>The search for words is implemented using regular expressions within the SQL.</li>
+            <li>Quotations are 'killed' by making a cookie with list of 'killed' quotations' ids', these quotations are not retrieved from the database use the 'Model.where.not' method.</li>
+            <li>The data is converted to XML and JSON by converting the quotations to an array of hashes and then using the 'to_xml' and 'to_json' methods.</li>
+            <li>Quotations are imported from exported XML files by converting it to a Hash and then adding them to the database.</li>
+        </ul>
 
     </li>
+    <hr>
 
     <li>
         <ul>
