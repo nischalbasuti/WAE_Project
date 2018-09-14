@@ -35,11 +35,6 @@ class Ps2Controller < ApplicationController
     logger = Logger.new(STDOUT)
 
 
-    # Get all distinct categories.
-    @category_options = Quotation.distinct.pluck(:category).map do |category|
-      [category, category]
-    end
-
     @dead_quotes = get_dead_quotes
 
     # Search for words in author and quote fields using regex in the SQL.
@@ -74,6 +69,12 @@ class Ps2Controller < ApplicationController
     else
       @quotation = Quotation.new
     end
+
+    # Get all distinct categories.
+    @category_options = Quotation.distinct.pluck(:category).map do |category|
+      [category, category]
+    end
+
   end
 
   def import 
