@@ -17,7 +17,7 @@
             <%= link_to "export to json",{ :action => :export, :file_type => "json"}, :target => :_blank%>
             </li>
             <li>
-            <%= form_with(url: "/ps2/import", method: "post", local:true) do |form| %>
+            <%= form_with(url: "/ps2/import", method: "post", local:true, class: "form-inline") do |form| %>
                 <%= form.file_field :import_file  %> <br>
                 <%= form.submit "import quotations"%>
             <% end %>

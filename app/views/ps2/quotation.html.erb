@@ -12,16 +12,16 @@
 
 <h2>Quotations</h2>
 
-<%= link_to "export to xml",{ :action => :export, :file_type => "xml" }, :target => :_blank %>
-<%= link_to "export to json",{ :action => :export, :file_type => "json"}, :target => :_blank%>
+<%= link_to "export to xml",{ :action => :export, :file_type => "xml" }, :target => :_blank, :class => "btn btn-primary" %>
+<%= link_to "export to json",{ :action => :export, :file_type => "json"}, :target => :_blank, :class => "btn btn-primary"%>
 
-<div id=search_form style="padding:5%;">
+<div id=search_form>
     <hr>
     <h5>Search</h5>
     <%= form_with(url: "/ps2/quotation", method: "get", local:true) do |form| %>
         <%= form.label(:search_query, "Search for:") %>
         <%= form.text_field(:search_query, :value=>@original_query) %>
-        <%= form.submit("Search") %> <%= link_to "clear search", :action=> :quotation %>
+        <%= form.submit("Search") %>
 
         <% if params[:sort_by] == "date" %>
             <%= form.hidden_field(:sort_by, :value => "date")%>
@@ -30,6 +30,7 @@
         <% end %>
 
     <% end %>
+    <%= link_to "clear search", :action=> :quotation %>
     <hr>
 </div>
 
@@ -43,10 +44,10 @@
 
     <%= form.hidden_field(:search_query, :value => @original_query)%>
     <% if params[:sort_by] == "date" %>
-        <%= form.submit("Sort by category") %>
+        <%= form.submit("Sort by category", :class => "btn btn-primary") %>
         <%= form.hidden_field(:sort_by, :value => "category")%>
     <% else %>
-        <%= form.submit("Sort by date") %>
+        <%= form.submit("Sort by date", :class => "btn btn-primary") %>
         <%= form.hidden_field(:sort_by, :value => "date")%>
     <% end %>
 
@@ -80,7 +81,7 @@
                 <%= quotation.category %>
             </td>
             <td>
-                <%= link_to "Murder Quote", :action => :kill_quote, :kill_quote => quotation.id %>
+                <%= link_to "Murder Quote", {:action => :kill_quote, :kill_quote => quotation.id}, :class => "btn btn-danger"%>
             </td>
         </tr>
     <% end %>

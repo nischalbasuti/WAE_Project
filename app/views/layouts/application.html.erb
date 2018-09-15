@@ -1,23 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Web1807</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+    <head>
+        <title>Web1807</title>
+        <%= csrf_meta_tags %>
+        <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-  <body>
-      <span style="float:right">
-          <%= link_to "back", :back %>
-          <%= link_to "home", "/" %>
+        <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
+    </head>
 
-      </span>
-    <%= yield %>
-  </body>
-  <div class="footer">
-      <a href="https://validator.w3.org/nu/?doc=http%3A%2F%2Fweb7.cs.ait.ac.th%2F">HTML Validator</a>
-  </div>    
+    <body>
+        <div class="navbar navbar-default">
+
+            <div class="container-fluid">
+
+                <div class="navbar-header">
+                    <%= link_to "Web07", "/" , :class => "navbar-brand"%>
+                </div>
+
+                <ul class="nav navbar-nav">
+                    <li> <%= link_to "back", :back %> </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div id="wrapper" class="container">
+            <%= yield %>
+        </div>
+
+        <div class="panel-footer">
+            <%= link_to "HTML Validator", "https://validator.w3.org/nu/?doc="+request.original_url %>
+        </div>    
+    </body>
 </html>
