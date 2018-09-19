@@ -68,5 +68,7 @@ group :development do
     gem 'capistrano-rails'
     gem 'capistrano-rbenv'
     gem 'capistrano-rbenv-install'
+    gem 'capistrano-passenger'
     # gem 'capistrano-secrets-yml'
 end
+gem 'net-ssh'
