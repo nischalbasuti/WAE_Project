@@ -64,3 +64,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 
+group :development do
+    gem 'capistrano-rails'
+    gem 'capistrano-rbenv'
+    gem 'capistrano-rbenv-install'
+    # gem 'capistrano-secrets-yml'
+end
