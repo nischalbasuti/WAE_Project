@@ -11,6 +11,7 @@ set :rbenv_ruby, '2.5.1'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+# set :branch, :stable
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, "/var/www/my_app_name"
@@ -43,6 +44,10 @@ set :keep_releases, 5
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+set :passenger_restart_command, 'systemctl restart apache2'
+set :passenger_restart_options, -> { "" }
+set :passenger_restart_with_sudo, true
 
 namespace :deploy do
   desc 'Restart application'
