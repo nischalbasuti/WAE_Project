@@ -61,6 +61,7 @@
 #   }
 #
 set :deploy_to, "/home/deploy/web18-07"
+set :branch, :stable
 
 set :default_env, {'HTTP_PROXY'=>'192.41.170.23:3128',
                    'HTTPS_PROXY'=>'192.41.170.23:3128'}

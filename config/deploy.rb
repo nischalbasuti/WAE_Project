@@ -11,7 +11,6 @@ set :rbenv_ruby, '2.5.1'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
-# set :branch, :stable
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, "/var/www/my_app_name"
@@ -27,7 +26,7 @@ set :rbenv_ruby, '2.5.1'
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, "config/database.yml", "config/master.key"
+append :linked_files, "config/database.yml", "config/master.key", "public/backup.dump"
 # append :linked_files, "config/database.yml"
 
 # Default value for linked_dirs is []
