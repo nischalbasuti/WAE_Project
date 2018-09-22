@@ -1,75 +1,94 @@
-<h1>PS2: Basics Part II</h1>
+<h2>PS2 : Basics Part II</h2>
 <hr>
-<ol>
-    <% if flash[:notice] %>
-        <div class="notice" style="color:blue;"><%= flash[:notice] %></div>
-    <% end %>
 
-    <li>
-        <a href="/ps2/quotation">Quotations</a>
-        <ul>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th class="text-center" width=200>Topic</th>
+              <th class="text-center" width=200>Links</th>
+              <th class="text-center">Explan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td> <a href="/ps2/quotation">Quotations</a> </td>
+              <td>
+                  <ul>
+                      <li>
+                      <%= link_to "export to xml",{ :action => :export, :file_type => "xml" }, :target => :_blank %>
+                      </li>
+                      <li>
+                      <%= link_to "export to json",{ :action => :export, :file_type => "json"}, :target => :_blank%>
+                      </li>
+                      <li>
+                      <%= form_with(url: "/ps2/import", method: "post", local:true, class: "form-inline") do |form| %>
+                          <%= form.file_field :import_file  %> <br>
+                          <%= form.submit "import quotations"%>
+                      <% end %>
+                      </li>
+                  </ul>
+              </td>
+              <td>
+                <ul>
+                    <li>Sequence in SQL is used to automatically set the id field when a row is entered without it's id. In rails' ActiveRecord the primary key is added using sequence when it is not specified when a row is created.</li>
+                    <li>When a new quotations is added, the controller checks if the 'new category' field is an empty or blank string, if so, quotation is added using the value from the drop down box, otherwise the value from the </li>
+                    <li>The search for words is implemented using regular expressions within the SQL.</li>
+                    <li>Quotations are 'killed' by making a cookie with list of 'killed' quotations' ids', these quotations are not retrieved from the database use the 'Model.where.not' method.</li>
+                    <li>The data is converted to XML and JSON by converting the quotations to an array of hashes and then using the 'to_xml' and 'to_json' methods.</li>
+                    <li>Quotations are imported from exported XML files by converting it to a Hash and then adding them to the database.</li>
+                </ul>
+              </td>
+            </tr>
 
+            <tr>
+              <td>Documentation</td>
+              <td>
+                  <ul>
+                    <li> <%= link_to 'Data base session', '/stock.txt' -%> </li>
 
-            <li>
-            <%= link_to "export to xml",{ :action => :export, :file_type => "xml" }, :target => :_blank %>
-            </li>
-            <li>
-            <%= link_to "export to json",{ :action => :export, :file_type => "json"}, :target => :_blank%>
-            </li>
-            <li>
-            <%= form_with(url: "/ps2/import", method: "post", local:true, class: "form-inline") do |form| %>
-                <%= form.file_field :import_file  %> <br>
-                <%= form.submit "import quotations"%>
-            <% end %>
-            </li>
-        </ul>
+                    <li> <%= link_to 'Detail data', '/detail_stock.txt' -%> </li>
 
-        <h4>Implementation Details</h4>
-        <ul>
-            <li>Sequence in SQL is used to automatically set the id field when a row is entered without it's id. In rails' ActiveRecord the primary key is added using sequence when it is not specified when a row is created.</li>
-            <li>When a new quotations is added, the controller checks if the 'new category' field is an empty or blank string, if so, quotation is added using the value from the drop down box, otherwise the value from the </li>
-            <li>The search for words is implemented using regular expressions within the SQL.</li>
-            <li>Quotations are 'killed' by making a cookie with list of 'killed' quotations' ids', these quotations are not retrieved from the database use the 'Model.where.not' method.</li>
-            <li>The data is converted to XML and JSON by converting the quotations to an array of hashes and then using the 'to_xml' and 'to_json' methods.</li>
-            <li>Quotations are imported from exported XML files by converting it to a Hash and then adding them to the database.</li>
-        </ul>
+                    <li> <%= link_to 'SQL File', '/ps2_psql.sql' -%> </li>
+                  </ul>
+              </td>
+              <td>
+                The questions, which involve pure SQL is as follows:
+                <ul>
+                  <li> The datas was copied from a text file to database by called
+                        <ul> <li> '\copy mytable FROM '/path of file' WITH delimiter E'\t';' </li> </ul>
+                       The texts will be added in each column into a table according to type of the column of the table
+                  </li>
+                  <br>
+                  <li> The Inserting data which unique information into stock_prices table by used
+                        <ul> <li> 'INSERT INTO mytable SELECT DISTINCT ON column1, column2, ... FROM mytable2 ;' </li> </ul>
+                  </li>
+                  <br>
+                  <li> <b> The DISTINCT ON() </b> can specify the column by
+                      <ul> <li> 'DISTINCT ON (column1) column1, column2, ... ' </li> </ul>
+                  </li>
+                  <br>
+                  <li> Inserting a half of data to another table by
+                        <ul> <li> 'INSERT INTO table1 SELECT * FROM table2 limit (SELECT COUNT(field_in_table2 [e.g.id])/2 FROM table1 );' </li> </ul>
+                  </li>
+                  <br>
+                  <li> <b>The limit() </b> can used for litmit the data which was inserted to others for example ,
+                        <ul> <li> <b> the 'limit (5);'</b> is inserting 5 rows of datas</li> </ul>
+                  </li>
+                  <br>
+                  <li> The <b> Regexp_split_to_array() </b> function was used to obtain individual characters of string which are looped over.</li>
+                  <br>
+                  <li> <b> ASCII() </b> function was used to found the ASCII values of each characters.</li>
+                  <br>
+                  <li> The cursor loop was used to fetch the data which is used to sum the value.</li>
+                  <br>
+                  <li> A view was created by
+                        <ul> <li>'CREATE VIEW name_view AS SELECT * FROM mytable;'</li> </ul>
+                  </li>
 
-    </li>
-    <hr>
-
-    <li>
-        <ul>
-            <li> <%= link_to 'Data base session', '/stock.txt' -%> </li>
-
-            <li> <%= link_to 'Detail data', '/detail_stock.txt' -%> </li>
-
-            <li> <%= link_to 'SQL File', '/ps2_psql.sql' -%> </li>
-        </ul>
-        <h4>Implementation Details</h4>
-
-        <p>
-          The questions, which involve pure SQL is as follows; first,the datas was copied from a text file to database by called the <br><br>
-          <b>'\copy mytable FROM '/path of file' WITH delimiter E'\t';'. </b><br><br>
-          The texts will be added in each column into a table according to type of the column of the table.
-        </p>
-
-        <p>
-          Then, inserting data which unique information into stock_prices table by used the <br><br>
-          <b>'INSERT INTO mytable SELECT DISTINCT ON column1, column2, ... FROM mytable2 ;'.</b><br><br>
-          <b>The DISTINCT ON() </b>can specify the column by <b>'DISTINCT ON (column1) column1, column2, ... ' .</b>
-          Likewise,inserting a half of data to another table by<br><br>
-          <b>'INSERT INTO table1 SELECT * FROM table2 limit (SELECT COUNT(field_in_table2 [e.g.id])/2 FROM table1 );'. </b><br>
-          <b>The limit() </b> can used for litmit the data which was inserted to others;
-          for example , <b> the 'limit (5);'</b> is inserting 5 rows of datas. <br><br>
-
-
-          The <b> Regexp_split_to_array() </b> function was used to obtain individual characters of string which are looped over .
-          In addition, <b> ASCII() </b> function was used to found the ASCII values of each characters.<br>
-          After then, The cursor loop was used to fetch the data which is used to sum the value.<br>
-          A view was created by <br><br><b>'CREATE VIEW name_view AS SELECT * FROM mytable;'.</b>
-
-        </p>
-
-    </li>
-
-</ol>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+      </table>
+    </div>

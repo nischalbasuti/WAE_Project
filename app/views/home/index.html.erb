@@ -1,11 +1,65 @@
-<h1>Home</h1>
+<style>
+
+.div2 {
+    width: 600px;
+    height: 120px;
+    padding: 20px;
+    /* border: 1px solid red;
+    text-align: center; */
+}
+
+</style>
+
+<h2>Group 7</h2>
+
+<div class="div2">
+  <h3>Member</h3>
+        <div class="row" >
+            <div class="col-sm-2">st120534</div>
+            <div class="col-sm-5">Ruangtiwa Kimsungnoen</div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2">st119982</div>
+            <div class="col-sm-5">Nischal Srinivas Basuti</div>
+        </div>
+</div>
+
 <hr>
-<ul>
-    <li>
-    <a href="/ps1/index">PS1</a>
-    </li>
-    <li>
-    <a href="/ps2/index">PS2</a>
-    </li>
-</ul>
-<hr>
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th class="text-center" width=200>Topic</th>
+          <th class="text-center">PS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Basic</td>
+          <td>
+              <ul>
+                <li>
+                  <a href="/ps1/index">PS1</a>
+                </li>
+                <li>
+                  <a href="/ps2/index">PS2</a>
+                </li>
+              </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Documentation</td>
+          <td>
+              <ul>
+                <li>
+                  <%= link_to 'Planning project', '/Project_planning.pdf' -%>
+                </li>
+              </ul>
+          </td>
+        </tr>
+      </tbody>
+  </table>
+</div>
