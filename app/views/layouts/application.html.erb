@@ -15,6 +15,9 @@
     </head>
 
     <body>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+
         <div class="navbar navbar-default">
 
             <div class="container-fluid">
@@ -25,18 +28,46 @@
 
                 <ul class="nav navbar-nav">
                     <li> <%= link_to "back", :back %> </li>
+
+                    <!-- <div id="user_status"> -->
+                      <% if user_signed_in? %>
+                          <li>Welcome <%= current_user.email %>! Not you?</li>
+                        <li>
+                          <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+                        </li>
+                      <% else %>
+                        <li>
+                          <%= link_to "Sign up", new_user_registration_path %>
+                        </li>
+                      <li>
+                          <%= link_to "Sign in", new_user_session_path %>
+                        </li>
+                      <% end %>
+                   <!-- </div> -->
                 </ul>
 
             </div>
 
         </div>
 
-        <div id="wrapper" class="container">
-            <%= yield %>
+
+
+        <% if flash[:error] %>
+            <div id="error">
+              <%= flash[:error] %>
+            </div>
+        <% end %>
+
+        <div id="container">
+
+           <div id="wrapper" class="container">
+              <%= yield %>
+           </div>
+
         </div>
 
         <div class="panel-footer">
             <%= link_to "HTML Validator", "https://validator.w3.org/nu/?doc="+request.original_url %>
-        </div>    
+        </div>
     </body>
 </html>

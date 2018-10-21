@@ -74,3 +74,14 @@ group :development do
     # gem 'capistrano-secrets-yml'
 end
 gem 'net-ssh'
+
+group :test do
+    gem 'cucumber-rails', :require => false
+    # database_cleaner is not required, but highly recommended
+    gem 'database_cleaner'
+    gem 'factory_bot_rails'
+    gem 'launchy'
+    gem 'rspec-rails'
+end
+
+gem 'devise'
