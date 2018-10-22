@@ -1,0 +1,23 @@
+<html>
+
+<h2> The users.</h2>
+
+  <table>
+    <tr>
+      <th width=200>E-mail</th>
+      <th width=200>The date of registration</th>
+    </tr>
+
+
+
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.created_at.to_date %></td>
+        <td><%= button_to "Ban a user" %></td>
+      </tr>
+
+    <% end %>
+  </table>
+
+</html>
