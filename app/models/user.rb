@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   # 'global_role' are roles for administration of the website.
   # on the other hand, 'roles' are for specific events.
-  GLOBAL_ROLES = ['admin', 'member']
+  GLOBAL_ROLES = ['admin', 'member', 'banned']
 
   def admin?
     self.global_role.name == "admin" if  !self.role.blank?
@@ -16,5 +16,9 @@ class User < ApplicationRecord
 
   def member?
     self.global_role == "member" if !self.role.blank?
+  end
+
+  def banned?
+    self.global_role == "banned" if !self.role.blank?
   end
 end
