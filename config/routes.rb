@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'ps2/export'
   get 'ps2/kill_quote'
   get 'ps2/revive_quotes'
+  get 'user_management/show'
   post 'ps2/import'
 
   post 'ps2/quotation'
