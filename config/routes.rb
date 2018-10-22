@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :events
   devise_for :users
   get 'ps2/index'
   get 'ps2/quotation'
