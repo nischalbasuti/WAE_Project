@@ -15,8 +15,6 @@
     </head>
 
     <body>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
 
         <div class="navbar navbar-default">
 
@@ -28,37 +26,36 @@
 
                 <ul class="nav navbar-nav">
                     <li> <%= link_to "back", :back %> </li>
-
-                    <!-- <div id="user_status"> -->
-                      <% if user_signed_in? %>
-                          <li>Welcome <%= current_user.email %>! Not you?</li>
+                    <% if user_signed_in? %>
+                        <span class="navbar-text">
+                            <%= current_user.email %>
+                        </span>
                         <li>
-                          <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+                        <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
                         </li>
-                      <% else %>
+                    <% else %>
                         <li>
-                          <%= link_to "Sign up", new_user_registration_path %>
+                        <%= link_to "Sign up", new_user_registration_path %>
                         </li>
-                      <li>
-                          <%= link_to "Sign in", new_user_session_path %>
+                        <li>
+                        <%= link_to "Sign in", new_user_session_path %>
                         </li>
-                      <% end %>
-                   <!-- </div> -->
+                    <% end %>
                 </ul>
 
             </div>
 
         </div>
 
-
-
-        <% if flash[:error] %>
-            <div id="error">
-              <%= flash[:error] %>
-            </div>
-        <% end %>
-
         <div id="container">
+
+            <p class="notice"><%= notice %></p>
+            <p class="alert"><%= alert %></p>
+            <% if flash[:error] %>
+                <div id="error">
+                    <%= flash[:error] %>
+                </div>
+            <% end %>
 
            <div id="wrapper" class="container">
               <%= yield %>
