@@ -1,20 +1,27 @@
+
 <html>
 
-<h2> The users.</h2>
+<h3> The list of users.</h3>
 
-  <table>
+  <table class="table table-hover">
     <tr>
       <th width=200>E-mail</th>
       <th width=200>The date of registration</th>
+      <th width=200>Manage user</th>
+
     </tr>
-
-
 
     <% @users.each do |user| %>
       <tr>
         <td><%= user.email %></td>
         <td><%= user.created_at.to_date %></td>
-        <td><%= button_to "Ban a user" %></td>
+        <td>
+          <% if user.global_role == 'ban' %>
+              <%= link_to "unban user", {:action => :unban, :id => user.id}, :class => "btn btn-success"%>
+          <% else %>
+              <%= link_to "ban user", {:action => :ban, :id => user.id}, :class => "btn btn-danger"%>
+          <% end %>
+        </td>
       </tr>
 
     <% end %>

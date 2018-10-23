@@ -16,4 +16,6 @@
 //
 //= require bootstrap
 //= require bootstrap-sprockets
+//= require highcharts
+//= require chartkick
 //= require_tree .

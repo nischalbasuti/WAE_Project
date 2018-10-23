@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   get 'ps2/kill_quote'
   get 'ps2/revive_quotes'
   get 'user_management/show'
+  get 'user_management/ban'
+  get 'user_management/unban'
+  get 'user_management/statistic_users'
   post 'ps2/import'
   post 'ps2/quotation'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
