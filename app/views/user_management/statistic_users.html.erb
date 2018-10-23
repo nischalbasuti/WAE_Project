@@ -1,0 +1,35 @@
+<html>
+
+  <h3 class="text-center"> The statistics on types of users.</h3><br>
+
+  <%= pie_chart User.group(:global_role).count %><br><br>
+
+  <table class="table table-striped">
+    <tr>
+      <th class="text-center" width=150>Type of users</th>
+      <th class="text-center" width=400 >The number of users</th>
+    </tr>
+
+    <tr>
+      <td>The admin users</td>
+      <td class="text-center"><%= User.where("users.global_role = 'admin'").count %></td>
+    </tr>
+
+    <tr>
+      <td>The member users</td>
+      <td class="text-center"><%= User.where("users.global_role = 'member'").count %></td>
+    </tr>
+
+    <tr>
+      <td>The coordinator users</td>
+      <td class="text-center"><%= User.where("users.global_role = 'coordinator'").count %></td>
+    </tr>
+
+    <tr>
+      <td>The ban users</td>
+      <td class="text-center"><%= User.where("users.global_role = 'ban'").count %></td>
+    </tr>
+
+  </table>
+
+</html>

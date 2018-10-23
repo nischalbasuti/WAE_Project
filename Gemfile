@@ -86,3 +86,7 @@ end
 
 gem 'devise'
 gem 'cancancan'
+gem 'groupdate'
+
+gem 'chartkick'
+gem 'highcharts-rails'
