@@ -1,5 +1,6 @@
 FactoryBot.define do
     factory :admin, class: User do
+        id "1"
         email "admin@ait.asia"
         password "password"
         password_confirmation "password"
@@ -8,6 +9,7 @@ FactoryBot.define do
     end
 
     factory :member, class: User do
+        id "2"
         email "user@ait.asia"
         password "password"
         password_confirmation "password"
@@ -16,6 +18,7 @@ FactoryBot.define do
     end
 
     factory :coordination, class: User do
+        id "3"
         email "coordination@ait.asia"
         password "password"
         password_confirmation "password"
@@ -24,6 +27,7 @@ FactoryBot.define do
     end
 
     factory :ban, class: User do
+        id "4"
         email "ban@ait.asia"
         password "password"
         password_confirmation "password"

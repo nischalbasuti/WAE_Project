@@ -5,7 +5,7 @@ Scenario: Ban a user
   A user admin should be able to ban a user.
 
 Given I am an admin user
-And there is a user management
+And there is a user
 And I am logged in
 And I want to ban a user
 When I visit the user management page

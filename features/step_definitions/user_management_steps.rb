@@ -2,7 +2,7 @@ Given("I am an admin user") do
   @admin = FactoryBot.create :admin
 end
 
-Given("there is a user management") do
+Given("there is a user") do
   @member = FactoryBot.create :member
 end
 
@@ -15,7 +15,7 @@ Given("I am logged in") do
 end
 
 Given("I want to ban a user") do
-  @user = FactoryBot.create :member
+  @ban = FactoryBot.create :ban
 end
 
 When("I visit the user management page") do
@@ -23,25 +23,25 @@ When("I visit the user management page") do
 end
 
 Then("I should see the detail of user") do
-  expect(page).to have_content "#{@user.email :member}"
+  expect(page).to have_content "#{@member.email }"
 end
 
 Then("I should see date of user registration") do
-  expect(page).to have_content "#{@user.created_at :member}"
+  expect(page).to have_content "#{@member.created_at.to_date }"
 end
 
 Then("I should see a ban user button") do
-  expect(page).to have_link_to "ban user", {:action => :ban, :id => user.id}, :class => "btn btn-danger"
+  expect(page).to have_link('ban user',href: "/user_management/ban?id=2")
 end
 
 When("I click the button to ban a user") do
-  pending # Write code here that turns the phrase above into concrete actions
+  find_link('ban user',href: "/user_management/ban?id=2").click
 end
 
 Then("I should see The user has been banned") do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_content "The user has been banned!"
 end
 
 Then("I should see an unban user button") do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_link('ban user',href: "/user_management/unban?id=2")
 end
