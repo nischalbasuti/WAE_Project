@@ -1,5 +1,17 @@
 class UserManagementController < ApplicationController
 
+  def index
+  end
+
+  def user_manage_features
+  end
+
+  def user_statistics
+  end
+
+  def basic_user_page
+  end
+
   def show
     @users = User.order(created_at: :desc).all
   end
