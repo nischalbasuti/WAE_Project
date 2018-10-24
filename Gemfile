@@ -88,5 +88,5 @@ gem 'devise'
 gem 'cancancan'
 gem 'groupdate'
 
-gem 'chartkick'
+gem 'chartkick', '~> 2.2.0'
 gem 'highcharts-rails'
