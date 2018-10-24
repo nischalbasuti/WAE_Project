@@ -28,5 +28,22 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
+    
+    if user.admin?
+      can :manage, :all
+    elsif user.coordinator?
+      can :manage, Event
+      can :manage, User do |u|
+        u == user
+      end
+      can :read, :all
+    elsif user.member?
+      can :manage, User do |u|
+        u == user
+      end
+      can :read, Event
+    else
+      can :read, Event
+    end
   end
 end
