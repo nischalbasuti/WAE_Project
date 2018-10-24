@@ -90,3 +90,4 @@ gem 'groupdate'
 
 gem 'chartkick', '~> 2.2.0'
 gem 'highcharts-rails'
+gem 'rails-erd', group: :development
