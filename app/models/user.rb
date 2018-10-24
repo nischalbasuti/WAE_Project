@@ -25,18 +25,18 @@ class User < ApplicationRecord
 
 
   def admin?
-    self.global_role.name == "admin" if !self.role.blank?
+    self.global_role == "admin" if !self.global_role.blank?
   end
 
   def member?
-    self.global_role == "member" if !self.role.blank?
+    self.global_role == "member" if !self.global_role.blank?
   end
 
   def coordinator?
-    self.global_role == "coordinator" if !self.role.blank?
+    self.global_role == "coordinator" if !self.global_role.blank?
   end
 
   def banned?
-    self.global_role == "banned" if !self.role.blank?
+    self.global_role == "banned" if !self.global_role.blank?
   end
 end
