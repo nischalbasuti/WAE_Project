@@ -31,12 +31,21 @@
                             <%= current_user.email %>
                         </span>
                         <li>
+                            <li>
+                            <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+                            </li>
+                        </li>
                         <li>
-                        <%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+                        <%= link_to "Events", "/events" %>
                         </li>
                         <% if current_user.admin? %>
                             <li>
                             <%= link_to "Admin Page", "/user_management/index" %>
+                            </li>
+                        <% end %>
+                        <% if current_user.admin? or current_user.coordinator? %>
+                            <li>
+                            <%= link_to "Events Management", "/events" %>
                             </li>
                         <% end %>
                     <% else %>
