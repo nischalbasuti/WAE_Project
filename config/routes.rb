@@ -25,5 +25,6 @@ Rails.application.routes.draw do
   get 'user_management/basic_user_page'
   post 'ps2/import'
   post 'ps2/quotation'
+  post 'user_management/update_users'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

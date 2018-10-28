@@ -11,6 +11,11 @@ class User < ApplicationRecord
   # 'global_role' are roles for administration of the website.
   # on the other hand, 'roles' are for specific events.
   GLOBAL_ROLES = ['admin', 'coordinator', 'member', 'banned']
+  @GLOBAL_ROLES = ['admin', 'coordinator', 'member', 'banned']
+  class << self
+    attr_accessor :GLOBAL_ROLES
+  end
+
 
   # - Admin is the website admin.
   # - Coordinator can create and organize events. They are created by admin or 
@@ -25,6 +30,15 @@ class User < ApplicationRecord
 
 
   # Check self.global_role
+  #
+  def set_global_role(role)
+    if GLOBAL_ROLES.include? role
+      self.global_role = role
+    else
+      return false
+    end
+    return true
+  end
   
   def admin?
     self.global_role == GLOBAL_ROLES[0] if !self.global_role.blank?
@@ -59,5 +73,6 @@ class User < ApplicationRecord
   def ban
     self.global_role = GLOBAL_ROLES[3]
   end
+
 
 end

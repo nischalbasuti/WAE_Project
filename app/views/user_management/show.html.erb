@@ -7,24 +7,72 @@
     <tr>
       <th width=200>E-mail</th>
       <th width=200>The date of registration</th>
-      <th width=200>Manage user</th>
+      <th width=200>Ban</th>
+      <th width=200>Role</th>
 
     </tr>
 
     <% @users.each do |user| %>
-      <tr>
+
+      <tr class="user_row" id="<%= user.id %>">
         <td><%= user.email %></td>
         <td><%= user.created_at.to_date %></td>
         <td>
-          <% if user.global_role == 'ban' %>
+          <% if user.banned? %>
               <%= link_to "unban user", {:action => :unban, :id => user.id}, :class => "btn btn-success"%>
           <% else %>
               <%= link_to "ban user", {:action => :ban, :id => user.id}, :class => "btn btn-danger"%>
           <% end %>
         </td>
+        <td class="user_role">
+            <%= select_tag(:global_role, options_for_select(@role_options, user.global_role), :class=> "global_role") %>
+        </td>
       </tr>
 
     <% end %>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <!-- TODO: Hide when no changes to role. -->
+            <%= link_to "save roles",  "", remote:true, :onclick => 'return post_update_users()', :class => "btn btn-success"%>
+        </td>
+      </tr>
   </table>
+
+
+  <script charset="utf-8">
+      function construct_role_parameters() {
+          let users = []
+          user_rows = document.getElementsByClassName("user_row")
+          for(user_row of user_rows) {
+              user = {}
+
+              user.id = user_row.id
+              user.global_role = user_row.querySelector('.global_role').value
+
+              users.push(user)
+          }
+          return { 'users': users }
+      }
+
+      function post_update_users() {
+          let data = construct_role_parameters()
+          function success_callback(data, textStatus, jqXHR) {
+              alert("Changes successfully saved.")
+              console.log(data, textStatus)
+          }
+          $.ajax({
+              type: "POST",
+              url: '/user_management/update_users',
+              data: JSON.stringify(data),
+              success: success_callback,
+              dataType: "json",
+              contentType: "application/json",
+              processData: true
+          });
+      }
+  </script>
 
 </html>

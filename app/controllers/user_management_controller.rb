@@ -1,5 +1,6 @@
 class UserManagementController < ApplicationController
   authorize_resource :class => false
+  skip_before_action :verify_authenticity_token, :only => :update_users
 
   def index
   end
@@ -15,11 +16,14 @@ class UserManagementController < ApplicationController
 
   def show
     @users = User.order(created_at: :desc).all
+    # Get all distinct categories.
+    @role_options = User.GLOBAL_ROLES
+
   end
 
   def ban
     @user = User.find_by_id(params[:id])
-    @user.global_role = "ban"
+    @user.ban
     @user.save
     redirect_back(fallback_location: "/user_management/show")
     flash.alert = "The user has been banned!"
@@ -33,6 +37,22 @@ class UserManagementController < ApplicationController
     flash.alert = "The user has been unbanned!"
   end
 
+  def update_users
+    # Update the roles of the users. 
+    logger = Logger.new STDOUT
+    params[:users].each do |u| 
+      user = User.find(u[:id].to_i)
+      if user.set_global_role u[:global_role] 
+        user.save
+      else
+        logger.info "invalid role"
+        flash.alert = "invalid role"
+      end
+    end
+
+    render json: {message: "user roles updated."}
+    # redirect_to "/user_management/show"
+  end
 
   def statistic_users
     @users = User.all
