@@ -17,13 +17,18 @@
   </div>
 
   <div class="field">
-    <%= form.label :time_start %>
-    <%= form.time_select :time_start %>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
   </div>
 
   <div class="field">
-    <%= form.label :time_end %>
-    <%= form.time_select :time_end %>
+    <%= form.label :start_time %>
+    <%= form.datetime_select :start_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_time %>
+    <%= form.datetime_select :end_time %>
   </div>
 
   <div class="actions">

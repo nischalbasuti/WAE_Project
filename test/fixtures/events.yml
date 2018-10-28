@@ -2,10 +2,12 @@
 
 one:
   name: MyString
-  time_start: 2018-10-22 20:25:23
-  time_end: 2018-10-22 20:25:23
+  description: MyText
+  start_time: 2018-10-28 21:08:43
+  end_time: 2018-10-28 21:08:43
 
 two:
   name: MyString
-  time_start: 2018-10-22 20:25:23
-  time_end: 2018-10-22 20:25:23
+  description: MyText
+  start_time: 2018-10-28 21:08:43
+  end_time: 2018-10-28 21:08:43

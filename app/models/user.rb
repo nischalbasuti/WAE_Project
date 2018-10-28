@@ -3,8 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
     :validatable
-  has_many :user_roles
-  has_many :roles, through: :user_roles
+  has_many :user_events, dependent: :destroy
+  has_many :events, through: :user_events
 
   after_initialize :init
 
@@ -24,19 +24,40 @@ class User < ApplicationRecord
   end
 
 
+  # Check self.global_role
+  
   def admin?
-    self.global_role == "admin" if !self.global_role.blank?
-  end
-
-  def member?
-    self.global_role == "member" if !self.global_role.blank?
+    self.global_role == GLOBAL_ROLES[0] if !self.global_role.blank?
   end
 
   def coordinator?
-    self.global_role == "coordinator" if !self.global_role.blank?
+    self.global_role == GLOBAL_ROLES[1] if !self.global_role.blank?
+  end
+
+  def member?
+    self.global_role == GLOBAL_ROLES[2] if !self.global_role.blank?
   end
 
   def banned?
-    self.global_role == "banned" if !self.global_role.blank?
+    self.global_role == GLOBAL_ROLES[3] if !self.global_role.blank?
   end
+
+  # Setters for self.global_role.
+  
+  def make_admin
+    self.global_role = GLOBAL_ROLES[0]
+  end
+
+  def make_coordinator
+    self.global_role = GLOBAL_ROLES[1]
+  end
+
+  def make_member
+    self.global_role = GLOBAL_ROLES[2]
+  end
+
+  def ban
+    self.global_role = GLOBAL_ROLES[3]
+  end
+
 end

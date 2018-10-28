@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'ps4/index'
   resources :events
+  get 'ps4/index'
   scope defaults: (Rails.env.production? ? { protocol: 'https' } : {}) do
     devise_for :users
   end

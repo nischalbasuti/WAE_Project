@@ -6,8 +6,9 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Time start</th>
-      <th>Time end</th>
+      <th>Description</th>
+      <th>Start time</th>
+      <th>End time</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,8 +17,9 @@
     <% @events.each do |event| %>
       <tr>
         <td><%= event.name %></td>
-        <td><%= event.time_start %></td>
-        <td><%= event.time_end %></td>
+        <td><%= event.description %></td>
+        <td><%= event.start_time %></td>
+        <td><%= event.end_time %></td>
         <td><%= link_to 'Show', event %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
