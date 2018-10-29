@@ -37,7 +37,7 @@ class Ability
       can :manage, User do |u|
         u == user
       end
-      can :read, :all
+      # can :read, :all
     elsif user.member?
       can :manage, User do |u|
         u == user
