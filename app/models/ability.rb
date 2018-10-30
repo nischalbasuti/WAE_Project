@@ -32,7 +32,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.admin?
       can :manage, :all
-    elsif user.coordinator?
+    elsif user.chair?
       can :manage, Event
       can :manage, User do |u|
         u == user

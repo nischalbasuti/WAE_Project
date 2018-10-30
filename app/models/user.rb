@@ -10,8 +10,8 @@ class User < ApplicationRecord
 
   # 'global_role' are roles for administration of the website.
   # on the other hand, 'roles' are for specific events.
-  GLOBAL_ROLES = ['admin', 'coordinator', 'member', 'banned']
-  @GLOBAL_ROLES = ['admin', 'coordinator', 'member', 'banned']
+  GLOBAL_ROLES = ['admin', 'chair', 'member', 'banned']
+  @GLOBAL_ROLES = ['admin', 'chair', 'member', 'banned']
   class << self
     attr_accessor :GLOBAL_ROLES
   end
@@ -44,7 +44,7 @@ class User < ApplicationRecord
     self.global_role == GLOBAL_ROLES[0] if !self.global_role.blank?
   end
 
-  def coordinator?
+  def chair?
     self.global_role == GLOBAL_ROLES[1] if !self.global_role.blank?
   end
 
@@ -62,7 +62,7 @@ class User < ApplicationRecord
     self.global_role = GLOBAL_ROLES[0]
   end
 
-  def make_coordinator
+  def make_chair
     self.global_role = GLOBAL_ROLES[1]
   end
 

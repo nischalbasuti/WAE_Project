@@ -2,5 +2,5 @@ class UserEvent < ApplicationRecord
   belongs_to :user
   belongs_to :event
 
-  ROLES = ['volunteer', 'representitive', 'participant']
+  ROLES = ['coordinator', 'volunteer', 'representitive', 'participant']
 end
