@@ -3,6 +3,10 @@ require 'test_helper'
 class EventsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @event = events(:one)
+    post user_session_path, params: {user: {
+      email:    users(:one).email,
+      password: "password"
+    }}
   end
 
   test "should get index" do
