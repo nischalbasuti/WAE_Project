@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :requirements
+  resources :activities
   resources :events
   get 'ps4/index'
   scope defaults: (Rails.env.production? ? { protocol: 'https' } : {}) do
