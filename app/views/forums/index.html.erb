@@ -15,7 +15,7 @@
     <% @forums.each do |forum| %>
       <tr>
         <td><%= forum.title %></td>
-        <td><%= forum.event %></td>
+        <td><%= forum.event.name %></td>
         <td><%= link_to 'Show', forum %></td>
         <td><%= link_to 'Edit', edit_forum_path(forum) %></td>
         <td><%= link_to 'Destroy', forum, method: :delete, data: { confirm: 'Are you sure?' } %></td>

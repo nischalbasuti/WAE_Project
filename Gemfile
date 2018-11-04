@@ -93,3 +93,5 @@ gem 'highcharts-rails'
 gem 'rails-erd', group: :development
 
 gem 'jquery-rails'
+
+gem 'commontator', '~> 5.1.0'

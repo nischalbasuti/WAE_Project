@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :user_events, dependent: :destroy
   has_many :events, through: :user_events
 
+  acts_as_commontator
+
   after_initialize :init
 
   # 'global_role' are roles for administration of the website.

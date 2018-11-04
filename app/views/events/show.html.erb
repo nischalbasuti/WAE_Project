@@ -20,5 +20,22 @@
   <%= @event.end_time %>
 </p>
 
+
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
+
+
+<hr>
+
+<h4>Forums:</h4>
+
+<%= link_to "Create New Forum", "/forums/new" %>
+
+<ul>
+    <% @event.forums.each do |forum| %>
+        <li>
+            <%= link_to forum.title, '/forums/'+forum.id.to_s %>
+        </li>
+    <% end %>
+</ul>
+

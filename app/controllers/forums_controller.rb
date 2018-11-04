@@ -1,5 +1,6 @@
 class ForumsController < ApplicationController
   before_action :set_forum, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /forums
   # GET /forums.json
@@ -10,6 +11,7 @@ class ForumsController < ApplicationController
   # GET /forums/1
   # GET /forums/1.json
   def show
+    commontator_thread_show(@forum)
   end
 
   # GET /forums/new

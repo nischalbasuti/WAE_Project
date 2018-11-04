@@ -29,5 +29,8 @@ Rails.application.routes.draw do
   post 'ps2/import'
   post 'ps2/quotation'
   post 'user_management/update_users'
+
+  mount Commontator::Engine => '/commontator'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

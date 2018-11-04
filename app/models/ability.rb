@@ -37,12 +37,14 @@ class Ability
       can :manage, User do |u|
         u == user
       end
+      can :manage, Forum # TODO: change this shit.
       # can :read, :all
     elsif user.member?
       can :manage, User do |u|
         u == user
       end
       can :read, Event
+      can :manage, Forum # TODO: change this shit.
     else
       can :read, Event
     end
