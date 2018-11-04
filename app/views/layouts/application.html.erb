@@ -64,7 +64,6 @@
 
         <div id="container">
 
-
            <div id="wrapper" class="container">
 
                <% if flash[:notice] %>
@@ -86,10 +85,12 @@
               <%= yield %>
            </div>
 
+           <div class="panel-footer">
+             <%= link_to "HTML Validator", "https://validator.w3.org/nu/?doc="+request.original_url %>
+           </div>
+
         </div>
 
-        <div class="panel-footer">
-            <%= link_to "HTML Validator", "https://validator.w3.org/nu/?doc="+request.original_url %>
-        </div>
+
     </body>
 </html>
