@@ -1,0 +1,71 @@
+<p>
+  <h3>
+    <%= @event.name %>
+  </h3>
+
+  <hr>
+
+  <table class="table table-hover">
+    <tr>
+      <th width=200>E-mail</th>
+      <th width=200>Roles</th>
+    </tr>
+
+    <% @event.users.each do |user| %>
+
+      <tr class="user_row" id="<%= user.id %>">
+        <td><%= user.email %></td>
+        <td class="user_role">
+            <%# <%= select_tag(:global_role, options_for_select(@role_options, user.global_role), :class=> "global_role") %1> %>
+            <ul>
+                <% user.user_events.each do |user_event| %>
+                    <li>
+                        <%= user_event[:role] %>
+                        |
+                        <%= link_to "remove role",  "", remote:true, :onclick => 'return update_user_event_roles()', :class => "btn"%>
+                    </li>
+                <% end %>
+                <li>
+                <%= select_tag(:event_role, options_for_select(@role_options, user.user_events.first[:role]), :class=> "event_role") %>
+                <%= link_to "Add role",  "", remote:true, :onclick => 'return update_user_event_roles()', :class => "btn btn-success"%>
+                </li>
+            </ul>
+        </td>
+      </tr>
+
+    <% end %>
+  </table>
+</p>
+
+<script charset="utf-8">
+    function construct_user_event_parameters(user_id, event_id, role) {
+        let users = []
+        user_rows = document.getElementsByClassName("user_row")
+        for(user_row of user_rows) {
+            user = {}
+
+            user.id = user_row.id
+            user.global_role = user_row.querySelector('.user_event').value
+
+            users.push(user)
+        }
+        return { 'users': users }
+    }
+
+    function post_update_users() {
+        let data = construct_role_parameters()
+        function success_callback(data, textStatus, jqXHR) {
+            alert("Changes successfully saved.")
+            console.log(data, textStatus)
+        }
+        $.ajax({
+            type: "POST",
+            url: '/user_management/update_users',
+            data: JSON.stringify(data),
+            success: success_callback,
+            dataType: "json",
+            contentType: "application/json",
+            processData: true
+        });
+    }
+</script>

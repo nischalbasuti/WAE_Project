@@ -62,6 +62,13 @@ class EventsController < ApplicationController
     end
   end
 
+  def manage
+      @event = Event.find(params[:id])
+      @role_options = UserEvent.ROLES.map do |role|
+        [ role, role ]
+      end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event

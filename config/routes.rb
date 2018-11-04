@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   resources :forums
   resources :requirements
   resources :activities
-  resources :events
+  resources :events do
+    collection do
+      get :manage
+    end
+  end
   get 'ps4/index'
   scope defaults: (Rails.env.production? ? { protocol: 'https' } : {}) do
     devise_for :users
@@ -26,6 +30,7 @@ Rails.application.routes.draw do
   get 'user_management/user_manage_features'
   get 'user_management/user_statistics'
   get 'user_management/basic_user_page'
+  get 'events/manage'
   post 'ps2/import'
   post 'ps2/quotation'
   post 'user_management/update_users'
