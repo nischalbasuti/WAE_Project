@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_03_110234) do
+ActiveRecord::Schema.define(version: 2018_11_04_152716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,15 @@ ActiveRecord::Schema.define(version: 2018_11_03_110234) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "forum_commenters", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "forum_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["forum_id"], name: "index_forum_commenters_on_forum_id"
+    t.index ["user_id"], name: "index_forum_commenters_on_user_id"
+  end
+
   create_table "forums", force: :cascade do |t|
     t.string "title"
     t.bigint "event_id"
@@ -123,6 +132,8 @@ ActiveRecord::Schema.define(version: 2018_11_03_110234) do
   end
 
   add_foreign_key "activities", "events"
+  add_foreign_key "forum_commenters", "forums"
+  add_foreign_key "forum_commenters", "users"
   add_foreign_key "forums", "events"
   add_foreign_key "requirements", "activities"
   add_foreign_key "user_events", "events"
