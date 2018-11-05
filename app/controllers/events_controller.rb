@@ -5,7 +5,7 @@ class EventsController < ApplicationController
   skip_before_action :verify_authenticity_token, :only => :delete_user_event
   skip_before_action :verify_authenticity_token, :only => :register
 
-  skip_authorize_resource :only => :register
+  skip_authorize_resource :only => [ :register, :unregister ]
 
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 

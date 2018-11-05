@@ -35,4 +35,28 @@ FactoryBot.define do
         created_at "2018-10-22"
     end
 
+    factory :event0, class: Event do
+      id "1"
+      name "event0"
+      description "description0"
+      start_time ""
+      end_time ""
+      created_at "2018-10-22"
+      updated_at "2018-10-22"
+    end
+    factory :forum0, class: Forum do
+      id "1"
+      title "forum0"
+      event_id "1"
+      created_at "2018-10-22"
+      updated_at "2018-10-22"
+    end
+    factory :userEvent, class: UserEvent do
+      user_id "2"
+      event_id "1"
+      role "participant"
+      created_at "2018-10-22"
+      updated_at "2018-10-22"
+    end
+
 end
