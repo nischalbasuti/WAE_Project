@@ -11,23 +11,32 @@
       <th width=200>Roles</th>
     </tr>
 
-    <% @event.users.each do |user| %>
+    <% @event.users.distinct.each do |user| %>
 
       <tr class="user_row" id="<%= user.id %>">
         <td><%= user.email %></td>
         <td class="user_role">
-            <%# <%= select_tag(:global_role, options_for_select(@role_options, user.global_role), :class=> "global_role") %1> %>
             <ul>
-                <% user.user_events.each do |user_event| %>
+                <% user.user_events.where(event: @event).each do |user_event| %>
                     <li>
-                        <%= user_event[:role] %>
-                        |
-                        <%= link_to "remove role",  "", remote:true, :onclick => 'return update_user_event_roles()', :class => "btn"%>
+                        <%= form_tag(:action => 'delete_user_event', :class => 'form') do |f| %>
+                            <%= hidden_field_tag 'user_id', user.id  %>
+                            <%= hidden_field_tag 'event_id', @event.id  %>
+                            <%= hidden_field_tag 'role', user_event[:role]  %>
+
+                            <%= user_event[:role] %>
+                            |
+                            <%= submit_tag "remove role", :id => "submit", :name => "submit", :class => "form_submit btn", :disabled => false, :disable_with => "Please wait..." %>
+                        <% end %>
                     </li>
                 <% end %>
                 <li>
-                <%= select_tag(:event_role, options_for_select(@role_options, user.user_events.first[:role]), :class=> "event_role") %>
-                <%= link_to "Add role",  "", remote:true, :onclick => 'return update_user_event_roles()', :class => "btn btn-success"%>
+                    <%= form_tag(:action => 'update_user_event', :class => 'form') do |f| %>
+                        <%= hidden_field_tag 'user_id', user.id  %>
+                        <%= hidden_field_tag 'event_id', @event.id  %>
+                        <%= select_tag(:role, options_for_select(@role_options, user.user_events.first[:role]), :class=> "event_role") %>
+                        <%= submit_tag "Save changes", :id => "submit", :name => "submit", :class => "form_submit", :disabled => false, :disable_with => "Please wait..." %>
+                    <% end %>
                 </li>
             </ul>
         </td>
@@ -38,34 +47,25 @@
 </p>
 
 <script charset="utf-8">
-    function construct_user_event_parameters(user_id, event_id, role) {
-        let users = []
-        user_rows = document.getElementsByClassName("user_row")
-        for(user_row of user_rows) {
-            user = {}
-
-            user.id = user_row.id
-            user.global_role = user_row.querySelector('.user_event').value
-
-            users.push(user)
-        }
-        return { 'users': users }
-    }
-
-    function post_update_users() {
-        let data = construct_role_parameters()
-        function success_callback(data, textStatus, jqXHR) {
-            alert("Changes successfully saved.")
-            console.log(data, textStatus)
-        }
-        $.ajax({
-            type: "POST",
-            url: '/user_management/update_users',
-            data: JSON.stringify(data),
-            success: success_callback,
-            dataType: "json",
-            contentType: "application/json",
-            processData: true
-        });
-    }
+//    function update_user_event_roles(userid, eventid, role) {
+//        let data = {
+//            user_id: userid,
+//            event_id: eventid,
+//            role: role
+//        }
+//        console.log(data)
+//        function success_callback(data, textStatus, jqXHR) {
+//            alert("Changes successfully saved.")
+//            console.log(data, textStatus)
+//        }
+//        $.ajax({
+//            type: "POST",
+//            url: '/events/update_user_event',
+//            data: JSON.stringify(data),
+//            success: success_callback,
+//            dataType: "json",
+//            contentType: "application/json",
+//            processData: true
+//        });
+//    }
 </script>

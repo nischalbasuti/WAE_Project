@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   resources :events do
     collection do
       get :manage
+      post :update_user_event
+      post :delete_user_event
+      post :register
+      post :unregister
     end
   end
   get 'ps4/index'

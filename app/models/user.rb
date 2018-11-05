@@ -94,6 +94,17 @@ class User < ApplicationRecord
 
   # Setters for event roles.
   
+  def set_event_role(event, role)
+    if UserEvent.ROLES.include? role
+      if self.user_events.where(role: "coordinator").count == 0
+        self.user_events.new(event: event, role: role)
+      end
+    else
+      return false
+    end
+    return true
+  end
+
   def make_coordinator event
     if self.user_events.where(event: event, role: 'coordinator').count == 0
         self.user_events.new(event: event, role: 'coordinator')

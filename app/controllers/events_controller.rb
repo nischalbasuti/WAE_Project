@@ -1,6 +1,13 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
+
+  skip_before_action :verify_authenticity_token, :only => :update_user_event
+  skip_before_action :verify_authenticity_token, :only => :delete_user_event
+  skip_before_action :verify_authenticity_token, :only => :register
+
+  skip_authorize_resource :only => :register
+
+  before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   # GET /events
   # GET /events.json
@@ -67,6 +74,48 @@ class EventsController < ApplicationController
       @role_options = UserEvent.ROLES.map do |role|
         [ role, role ]
       end
+  end
+
+  def update_user_event
+    user = User.find(params[:user_id])
+    event = Event.find(params[:event_id])
+    role = params[:role]
+
+    user.set_event_role(event, role)
+    user.save
+
+    redirect_back fallback_location: root_path
+    # render json: {message: "user(#{params[:user_id]}) event(#{params[:event_id]}) role(#{role}) updated."}
+  end
+
+  def delete_user_event
+    user = User.find(params[:user_id])
+    event = Event.find(params[:event_id])
+    role = params[:role]
+
+    user.user_events.where(event: event, role: role).destroy_all
+
+    redirect_back fallback_location: root_path
+    # render json: {message: "user(#{params[:user_id]}) event(#{params[:event_id]}) role(#{role}) deleted."}
+  end
+
+  def register
+    event = Event.find(params[:event_id])
+    user = User.find(params[:user_id])
+    event.user_events.new(user: user, role: "participant")
+    event.save
+    # render json: {message: "user(#{params[:user_id]}) event(#{params[:event_id]}) registered."}
+    # redirect_to '/events/3'
+    redirect_back fallback_location: root_path
+  end
+
+  def unregister
+    event = Event.find(params[:event_id])
+    user = User.find(params[:user_id])
+    event.user_events.where(user: user).destroy_all
+    # render json: {message: "user(#{params[:user_id]}) event(#{params[:event_id]}) registered."}
+    # redirect_to '/events/3'
+    redirect_back fallback_location: root_path
   end
 
   private

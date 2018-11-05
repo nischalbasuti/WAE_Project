@@ -54,6 +54,8 @@ class UserManagementController < ApplicationController
     # redirect_to "/user_management/show"
   end
 
+
+
   def statistic_users
     @users = User.all
   end
