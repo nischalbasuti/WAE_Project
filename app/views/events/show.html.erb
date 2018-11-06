@@ -20,15 +20,26 @@
   <%= @event.end_time %>
 </p>
 
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
+<% if current_user.admin? or current_user.chair? %>
+    <%= link_to "Manage Event", '/events/manage?id='+@event.id.to_s %> |
+    <%= link_to 'Edit', edit_event_path(@event) %> |
+<% end %>
 <%= link_to 'Back', events_path %>
 
-<hr>
+<br>
 
-<%= link_to "Manage Event", '/events/manage?id='+@event.id.to_s %>
+<h4>Activities:</h4>
+<ul>
+<% @activities.each do |activity|%>
+    <li>
+        <%= activity.name %>
+        from <%= activity.start_time %> to <%= activity.end_time %>
+    </li>
+<% end %>
+</ul>
 
 <br>
+
 <% if current_user.user_events.where(user: current_user,event: @event).count == 0 %>
   <%= form_tag(:action => 'register', :class => 'form') do %>
     <%= hidden_field_tag 'user_id', current_user.id%>
@@ -36,11 +47,10 @@
     <%= submit_tag "Register", :id => "submit", :name => "submit", :class => "btn btn-success form_submit", :disabled => false, :disable_with => "Please wait..." %>
   <% end %>
 <% else %>
-  <br>
   <%= form_tag(:action => 'unregister', :class => 'form') do %>
     <%= hidden_field_tag 'user_id', current_user.id%>
     <%= hidden_field_tag 'event_id', @event.id%>
-    <%= submit_tag "UnRegister", :id => "submit", :name => "submit", :class => "btn btn-danger form_submit", :disabled => false, :disable_with => "Please wait..." %>
+    <%= submit_tag "Unregister", :id => "submit", :name => "submit", :class => "btn btn-danger form_submit", :disabled => false, :disable_with => "Please wait..." %>
   <% end %>
 <% end %>
 

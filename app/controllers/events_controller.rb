@@ -18,6 +18,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    @activities = Activity.where(event: @event)
   end
 
   # GET /events/new
