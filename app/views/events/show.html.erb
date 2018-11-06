@@ -33,15 +33,14 @@
   <%= form_tag(:action => 'register', :class => 'form') do %>
     <%= hidden_field_tag 'user_id', current_user.id%>
     <%= hidden_field_tag 'event_id', @event.id%>
-    <%= submit_tag "Register", :id => "submit", :name => "submit", :class => "form_submit", :disabled => false, :disable_with => "Please wait..." %>
+    <%= submit_tag "Register", :id => "submit", :name => "submit", :class => "btn btn-success form_submit", :disabled => false, :disable_with => "Please wait..." %>
   <% end %>
 <% else %>
-  Already Registered.
   <br>
   <%= form_tag(:action => 'unregister', :class => 'form') do %>
     <%= hidden_field_tag 'user_id', current_user.id%>
     <%= hidden_field_tag 'event_id', @event.id%>
-    <%= submit_tag "UnRegister", :id => "submit", :name => "submit", :class => "form_submit", :disabled => false, :disable_with => "Please wait..." %>
+    <%= submit_tag "UnRegister", :id => "submit", :name => "submit", :class => "btn btn-danger form_submit", :disabled => false, :disable_with => "Please wait..." %>
   <% end %>
 <% end %>
 
