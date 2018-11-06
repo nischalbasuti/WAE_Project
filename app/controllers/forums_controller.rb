@@ -64,6 +64,7 @@ class ForumsController < ApplicationController
     @event = Event.find(params[:event_id])
     @event.forums << @forum
     @event.save
+    redirect_to "/forums/#{@forum.id}"
   end
 
   # DELETE /forums/1

@@ -4,7 +4,7 @@
 </h1>
 <h4>New Forum</h4>
 
-<%= form_tag('new_forum') do %>
+<%= form_tag '/forums/new_forum', :name => 'new_forum_form'  do %>
    <%= hidden_field_tag "event_id", @event.id %>
    <%= text_field_tag :title, '', :placeholder => "Title" %>
    <%= submit_tag "Create Forum", :id => "submit", :name => "submit", :class => "form_submit", :disabled => false, :disable_with => "Please wait..." %> 
