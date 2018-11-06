@@ -16,7 +16,7 @@ class ForumsController < ApplicationController
 
   # GET /forums/new
   def new
-    @forum = Forum.new
+    @event = Event.find(params[:event_id])
   end
 
   # GET /forums/1/edit
@@ -26,10 +26,14 @@ class ForumsController < ApplicationController
   # POST /forums
   # POST /forums.json
   def create
-    @forum = Forum.new(forum_params)
+    @forum = Forum.new
+    @forum.name = params[:name]
+
+    @event = Event.find(params[:event_id])
+    @event.forums << @forum
 
     respond_to do |format|
-      if @forum.save
+      if @event.save
         format.html { redirect_to @forum, notice: 'Forum was successfully created.' }
         format.json { render :show, status: :created, location: @forum }
       else
@@ -51,6 +55,15 @@ class ForumsController < ApplicationController
         format.json { render json: @forum.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def new_forum
+    @forum = Forum.new
+    @forum.title = params[:title]
+
+    @event = Event.find(params[:event_id])
+    @event.forums << @forum
+    @event.save
   end
 
   # DELETE /forums/1

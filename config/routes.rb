@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :forums
+  resources :forums do
+    collection do
+      post :new_forum
+    end
+  end
   resources :requirements
   resources :activities
   resources :events do

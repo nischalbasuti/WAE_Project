@@ -49,7 +49,7 @@
 
 <h4>Forums:</h4>
 
-<%= link_to "Create New Forum", "/forums/new" %>
+<%= link_to "Create New Forum", "/forums/new?event_id=#{@event.id}" %>
 
 <ul>
     <% @event.forums.each do |forum| %>
