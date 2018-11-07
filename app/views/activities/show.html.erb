@@ -22,7 +22,7 @@
 
 <p>
   <strong>Event:</strong>
-  <%= @activity.event %>
+  <%= link_to @activity.event.name, "/events/#{@activity.event.id}" %>
 </p>
 
 <%= link_to 'Edit', edit_activity_path(@activity) %> |
