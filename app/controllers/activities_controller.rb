@@ -15,6 +15,7 @@ class ActivitiesController < ApplicationController
   # GET /activities/new
   def new
     @activity = Activity.new
+    @activity.event = Event.find(params[:event_id])
   end
 
   # GET /activities/1/edit

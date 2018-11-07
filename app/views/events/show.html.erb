@@ -36,6 +36,7 @@
         from <%= activity.start_time %> to <%= activity.end_time %>
     </li>
 <% end %>
+<li> <%= link_to 'Add Activity', "/activities/new?event_id=#{@event.id}", :class=> "btn" %> </li>
 </ul>
 
 <br>
