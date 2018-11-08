@@ -44,7 +44,7 @@ class Ability
         u == user
       end
       can :read, Event
-      can :manage, Forum # TODO: change this shit.
+      can :read, Forum # TODO: change this shit.
     else
       can :read, Event
     end
