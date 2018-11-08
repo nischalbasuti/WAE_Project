@@ -43,11 +43,11 @@
                             <%= link_to "Admin Page", "/user_management/index" %>
                             </li>
                         <% end %>
-                        <% if current_user.admin? or current_user.chair? %>
-                            <li>
-                            <%= link_to "Events Management", "/events" %>
-                            </li>
-                        <% end %>
+                        <%# <% if current_user.admin? or current_user.chair? %1> %>
+                        <%#     <li> %>
+                        <%#     <%= link_to "Events Management", "/events" %1> %>
+                        <%#     </li> %>
+                        <%# <% end %1> %>
                     <% else %>
                         <li>
                         <%= link_to "Sign up", new_user_registration_path %>
