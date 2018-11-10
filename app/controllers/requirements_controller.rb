@@ -16,6 +16,7 @@ class RequirementsController < ApplicationController
   # GET /requirements/new
   def new
     @requirement = Requirement.new
+    @requirement.activity = Activity.find(params[:activity_id])
   end
 
   # GET /requirements/1/edit

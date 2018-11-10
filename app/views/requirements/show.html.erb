@@ -12,7 +12,7 @@
 
 <p>
   <strong>Activity:</strong>
-  <%= @requirement.activity %>
+  <td> <%= link_to @requirement.activity.name, @requirement.activity %> </td>
 </p>
 
 <%= link_to 'Edit', edit_requirement_path(@requirement) %> |
