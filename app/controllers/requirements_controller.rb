@@ -17,6 +17,13 @@ class RequirementsController < ApplicationController
   def new
     @requirement = Requirement.new
     @requirement.activity = Activity.find(params[:activity_id])
+
+    if(not (current_user.coordinator? @requirement.activity.event or current_user.representitive? @requirement.activity.event or current_user.admin? or current_user.chair?))
+      redirect_to @requirement.activity
+      flash[:error] = "Access denied"
+      return
+    end
+
   end
 
   # GET /requirements/1/edit
@@ -27,6 +34,12 @@ class RequirementsController < ApplicationController
   # POST /requirements.json
   def create
     @requirement = Requirement.new(requirement_params)
+
+    if(not (current_user.coordinator? @requirement.activity.event or current_user.representitive? @requirement.activity.event or current_user.admin? or current_user.chair?))
+      redirect_to @requirement.activity
+      flash[:error] = "Access denied"
+      return
+    end
 
     respond_to do |format|
       if @requirement.save

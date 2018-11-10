@@ -34,6 +34,7 @@ class Ability
       can :manage, :all
     elsif user.chair?
       can :manage, Event
+      can :manage, Requirement
       can :manage, User do |u|
         u == user
       end
@@ -45,6 +46,15 @@ class Ability
       end
       can :read, Event
       can :read, Forum # TODO: change this shit.
+
+      can :read, Requirement
+      can :create, Requirement
+      can :update, Requirement do |r|
+        user.representitive? r.activity.event or user.coordinator? r.activity.event
+      end
+      can :destroy, Requirement do |r|
+        user.representitive? r.activity.event or user.coordinator? r.activity.event
+      end
     else
       can :read, Event
     end
