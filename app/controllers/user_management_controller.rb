@@ -2,6 +2,28 @@ class UserManagementController < ApplicationController
   authorize_resource :class => false
   skip_before_action :verify_authenticity_token, :only => :update_users
 
+  def profile    
+  end
+
+  def edit
+    @user = current_user.id    
+  end
+
+  def update
+    
+    respond_to do |format|
+      if @user.update
+        format.html { redirect_to "/user_management/profile", notice: 'Profile was successfully updated.' }
+        
+      else
+        format.html { render :edit }
+        format.json { render json: @profile.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
+  
   def index
   end
 
@@ -54,10 +76,10 @@ class UserManagementController < ApplicationController
     # redirect_to "/user_management/show"
   end
 
-
-
   def statistic_users
     @users = User.all
   end
+
+  
 
 end

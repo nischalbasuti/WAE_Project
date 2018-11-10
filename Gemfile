@@ -64,6 +64,9 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'bootstrap-sass', '~> 3.2.0'
+
+gem 'font_awesome5_rails'
+
 gem 'autoprefixer-rails'
 
 group :development do
@@ -95,3 +98,5 @@ gem 'rails-erd', group: :development
 gem 'jquery-rails'
 
 gem 'commontator', '~> 5.1.0'
+
+
