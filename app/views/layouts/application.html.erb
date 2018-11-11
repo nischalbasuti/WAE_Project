@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Web1807</title>
+        <title>Web18-07</title>
         <%= csrf_meta_tags %>
         <%= csp_meta_tag %>
 
@@ -12,81 +12,90 @@
         <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
+
     </head>
 
     <body>
 
-        <div class="navbar navbar-default">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-            <div class="container-fluid">
+          <a class="navbar-brand" href="<%= home_index_path() %>">
+              <i class="fas fa-home"></i> Web07
+          </a>
 
-                <ul class="nav navbar-nav">
-                  <li>
-                      <a href="<%= home_index_path() %>">
-                          <i class="fas fa-home"></i> Web07
+
+          <div class="collapse navbar-collapse" id="navbarText">
+
+            <ul class="navbar-nav mr-auto">
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="<%= url_for (:back) %>">  Back</a>
+                  </li>
+
+                  
+
+                  <% if user_signed_in? %>
+
+                  <li class="nav-item">
+                      <a class="nav-link"href="<%= events_path() %>">
+                          <i class="fas fa-calendar"></i> Events
                       </a>
                   </li>
 
-                  <li>
-                      <a href="<%= url_for (:back) %>">
-                          <i class="fas fa-step-backward"></i> back
+
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-lock"></i> Admin Page
                       </a>
+
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <a class="dropdown-item" href="<%= user_management_show_path() %>"> <i class="fas fa-user-edit"></i> Manage users</a>
+                          <a class="dropdown-item" href="<%= user_management_statistic_users_path() %>"> <i class="fas fa-chart-line"></i> The statistic of users</a>
+                      </div>
                   </li>
 
-                    <% if user_signed_in? %>
-                        <span class="navbar-text">
-                            <%= current_user.email %>
-                            <%= link_to "user", "/user_management/profile" %>
-                        </span>
+              </ul>
 
+                 <li class="navbar-text">
+                    <a href="<%= user_management_profile_path  %>">
+                        <i class="far fa-user"></i> <%= current_user.email %>&nbsp;&nbsp;&nbsp;
+                    </a>
+                  </li>
 
+                  <li class="navbar-text">
+                    <a href="<%= destroy_user_session_path  %>" data-method="delete">
+                         <i class="fas fa-sign-out-alt"></i> Sign out
+                    </a>
+                  </li>
 
-                        <li>
-                            <a href="<%= events_path() %>">
-                                <i class="fas fa-calendar"></i> Events
-                            </a>
-                        </li>
+                <% else %>
 
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fas fa-lock"></i> Admin Page<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><%= link_to "Manage users", "/user_management/show" %></li>
-                                <li><%= link_to "The statistic of users", "/user_management/statistic_users" %></li>
+                    <span class="navbar-text">
+                        <a  href="<%= new_user_registration_path() %>">
+                            <i class="fas fa-user-alt"></i> Sign up &nbsp;
+                        </a>
+                    </span>
 
-                            </ul>
-                        </li>
+                    <li class="navbar-text">
 
-                        <li class="nav navbar-nav navbar-right">
-                          <a href="<%= destroy_user_session_path  %>" data-method="delete">
-                              <i class="fas fa-sign-out-alt"></i> Sign out
-                          </a>
-                        </li>
-                    <% else %>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="<%= new_user_registration_path() %>">
-                                <i class="fas fa-user-alt"></i> Sign up
-                            </a>
-                        </li>
+                        <a  href="<%= new_user_session_path() %>">
+                            <i class="fas fa-sign-in-alt"></i> Log in
+                        </a>
 
-                        <li>
-                            <a href="<%= new_user_session_path() %>">
-                                <i class="fas fa-sign-in-alt"></i> Log in
-                            </a>
-                        </li>
-                    </ul>
-                    <% end %>
-                </ul>
+                    </li >
+  
+                <% end %>
+ 
+          </div>
 
-            </div>
-
-        </div>
-
+      </nav>
 
         <div id="container">
 
-           <div id="wrapper" class="container">
+          
 
+           <div id="wrapper" class="container">
+              <br> 
                <% if flash[:notice] %>
                    <div class="flash notice" style="color:green;">
                        <%= flash[:notice] %>
@@ -104,21 +113,16 @@
                <% end %>
 
               <%= yield %>
+            
            </div>
 
-           <div class="panel-footer">
-             <%= link_to "HTML Validator", "https://validator.w3.org/nu/?doc="+request.original_url %>
-           </div>
+              <div class="card-footer text-muted">
+                  <%= link_to "HTML Validator", "https://validator.w3.org/nu/?doc="+request.original_url %>
+              </div>
+           
 
         </div>
 
-
     </body>
 
-    <script type="text/javascript" src="js/bootstrap/bootstrap-dropdown.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('.dropdown-toggle').dropdown()
-        });
-    </script>
 </html>

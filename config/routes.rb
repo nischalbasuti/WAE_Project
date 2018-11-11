@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :departments
   resources :forums do
     collection do
       post :new_forum

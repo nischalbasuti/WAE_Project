@@ -1,3 +1,5 @@
+
+<br>
 <h2 class="text-center"> <i class="fas fa-user-plus"></i> Sign up </h2>
 <br>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -23,6 +25,20 @@
   <div class="form-group">
     <%= f.label :password_confirmation , 'Confirm password : ' %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" , class: 'form-control', placeholder: 'Confirm password' %>
+  </div>
+
+<br>
+
+  <div class="form-group">
+    <%= f.label :nationality ,  'Nationality : ' %><br />
+    <%= f.text_field :nationality, class: 'form-control', placeholder: 'Nationality' %>
+  </div>
+
+<br>
+
+  <div class="form-group">
+      <%= f.label :department_id , 'Department :'%><br />
+      <%= f.collection_select :department_id, Department.all , :id, :name , class: "form-control", prompt: true  %>
   </div>
 
 <br>

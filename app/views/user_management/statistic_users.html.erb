@@ -1,12 +1,12 @@
 <html>
 
-  <h3 class="text-center"> The statistics on types of users.</h3><br>
+  <h3 class="text-center">  The statistics on types of users.</h3><br>
 
   <%= pie_chart User.group(:global_role).count %><br><br>
 
   <table class="table table-striped">
     <tr>
-      <th class="text-center" width=150>Type of users</th>
+      <th class="text-center" width=150><i class="fas fa-users"></i> Type of users</th>
       <th class="text-center" width=400 >The number of users</th>
     </tr>
 
