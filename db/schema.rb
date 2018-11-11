@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_04_152716) do
+ActiveRecord::Schema.define(version: 2018_11_10_101556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,13 @@ ActiveRecord::Schema.define(version: 2018_11_04_152716) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true
+  end
+
+  create_table "departments", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -127,6 +134,9 @@ ActiveRecord::Schema.define(version: 2018_11_04_152716) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "global_role"
+    t.bigint "department_id"
+    t.string "nationality"
+    t.index ["department_id"], name: "index_users_on_department_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -138,4 +148,5 @@ ActiveRecord::Schema.define(version: 2018_11_04_152716) do
   add_foreign_key "requirements", "activities"
   add_foreign_key "user_events", "events"
   add_foreign_key "user_events", "users"
+  add_foreign_key "users", "departments"
 end

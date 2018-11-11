@@ -6,8 +6,10 @@ class User < ApplicationRecord
   has_many :user_events, dependent: :destroy
   has_many :events, through: :user_events
 
-  has_many :forum_commenters, dependent: :destroy 
+  has_many :forum_commenters, dependent: :destroy
   has_many :forums, through: :forum_commenters
+
+  belongs_to :department , optional: true
 
   acts_as_commontator
 
@@ -37,7 +39,7 @@ class User < ApplicationRecord
   def forum? forum
     self.forums.include? forum
   end
-  
+
   # Methods to check global roles.
 
   def admin?
@@ -55,9 +57,9 @@ class User < ApplicationRecord
   def banned?
     self.global_role == GLOBAL_ROLES[3] if !self.global_role.blank?
   end
-  
+
   # Methods to check event roles.
-  
+
   def coordinator? event
     self.user_events.where(event: event, role: 'coordinator').count >= 1
   end
@@ -75,7 +77,7 @@ class User < ApplicationRecord
   end
 
   # Setters for self.global_role.
-  
+
   def make_admin
     self.global_role = GLOBAL_ROLES[0]
   end
@@ -93,7 +95,7 @@ class User < ApplicationRecord
   end
 
   # Setters for event roles.
-  
+
   def set_event_role(event, role)
     if UserEvent.ROLES.include? role
       if self.user_events.where(event: event, role: role).count == 0
