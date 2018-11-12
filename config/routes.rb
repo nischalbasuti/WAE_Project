@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   get 'events/manage'
   get 'user_management/profile'
   get 'user_management/edit'
+  post '/profile/update'
   post 'users/sign_up'
   post 'user_management/edit'
   post 'ps2/import'
