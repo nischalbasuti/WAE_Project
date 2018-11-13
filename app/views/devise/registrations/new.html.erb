@@ -38,7 +38,7 @@
 
   <div class="form-group">
       <%= f.label :department_id , 'Department :'%><br />
-      <%= f.collection_select :department_id, Department.all , :id, :name , class: "form-control", prompt: true  %>
+      <%= f.collection_select :department_id, Department.all , :id, :name, { :include_blank => ("Select..."), hide_label: true}, {class: "form-control"} %>
   </div>
 
 <br>
