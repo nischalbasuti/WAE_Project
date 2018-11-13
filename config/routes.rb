@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   resources :forums do
     collection do
       post :new_forum
+      get :manage
+      post :update_forum_commenter
+      post :delete_forum_commenter
     end
   end
   resources :requirements

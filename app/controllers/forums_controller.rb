@@ -77,6 +77,35 @@ class ForumsController < ApplicationController
     end
   end
 
+  def manage
+      @forum = Forum.find(params[:id])
+      @role_options = UserEvent.ROLES.map do |role|
+        [ role, role ]
+      end
+  end
+
+  def update_forum_commenter
+    forum = Forum.find(params[:forum_id])
+    role = params[:role]
+    forum.forum_commenters.new(role: role)
+
+    if forum.save
+      flash[:alert] = "added role"
+    else
+      flash[:error] = "failed to add role"
+    end
+
+    redirect_back fallback_location: root_path
+  end
+
+  def delete_forum_commenter
+    forum = Forum.find(params[:forum_id])
+    role = params[:role]
+
+    forum.forum_commenters.where(role: role).destroy_all
+    redirect_back fallback_location: root_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_forum

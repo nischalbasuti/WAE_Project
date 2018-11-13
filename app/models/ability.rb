@@ -46,10 +46,9 @@ class Ability
       end
       can :read, Event
 
-      can :read, Forum # TODO: Change this to use the below later.
-      # can :read, Forum do |f|
-      #   # TODO check if the users' role is there 
-      # end
+      can :read, Forum do |f|
+        f.user? user
+      end
 
       can :read, Activity
       can :create, Activity # TODO: check in controller is user can create the
