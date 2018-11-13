@@ -45,7 +45,21 @@ class Ability
         u == user
       end
       can :read, Event
-      can :read, Forum # TODO: change this shit.
+
+      can :read, Forum # TODO: Change this to use the below later.
+      # can :read, Forum do |f|
+      #   # TODO check if the users' role is there 
+      # end
+
+      can :read, Activity
+      can :create, Activity # TODO: check in controller is user can create the
+                            # activity.
+      can :update, Activity do |a|
+        user.coordinator? a.event
+      end
+      can :destroy, Activity do |a|
+        user.coordinator? a.event
+      end
 
       can :read, Requirement
       can :create, Requirement

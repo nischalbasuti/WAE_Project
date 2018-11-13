@@ -3,6 +3,5 @@ class Forum < ApplicationRecord
   belongs_to :event
 
   has_many :forum_commenters, dependent: :destroy 
-  has_many :users, through: :forum_commenters
 
 end
