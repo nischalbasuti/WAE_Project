@@ -6,9 +6,6 @@ class User < ApplicationRecord
   has_many :user_events, dependent: :destroy
   has_many :events, through: :user_events
 
-  has_many :forum_commenters, dependent: :destroy
-  has_many :forums, through: :forum_commenters
-
   belongs_to :department , optional: true
 
   acts_as_commontator
