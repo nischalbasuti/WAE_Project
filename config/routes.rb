@@ -23,9 +23,10 @@ Rails.application.routes.draw do
   scope defaults: (Rails.env.production? ? { protocol: 'https' } : {}) do
     devise_for :users
   end
+  # root 'home#index'
+  root 'events#index'
   get 'ps2/index'
   get 'ps2/quotation'
-  root 'home#index'
   get 'ps1/index'
   get 'ps1/divide'
   get 'ps1/divide_exception'
