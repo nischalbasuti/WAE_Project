@@ -3,6 +3,11 @@ require 'test_helper'
 class RequirementsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @requirement = requirements(:one)
+    @activity = activities(:one)
+    post user_session_path, params: {user: {
+      email:    users(:one).email,
+      password: "password"
+    }}
   end
 
   test "should get index" do
@@ -12,7 +17,8 @@ class RequirementsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
     get new_requirement_url
-    assert_response :success
+    #assert_response :success
+    assert_response :redirect
   end
 
   test "should create requirement" do

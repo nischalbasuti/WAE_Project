@@ -16,7 +16,18 @@ class ForumsController < ApplicationController
 
   # GET /forums/new
   def new
-    @event = Event.find(params[:event_id])
+    if not params.has_key? :event_id
+      flash[:error] = "No Event id given."
+      redirect_back fallback_location: root_path
+      return
+    end
+    begin
+      @event = Event.find(params[:event_id])
+    rescue
+      flash[:error] = "Couldn't find event with id #{params[:event_id]}"
+      redirect_back fallback_location: root_path
+      return
+    end
   end
 
   # GET /forums/1/edit
@@ -27,7 +38,7 @@ class ForumsController < ApplicationController
   # POST /forums.json
   def create
     @forum = Forum.new
-    @forum.name = params[:name]
+    @forum.title = params[:name]
 
     @event = Event.find(params[:event_id])
     @event.forums << @forum

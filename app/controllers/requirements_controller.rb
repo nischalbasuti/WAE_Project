@@ -16,11 +16,24 @@ class RequirementsController < ApplicationController
   # GET /requirements/new
   def new
     @requirement = Requirement.new
-    @requirement.activity = Activity.find(params[:activity_id])
 
-    if(not (current_user.coordinator? @requirement.activity.event or current_user.representitive? @requirement.activity.event or current_user.admin? or current_user.chair?))
-      redirect_to @requirement.activity
-      flash[:error] = "Access denied"
+    if not params.has_key? :activity_id
+      flash[:error] = "No activity id given."
+      redirect_back fallback_location: root_path
+      return
+    end
+
+    begin
+      @requirement.activity = Activity.find(params[:activity_id])
+
+      if(not (current_user.coordinator? @requirement.activity.event or current_user.representitive? @requirement.activity.event or current_user.admin? or current_user.chair?))
+        redirect_to @requirement.activity
+        flash[:error] = "Access denied"
+        return
+      end
+    rescue
+      flash[:error] = "Couldn't find activity with id #{params[:event_id]}"
+      redirect_back fallback_location: root_path
       return
     end
 

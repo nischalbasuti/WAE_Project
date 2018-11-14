@@ -3,6 +3,11 @@ require 'test_helper'
 class ForumsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @forum = forums(:one)
+    @activity = activities(:one)
+    post user_session_path, params: {user: {
+      email:    users(:one).email,
+      password: "password"
+    }}
   end
 
   test "should get index" do
@@ -12,12 +17,13 @@ class ForumsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
     get new_forum_url
-    assert_response :success
+    # assert_response :success
+    assert_response :redirect
   end
 
   test "should create forum" do
     assert_difference('Forum.count') do
-      post forums_url, params: { forum: { event_id: @forum.event_id, title: @forum.title } }
+      post forums_url, params: { forum: { event_id: @forum.event_id, title: @forum.title }, event_id: @forum.event_id }
     end
 
     assert_redirected_to forum_url(Forum.last)

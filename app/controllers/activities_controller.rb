@@ -17,7 +17,20 @@ class ActivitiesController < ApplicationController
   # GET /activities/new
   def new
     @activity = Activity.new
-    @activity.event = Event.find(params[:event_id])
+
+    if not params.has_key? :event_id
+      flash[:error] = "No Event id given."
+      redirect_back fallback_location: root_path
+      return
+    end
+    begin
+      @activity.event = Event.find(params[:event_id])
+    rescue
+      flash[:error] = "Couldn't find event with id #{params[:event_id]}"
+      redirect_back fallback_location: root_path
+      return
+    end
+
   end
 
   # GET /activities/1/edit

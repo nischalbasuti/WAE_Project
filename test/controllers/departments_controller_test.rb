@@ -3,6 +3,11 @@ require 'test_helper'
 class DepartmentsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @department = departments(:one)
+    @activity = activities(:one)
+    post user_session_path, params: {user: {
+      email:    users(:one).email,
+      password: "password"
+    }}
   end
 
   test "should get index" do

@@ -3,6 +3,10 @@ require 'test_helper'
 class ActivitiesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @activity = activities(:one)
+    post user_session_path, params: {user: {
+      email:    users(:one).email,
+      password: "password"
+    }}
   end
 
   test "should get index" do
@@ -12,7 +16,8 @@ class ActivitiesControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
     get new_activity_url
-    assert_response :success
+    # assert_response :success
+    assert_response :redirect
   end
 
   test "should create activity" do
