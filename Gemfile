@@ -99,4 +99,4 @@ gem 'jquery-rails'
 
 gem 'commontator', '~> 5.1.0'
 
-
+gem 'jquery-ui-rails'

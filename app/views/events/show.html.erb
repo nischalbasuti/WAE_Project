@@ -54,9 +54,13 @@
             </tr>
         </thead>
 
-        <tbody>
+        <tbody id='activity-rows'>
             <% @activities.each do |activity| %>
-                <tr>
+                <tr class='activity-row'
+                    id='<%= activity.id %>'
+                    startTime='<%= activity.start_time %>'
+                    endTime='<%= activity.end_time %>'>
+
                     <td><%= link_to activity.name, activity %></td>
                     <td><%= activity.description %></td>
                     <td><%= activity.start_time %></td>
@@ -85,4 +89,34 @@
         </li>
     <% end %>
 </ul>
+
+
+<%# The following is some bad hackey code, apologies to future me. %>
+<% if current_user.admin? or current_user.chair? %>
+    <script charset="utf-8">
+        $('tbody').sortable();
+
+        function construct_update_activities_request(event_id) {
+            let activity_rows = [];
+            for (const row of document.getElementsByClassName('activity-row')) {
+                let rowObj = {};
+                rowObj.id = row.getAttribute("id");
+                rowObj.startTime = row.getAttribute("startTime");
+                rowObj.endTime = row.getAttribute("startTime");
+
+                activity_rows.push(rowObj);
+            }
+            return {
+                'event_id': event_id,
+                'activities': activity_rows
+            }
+
+        }
+        function update_activities(event_id){
+            let data = JSON.stringify(construct_update_activities_request(event_id));
+            // TODO:
+        }
+    </script>
+
+<% end %>
 
