@@ -100,3 +100,5 @@ gem 'jquery-rails'
 gem 'commontator', '~> 5.1.0'
 
 gem 'jquery-ui-rails'
+
+gem 'google_sign_in'

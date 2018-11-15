@@ -21,8 +21,11 @@ Rails.application.routes.draw do
   end
   get 'ps4/index'
   scope defaults: (Rails.env.production? ? { protocol: 'https' } : {}) do
-    devise_for :users
+    devise_for :users, :controllers => {:registrations => "registration"}
   end
+  # login with google
+  get 'login', to: 'logins#new'
+  get 'login/create', to: 'logins#create', as: :create_login
   # root 'home#index'
   root 'events#index'
   get 'ps2/index'

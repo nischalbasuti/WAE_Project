@@ -72,6 +72,10 @@
                     </a>
                   </li>
 
+                  <%= google_sign_in_button proceed_to: create_login_url do %>
+  Sign in with my  account
+<% end %>
+
                 <% else %>
                 </ul>
 
@@ -83,10 +87,15 @@
 
                     <li class="navbar-text">
 
-                        <a  href="<%= new_user_session_path() %>">
+<!--                         <a  href="<%= new_user_session_path() %>">
                             <i class="fas fa-sign-in-alt"></i> Log in
                         </a>
+ -->                        
 
+
+<%= google_sign_in_button proceed_to: create_login_url do %>
+  Sign in with my  account
+<% end %>
                     </li >
   
                 <% end %>
