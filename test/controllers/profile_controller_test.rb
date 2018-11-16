@@ -1,7 +1,9 @@
 require 'test_helper'
 
 class ProfileControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should get events" do
+    get profile_events_url
+    assert_response :success
+  end
+
 end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'profile/events'
   resources :departments
   resources :forums do
     collection do
@@ -9,7 +10,12 @@ Rails.application.routes.draw do
     end
   end
   resources :requirements
-  resources :activities
+  resources :activities do
+    collection do
+      post :update_activities
+    end
+  end
+
   resources :events do
     collection do
       get :manage
@@ -17,6 +23,7 @@ Rails.application.routes.draw do
       post :delete_user_event
       post :register
       post :unregister
+      post :update_activities
     end
   end
   get 'ps4/index'
