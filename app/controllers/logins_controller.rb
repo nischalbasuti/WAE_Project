@@ -7,7 +7,7 @@ class LoginsController < ApplicationController
       user = authenticate_with_google
       if user.save
         sign_in user
-        flash[:error] = "user signed in"
+        flash[:notice] = "user signed in"
       end
       # redirect_to new_session_url(user)
       # cookies.signed[:user_id] = user.id
