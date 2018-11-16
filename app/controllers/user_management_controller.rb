@@ -10,7 +10,6 @@ class UserManagementController < ApplicationController
   end
 
   def update
-    
     respond_to do |format|
       if @user.update
         format.html { redirect_to "/user_management/profile", notice: 'Profile was successfully updated.' }

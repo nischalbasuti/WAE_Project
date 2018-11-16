@@ -8,7 +8,11 @@ Rails.application.routes.draw do
       post :delete_forum_commenter
     end
   end
-  resources :requirements
+  resources :requirements do
+      collection do
+      get :approve
+    end
+  end
   resources :activities
   resources :events do
     collection do
@@ -49,6 +53,7 @@ Rails.application.routes.draw do
   get 'events/manage'
   get 'user_management/profile'
   get 'user_management/edit'
+  get 'requirements/approve'
   post '/profile/update'
   post 'users/sign_up'
   post 'user_management/edit'

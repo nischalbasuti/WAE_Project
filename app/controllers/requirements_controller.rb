@@ -3,7 +3,15 @@ class RequirementsController < ApplicationController
   load_and_authorize_resource
 
   # GET /requirements
-  # GET /requirements.json
+  # GET /requirements.json 
+
+  def approve
+    @requirement.satisfied = true
+    @requirement.save
+    redirect_back(fallback_location: activity_path(@requirement.activity_id))
+    flash.alert = "The requirement has been approved!"
+  end
+
   def index
     @requirements = Requirement.all
   end
@@ -47,7 +55,7 @@ class RequirementsController < ApplicationController
   # POST /requirements.json
   def create
     @requirement = Requirement.new(requirement_params)
-
+    
     if(not (current_user.coordinator? @requirement.activity.event or current_user.representitive? @requirement.activity.event or current_user.admin? or current_user.chair?))
       redirect_to @requirement.activity
       flash[:error] = "Access denied"
@@ -56,6 +64,7 @@ class RequirementsController < ApplicationController
 
     respond_to do |format|
       if @requirement.save
+        
         format.html { redirect_to @requirement, notice: 'Requirement was successfully created.' }
         format.json { render :show, status: :created, location: @requirement }
       else

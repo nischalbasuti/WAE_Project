@@ -4,24 +4,22 @@
   
     border: 2px solid grey;
     width: 600px;
-    height: 670px;
+    height: 300px;
     top: 50%;
     left: 50%;
     position: absolute;
-    margin-top: -200px;
-    margin-left: -270px;
-    padding-top: 20px;
+    margin-top: -260px;
+    margin-left: -290px;
+    /*padding-top: 20px;*/
     padding-right: 30px;
     padding-bottom: 50px;
     padding-left: 20px;
 }
 </style>
 
-<div class="alert alert-danger">
 
-    <%= devise_error_messages! %>
+  <!-- <%= devise_error_messages! %> -->
 
-</div>
 
 <br>
 
@@ -33,7 +31,7 @@
 
 
 
-<div>
+<div id="user-detail">
 
   <br><!--
     
@@ -77,16 +75,26 @@
   <%= form_tag('/profile/update', :class => 'form') do %>
 
     <div class="form-group">
-      <%= label_tag :nationality ,  'Nationality : ' %><br />
-      <%= text_field_tag :nationality , current_user.nationality, class: 'form-control'%>
+      <!--       <%= label_tag :department_id , 'Department :'%><br /> -->
+      <%= label_tag :department_id do %>
+        <i class="fas fa-building"> </i> <b>Department :</b> 
+      <% end %> <br />
+      <%= select_tag :department_id, options_for_select(Department.all.pluck(:name, :id).map do |n, i| [n,i] end , :selected => current_user.department_id ) , :class=> "form-control" %>
     </div>
 
     <div class="form-group">
-      <%= label_tag :department_id , 'Department :'%><br />
-      <%= select_tag :department_id, options_for_select(Department.all.pluck(:name, :id).map do |n, i| [n,i] end) , :class=> "form-control" %>
+      <!-- <%= label_tag :nationality ,  'Nationality : ' %><br /> -->
+      <!-- new label -->
+      <%= label_tag :nationality do %>
+        <i class="fas fa-flag"></i> <b>Nationality :</b> 
+      <% end %> <br />
+      <%= text_field_tag :nationality , current_user.nationality, class: 'form-control'%>
     </div>
 
-   <%= submit_tag "Update", :id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait..." %>
+
+    <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait...") do %>
+      <i class="fas fa-pen"></i> Update your profile 
+    <% end %>
 
   <% end %>
 
