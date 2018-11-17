@@ -102,3 +102,9 @@ gem 'commontator', '~> 5.1.0'
 gem 'jquery-ui-rails'
 
 gem 'google_sign_in'
+
+gem 'date_picker'
+
+gem 'validates_timeliness', '~> 5.0.0.alpha3'
+
+gem 'simplecov', require: false, group: :test

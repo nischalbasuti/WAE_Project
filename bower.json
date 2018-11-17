@@ -1,0 +1,22 @@
+{
+  "name": "web18-07",
+  "description": "AIT-SU-Events",
+  "main": "index.html.erb",
+  "authors": [
+    "Ruangtiwa<st120534@ait.asia>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47"
+  }
+}

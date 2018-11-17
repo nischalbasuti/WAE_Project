@@ -11,7 +11,7 @@ class ActivitiesController < ApplicationController
   # GET /activities/1
   # GET /activities/1.json
   def show
-    @requirements = Requirement.where(activity: @activity)
+    @requirements = Requirement.order(created_at: :desc).where(activity: @activity)
   end
 
   # GET /activities/new
@@ -58,8 +58,14 @@ class ActivitiesController < ApplicationController
   def update
     respond_to do |format|
       if @activity.update(activity_params)
-        format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }
-        format.json { render :show, status: :ok, location: @activity }
+        if @activity.validates_date :start_time, :after => :now
+           format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }
+           format.json { render :show, status: :ok, location: @activity }
+        else 
+            flash.alert = "The date is wrong!"
+        end
+        
+        
       else
         format.html { render :edit }
         format.json { render json: @activity.errors, status: :unprocessable_entity }
