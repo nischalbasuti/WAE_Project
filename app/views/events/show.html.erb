@@ -1,3 +1,27 @@
+<style type="text/css" media="screen">
+    table { 
+        border-collapse: separate; 
+        border-spacing: 0 10px; 
+    }
+    td, th {
+        border: solid 1px grey;
+        border-style: solid none;
+        padding: 10px;
+        width:20%;
+        text-align: center
+    }
+    td:first-child, th:first-child {
+        border-left-style: solid;
+        border-top-left-radius: 30px; 
+        border-bottom-left-radius: 30px;
+    }
+    td:last-child, th:last-child {
+        border-right-style: solid;
+        border-bottom-right-radius: 30px; 
+        border-top-right-radius: 30px; 
+    }
+</style>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -50,7 +74,10 @@
                 <th>Description</th>
                 <th>Start time</th>
                 <th>End time</th>
-                <th colspan="3"></th>
+                <% if current_user.admin? or current_user.chair? %>
+                    <th></th>
+                    <th></th>
+                <% end %>
             </tr>
         </thead>
 
@@ -63,14 +90,25 @@
 
                     <td><%= link_to activity.name, activity %></td>
                     <td><%= activity.description %></td>
-                    <td><%= activity.start_time %></td>
-                    <td><%= activity.end_time %></td>
-                    <td></td>
+                    <td class="startTime"><%= activity.start_time %></td>
+                    <td class="endTime"><%= activity.end_time %></td>
                     <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
                     <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                 </tr>
             <% end %>
         </tbody>
+        <% if current_user.admin? or current_user.chair? %>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><%= link_to "Update Activities",  "", remote:true, :onclick => "return updateActivities(#{@event.id})", :class => "btn btn-success"%></td>
+                </tr>
+            </tbody>
+        <% end %>
     </table>
 <%= link_to 'Add Activity', "/activities/new?event_id=#{@event.id}", :class=> "btn" %>
 
@@ -91,30 +129,96 @@
 </ul>
 
 
-<%# The following is some bad hackey code, apologies to future me. %>
+<!-- The following is some bad hackey code, apologies to future me. -->
+
 <% if current_user.admin? or current_user.chair? %>
     <script charset="utf-8">
-        $('tbody').sortable();
 
-        function construct_update_activities_request(event_id) {
-            let activity_rows = [];
+        // Sort elements and swap start and end times of affected arrays.
+        $('#activity-rows').sortable({
+            start: (event, ui) => {
+                ui.item.startPos = ui.item.index();
+                window.startState = $('#activity-rows').sortable("toArray")
+                
+            },
+            stop: (event, ui) => {
+                currentState = $('#activity-rows').sortable("toArray")
+                // console.log(window.startState[ui.item.startPos], currentState[ui.item.index()]);
+
+
+                function swapStartAndEndTime(a, b) {
+                    // Swap start and end time
+                    function swapAttributes(attribute, a, b) {
+                        tmp = a.getAttribute(attribute)
+                        a.setAttribute(attribute, b.getAttribute(attribute))
+                        b.setAttribute(attribute, tmp)
+                    }
+                    swapAttributes("startTime", a, b)
+                    swapAttributes("endTime", a, b)
+
+                    // Set the html of start and end time columns of the row.
+                    a.querySelector(".startTime").innerHTML = a.getAttribute('startTime')
+                    a.querySelector(".endTime").innerHTML = a.getAttribute('endTime')
+
+                    b.querySelector(".startTime").innerHTML = b.getAttribute('startTime')
+                    b.querySelector(".endTime").innerHTML = b.getAttribute('endTime')
+                }
+
+                // Swap the moved element with the destination element, then move the
+                // swap all the other elements up/down one by one.
+                let startEle = document.getElementById(window.startState[ui.item.startPos]);
+                let destEle  = document.getElementById(window.startState[ui.item.index()]);
+                swapStartAndEndTime(startEle, destEle);
+
+                if(ui.item.startPos < ui.item.index()) {
+                    for (let i = ui.item.index()-1; i > ui.item.startPos; i--) {
+                        let startEle = document.getElementById(currentState[i])
+                        let destEle  = document.getElementById(currentState[i-1])
+                        swapStartAndEndTime(startEle, destEle);
+                    }
+                } else {
+                    for (let i = ui.item.index()+1; i < ui.item.startPos; i++) {
+                        let startEle = document.getElementById(currentState[i])
+                        let destEle  = document.getElementById(currentState[i+1])
+                        swapStartAndEndTime(startEle, destEle);
+                    }
+                }
+            }
+        });
+        // window.startState = $('#activity-rows').sortable("getArray")
+
+        function buildUpdateActivitiesRequestData(event_id) {
+            let activityRows = [];
             for (const row of document.getElementsByClassName('activity-row')) {
                 let rowObj = {};
                 rowObj.id = row.getAttribute("id");
                 rowObj.startTime = row.getAttribute("startTime");
-                rowObj.endTime = row.getAttribute("startTime");
+                rowObj.endTime = row.getAttribute("endTime");
 
-                activity_rows.push(rowObj);
+                activityRows.push(rowObj);
             }
             return {
                 'event_id': event_id,
-                'activities': activity_rows
+                'activities': activityRows
             }
 
         }
-        function update_activities(event_id){
-            let data = JSON.stringify(construct_update_activities_request(event_id));
-            // TODO:
+
+        function updateActivities(event_id) {
+            let data = buildUpdateActivitiesRequestData(event_id);
+            function successCallback(data, textStatus, jqXHR) {
+                alert(data.message)
+                console.log(data, textStatus)
+            }
+            $.ajax({
+                type: "POST",
+                url: '/activities/update_activities',
+                data: JSON.stringify(data),
+                success: successCallback,
+                dataType: "json",
+                contentType: "application/json",
+                processData: true
+            });
         }
     </script>
 

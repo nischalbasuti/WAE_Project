@@ -2,6 +2,9 @@ class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
 
+  skip_before_action :verify_authenticity_token, :only => [ :update_activities ]
+  skip_authorize_resource :only => [ :update_activities ]
+
   # GET /activities
   # GET /activities.json
   def index
@@ -25,6 +28,8 @@ class ActivitiesController < ApplicationController
     end
     begin
       @activity.event = Event.find(params[:event_id])
+      @activity.start_time = @activity.event.start_time
+      @activity.end_time = @activity.event.start_time
     rescue
       flash[:error] = "Couldn't find event with id #{params[:event_id]}"
       redirect_back fallback_location: root_path
@@ -75,6 +80,26 @@ class ActivitiesController < ApplicationController
       format.html { redirect_to activities_url, notice: 'Activity was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def update_activities
+    logger = Logger.new STDOUT
+    # event = Event.find(params[:event_id])
+
+    params[:activities].each do |a| 
+      activity            = Activity.find(a[:id].to_i)
+      activity.start_time = DateTime.parse(a[:startTime])
+      activity.end_time   = DateTime.parse(a[:endTime])
+      if activity.save
+        flash[:alert] = "Updated Activities"
+      else 
+        flash[:error] = "Failed to update activities"
+        render :json => { message: flash[:error] }
+        return
+      end
+    end
+    render :json => { message: flash[:alert] }
+    return
   end
 
   private
