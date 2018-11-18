@@ -2,10 +2,6 @@ class Activity < ApplicationRecord
   belongs_to :event
   has_many :requirements, dependent: :destroy
 
-<<<<<<< HEAD
-  validates_datetime :end_time, :after => :start_time
-  validates_date :start_time, :on => :edit,  :on_or_after => lambda { Date.current } 
-=======
   before_save :validate_dates
 
   def valid_dates?
@@ -22,5 +18,4 @@ class Activity < ApplicationRecord
     end
   end
 
->>>>>>> edff956519b17c3d58249bc800301a4e90335711
 end
