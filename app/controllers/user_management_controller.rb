@@ -1,6 +1,7 @@
 class UserManagementController < ApplicationController
-  authorize_resource :class => false
+  authorize_resource :class => false, :except=> :profile
   skip_before_action :verify_authenticity_token, :only => :update_users
+
 
   def profile    
   end
