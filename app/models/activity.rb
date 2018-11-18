@@ -3,6 +3,7 @@ class Activity < ApplicationRecord
   has_many :requirements, dependent: :destroy
 
   before_save :validate_dates
+  before_create :validate_dates
 
   def valid_dates?
     # Checking (1) if the activites start and end time lie between the duration
