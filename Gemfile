@@ -107,4 +107,4 @@ gem 'date_picker'
 
 gem 'validates_timeliness', '~> 5.0.0.alpha3'
 
-gem 'simplecov', require: false, group: :test
+gem "simple_calendar", "~> 2.0"
