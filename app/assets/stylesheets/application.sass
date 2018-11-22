@@ -56,6 +56,13 @@ h1, h2, h3, h4, h5, h6
   font: 25px arial, sans-serif
 
 .simple-calendar 
+  td, th
+      // display: inline-block
+      border-radius: 5px
+      background-color: #369
+      color: white
+      border: 5px solid white
+
   // a
   //   color: black
 
@@ -84,11 +91,19 @@ h1, h2, h3, h4, h5, h6
   .future
     background: #dbe8ff
 
-  // .start-date {}
+  // .start-date
 
-  // .prev-month {}
-  // .next-month { }
-  // .current-month {}
+  .prev-month
+    color: grey
+    background: #e0e0e0
+    a
+      color: grey
+  .next-month
+    color: grey
+    background: #e0e0e0
+    a
+      color: grey
+  // .current-month
 
   // .has-events
   //   background: red

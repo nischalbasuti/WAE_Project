@@ -15,16 +15,22 @@
 <%# <%= week_calendar number_of_weeks: 2, events: @events do |date, events| %1> %>
 <%= month_calendar events: @events do |date, events| %>
 
+    <% if current_user.admin? or current_user.chair? %>
+        <span class="new_event" style="float:right;">
+        <a href='<%= "/events/new?start_date=#{date}"%>'><i class='fas fa-plus'></i></a>
+        </span>
+    <% end %>
+
     <div class="date">
         <%= date.day %>
     </div>
 
-  <% events.each do |event| %>
-      <div class="event">
-          <%= link_to event.name, event %>
-      </div>
-      <br>
-  <% end %>
+    <% events.each do |event| %>
+        <div class="event">
+            <%= link_to event.name, event %>
+        </div>
+        <br>
+    <% end %>
 <% end %>
 
 <table class="table table-hover">
