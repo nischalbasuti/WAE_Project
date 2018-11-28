@@ -1,11 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user: one
-  event: one
-  role: MyString
+  id: "1"
+  user_id: "1"
+  event_id: "1"
+  role: "admin"
+  created_at: "2018-11-15 16:43:53"
+  updated_at: "2018-11-15 16:44:05"
 
 two:
-  user: two
-  event: two
-  role: MyString
+  id: "2"
+  user_id: "2"
+  event_id: "2"
+  role: "member"
+  created_at: "2018-11-15 16:43:53"
+  updated_at: "2018-11-15 16:44:05"

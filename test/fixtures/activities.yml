@@ -1,15 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyText
-  start_time: 2018-10-31 16:03:21
-  end_time: 2018-10-31 16:03:21
-  event: one
+  id: "1"
+  name: "Myactivity1"
+  description: "Descriptionbrrb"  
+  start_time: "2018-11-15 16:44:22"
+  end_time: "2018-11-17 14:38:14"
+  event_id: "1"
+  created_at: "2018-11-15 16:44:22"
+  updated_at: "2018-11-17 14:38:14"
 
 two:
-  name: MyString
-  description: MyText
-  start_time: 2018-10-31 16:03:21
-  end_time: 2018-10-31 16:03:21
-  event: two
+  id: "2"
+  name: "Myactivity2"
+  description: "Descriptionbrrb"  
+  start_time: "2018-10-31 16:03:21"
+  end_time: "2018-10-31 16:03:21"
+  event_id: "1"
+  created_at: "2018-11-15 16:44:22"
+  updated_at: "2018-11-17 14:38:14"

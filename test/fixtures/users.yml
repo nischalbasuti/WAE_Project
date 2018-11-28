@@ -4,10 +4,47 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one:
-  email: asldkfjsfd@asdfs.com
+admin:
+  id: "1"
+  email: "admin@asdfs.com"
+  created_at: "2018-10-15 16:24:07"
+  updated_at: "2018-10-16 14:15:42"
   encrypted_password: <%= User.new.send(:password_digest, 'password') %>
-  global_role: admin
+  global_role: "admin"
+  department_id: "1"
+  nationality: "Thai"
+  google_id: "114489500600175606705"
 #
-two: {}
+chair: 
+  id: "2"
+  email: "chair@asdfs.com"
+  created_at: "2018-10-14 16:24:07"
+  updated_at: "2018-10-16 14:15:42"
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  global_role: "chair"
+  department_id: "1"
+  nationality: "Thai"
+  google_id: "114489500600175606705"
+
+member: 
+  id: 3
+  email: "member@asdfs.com"
+  created_at: "2018-10-15 16:24:07"
+  updated_at: "2018-10-16 14:15:42"
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  global_role: "member"
+  department_id: "1"
+  nationality: "Thai"
+  google_id: "114489500600175606705"
+
+banned: 
+  id: 4
+  email: "banned@asdfs.com"
+  created_at: "2018-10-15 16:24:07"
+  updated_at: "2018-10-16 14:15:42"
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  global_role: "banned"
+  department_id: "1"
+  nationality: "Thai"
+  google_id: "114489500600175606705"
 # column: value

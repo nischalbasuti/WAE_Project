@@ -1,11 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  author_name: MyString
-  category: MyString
-  quote: MyText
+  id: "1"
+  author_name: "creator1"
+  category: "category1"
+  quote: "quote1"
+  created_at: "2018-11-15 16:43:53"
+  updated_at: "2018-11-15 16:44:05"
 
 two:
-  author_name: MyString
-  category: MyString
-  quote: MyText
+  id: "2"
+  author_name: "creator2"
+  category: "category2"
+  quote: "quote2"
+  created_at: "2018-11-15 16:43:53"
+  updated_at: "2018-11-15 16:44:05"
+
+

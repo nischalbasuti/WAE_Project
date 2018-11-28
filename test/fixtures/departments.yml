@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  code: MyString
+  id: 1
+  name: "Department1"
+  code: "D123"
 
 two:
-  name: MyString
-  code: MyString
+  id: 2
+  name: "Department2"
+  code: "D456"

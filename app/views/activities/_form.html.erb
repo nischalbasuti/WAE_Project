@@ -37,7 +37,8 @@
     <%= form.text_field :event_id %> -->
 
     <%= form.label :event_id do %>
-        <i class="far fa-calendar"></i></i> <b>Event :</b>  <%= activity.event.name %>
+        <i class="far fa-calendar"></i></i> <b>Event :</b> <%= @activity.event.name %>  
+        <%= form.hidden_field :event_id ,:value => @activity.event_id %>
       <% end %> <br />
   </div>
 

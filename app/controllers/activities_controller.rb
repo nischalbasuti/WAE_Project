@@ -63,13 +63,10 @@ class ActivitiesController < ApplicationController
   def update
     respond_to do |format|
       if @activity.update(activity_params)
-        if @activity.validates_date :start_time, :after => :now
+        
            format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }
            format.json { render :show, status: :ok, location: @activity }
-        else 
-            flash.alert = "The date is wrong!"
-        end
-        
+             
         
       else
         format.html { render :edit }
