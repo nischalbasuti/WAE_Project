@@ -542,105 +542,6 @@
         1,
         null
       ],
-      "/home/ruangtiwa/web18-07/app/controllers/home_controller.rb": [
-        1,
-        1,
-        null,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/controllers/application_controller.rb": [
-        1,
-        1,
-        0,
-        null,
-        0,
-        null,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/helpers/application_helper.rb": [
-        1,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/helpers/activities_helper.rb": [
-        1,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/helpers/departments_helper.rb": [
-        1,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/helpers/devise_helper.rb": [
-        1,
-        1,
-        0,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        0,
-        null,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/helpers/events_helper.rb": [
-        1,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/helpers/forums_helper.rb": [
-        1,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/helpers/home_helper.rb": [
-        1,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/helpers/profile_helper.rb": [
-        1,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/helpers/ps1_helper.rb": [
-        1,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/helpers/ps2_helper.rb": [
-        1,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/helpers/ps4_helper.rb": [
-        1,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/helpers/registration_helper.rb": [
-        1,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/helpers/requirements_helper.rb": [
-        1,
-        null
-      ],
-      "/home/ruangtiwa/web18-07/app/helpers/user_management_helper.rb": [
-        1,
-        null
-      ],
       "/home/ruangtiwa/web18-07/app/controllers/ps2_controller.rb": [
         1,
         1,
@@ -766,6 +667,105 @@
         null,
         null
       ],
+      "/home/ruangtiwa/web18-07/app/controllers/application_controller.rb": [
+        1,
+        1,
+        0,
+        null,
+        0,
+        null,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/helpers/application_helper.rb": [
+        1,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/helpers/activities_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/helpers/departments_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/helpers/devise_helper.rb": [
+        1,
+        1,
+        0,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/helpers/events_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/helpers/forums_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/helpers/home_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/helpers/profile_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/helpers/ps1_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/helpers/ps2_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/helpers/ps4_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/helpers/registration_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/helpers/requirements_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/helpers/user_management_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/controllers/home_controller.rb": [
+        1,
+        1,
+        null,
+        null
+      ],
       "/home/ruangtiwa/web18-07/app/controllers/ps1_controller.rb": [
         1,
         1,
@@ -811,10 +811,16 @@
         1,
         1,
         1,
-        23,
-        23,
-        23,
+        27,
+        27,
+        27,
         null,
+        null,
+        null
+      ],
+      "/home/ruangtiwa/web18-07/app/controllers/ps4_controller.rb": [
+        1,
+        1,
         null,
         null
       ],
@@ -902,14 +908,8 @@
         4,
         null,
         null
-      ],
-      "/home/ruangtiwa/web18-07/app/controllers/ps4_controller.rb": [
-        1,
-        1,
-        null,
-        null
       ]
     },
-    "timestamp": 1542642767
+    "timestamp": 1543396475
   }
 }
