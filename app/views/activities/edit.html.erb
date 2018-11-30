@@ -1,22 +1,17 @@
-<style>
-#btn-edit {
-  
-    position: absolute;
-    margin-top: 423px;
-    margin-left: 400px;
 
-}
-</style>
 
 <h2  class="text-center" style="color:#1a001a;" > <i class="fas fa-edit"></i> Editing <%= @activity.name %></h2>
+
+
+<div class="text-center">
+	
+	<%= link_to '<button type="button" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Back to the activity</button>'.html_safe, activity_path(@activity) %>
+
+</div>
 
 <br>
 
 <%= render 'form', activity: @activity %>
 
-<div id="btn-edit">
-	
-<%= link_to '<button type="button" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Back to the activity</button>'.html_safe, activity_path(@activity) %>
 
-</div>
 

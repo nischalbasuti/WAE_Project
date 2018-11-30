@@ -20,6 +20,11 @@
 //= require highcharts
 //= require chartkick
 //= require jquery-ui
+
+
+
 //= require_tree .
 
 //= require turbolinks
+
+

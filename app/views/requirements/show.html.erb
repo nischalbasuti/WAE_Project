@@ -1,19 +1,54 @@
-<p id="notice"><%= notice %></p>
+<style>
+  
+  #td-fix{
 
-<p>
-  <strong>Title:</strong>
-  <%= @requirement.title %>
-</p>
+    table-layout: fixed;
+    word-wrap:break-word;
+}
+  
 
-<p>
-  <strong>Description:</strong>
-  <%= @requirement.description %>
-</p>
+</style>
 
-<p>
-  <strong>Activity:</strong>
-  <td> <%= link_to @requirement.activity.name, @requirement.activity %> </td>
-</p>
+<br>
 
-<%= link_to 'Edit', edit_requirement_path(@requirement) %> |
-<%= link_to 'Back', requirements_path %>
+<h2 class="text-center" style="color:#1a001a;" ><i class="far fa-file-alt"></i> <%= @requirement.title %></h2>
+
+<br>
+
+<div class="text-center">
+
+<% if @requirement.satisfied == true %>
+                <!-- satisfied = true -->
+   <h4 style="color:green;"><i class="fas fa-check-circle"></i> Approved</h4> 
+
+<% else %> 
+  <!-- non-satisfied -->
+   <h4 style="color:red;"><i class="fas fa-times-circle"></i></i> Not approve</h4>  
+
+<% end %>
+	
+</div>
+
+
+<table class="table table-borderless">
+	
+	<tbody>
+		<tr>
+			<th> <i class="fas fa-dice-d6"></i>  <strong> Activity: </strong> </th>
+			<td> <%= link_to @requirement.activity.name, @requirement.activity %> </td>
+		</tr>
+
+		<tr>
+			<th> <i class="fas fa-clipboard-list"></i> <strong> Description: </strong></th>
+			<td><div style = "width:800px; word-wrap: break-word"> <%= @requirement.description %> </div>  </td>
+		</tr>
+	</tbody>
+
+
+</table>
+
+<%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_requirement_path(@requirement) %>  
+
+<%= link_to '<button type="button" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Back to the event</button>'.html_safe, activity_path(@requirement.activity_id) %>  
+
+

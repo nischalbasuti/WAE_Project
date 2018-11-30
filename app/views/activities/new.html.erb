@@ -2,21 +2,23 @@
 #btn-new {
   
     position: absolute;
-    margin-top: 447px;
+    margin-top: 450px;
     margin-left: 400px;
 
 }
 </style>
 
-
 <h2  class="text-center" style="color:#1a001a;" > <i class="far fa-plus-square"></i> New Activity</h2>
+
+<br>
+
+<div class="text-center">
+	
+	<%= link_to '<button type="button" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Back to the event</button>'.html_safe, :back %>
+
+</div>
 
 
 <%= render 'form', activity: @activity %>
 
 
-<div id="btn-new">
-	
-<%= link_to '<button type="button" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Back to the event</button>'.html_safe, events_path(@activity.event_id) %>
-
-</div>

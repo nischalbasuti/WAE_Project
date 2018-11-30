@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'profile/events'
+  
   resources :departments
   resources :forums do
     collection do
@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get 'login/create', to: 'logins#create', as: :create_login
   # root 'home#index'
   root 'events#index'
+  get 'profile/events'
   get 'ps2/index'
   get 'ps2/quotation'
   get 'ps1/index'

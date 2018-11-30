@@ -20,53 +20,123 @@
         border-bottom-right-radius: 30px; 
         border-top-right-radius: 30px; 
     }
+
+    #td-fix {
+        table-layout: fixed;
+        word-wrap:break-word;
+    }
+
 </style>
 
-<p id="notice"><%= notice %></p>
+<h2 class="text-center" style="color:#1a001a;" > <i class="far fa-calendar-alt"></i> <%= @event.name %></h2>
 
-<p>
-  <strong>Name:</strong>
-  <%= @event.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @event.description %>
-</p>
-
-<p>
-  <strong>Start time:</strong>
-  <%= @event.start_time %>
-</p>
-
-<p>
-  <strong>End time:</strong>
-  <%= @event.end_time %>
-</p>
-
+<div class="text-center">
+    
 <% if current_user.admin? or current_user.chair? %>
-    <%= link_to "Manage Event", '/events/manage?id='+@event.id.to_s %> |
-    <%= link_to 'Edit', edit_event_path(@event) %> |
+
+    <%= link_to '<button type="button" class="btn btn-warning"><i class="fas fa-angle-double-left"></i> Back </button>'.html_safe, events_path%>
+    <%= link_to '<button type="button" class="btn"><i class="fas fa-user-edit"></i> Manage Event </button>'.html_safe, '/events/manage?id='+@event.id.to_s %>  
+    <!-- <%= link_to "Manage Event", '/events/manage?id='+@event.id.to_s %> --> 
+    <%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_event_path(@event) %>  
+    <!-- <%= link_to 'Edit', edit_event_path(@event) %> -->
 <% end %>
-<%= link_to 'Back', events_path %>
+
+</div>
 
 <hr>
+
+<div>
+
 <% if current_user.user_events.where(user: current_user,event: @event).count == 0 %>
   <%= form_tag(:action => 'register', :class => 'form') do %>
     <%= hidden_field_tag 'user_id', current_user.id%>
     <%= hidden_field_tag 'event_id', @event.id%>
     <%= submit_tag "Register", :id => "submit", :name => "submit", :class => "btn btn-success form_submit", :disabled => false, :disable_with => "Please wait..." %>
   <% end %>
+
 <% else %>
-  <%= form_tag(:action => 'unregister', :class => 'form') do %>
-    <%= hidden_field_tag 'user_id', current_user.id%>
-    <%= hidden_field_tag 'event_id', @event.id%>
-    <%= submit_tag "Unregister", :id => "submit", :name => "submit", :class => "btn btn-danger form_submit", :disabled => false, :disable_with => "Please wait..." %>
-  <% end %>
+
+    <div class="row">
+
+        <div class="col-md-4">           
+           
+        </div>
+
+        <div class="col-md-2">
+            
+            <button class="btn btn-success"> <i class="fas fa-check-circle"></i> <strong>You registered!</strong> </button>
+            
+        </div>
+
+        <div class="col-md-1">
+            
+           <p class="text-center"> <strong>or</strong>  </p>
+            
+        </div>
+
+        <div class="col-md-1">
+            <%= form_tag(:action => 'unregister', :class => 'form') do %>
+            <%= hidden_field_tag 'user_id', current_user.id%>
+            <%= hidden_field_tag 'event_id', @event.id%>
+
+            <div class="actions">
+                  <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-danger", :disabled => false, :disable_with => "Please wait...") do %>
+                    <i class="far fa-calendar-times"></i> Unregister! 
+                  <% end %>
+            </div>
+            <!-- <%= submit_tag "Unregister", :id => "submit", :name => "submit", :class => "btn btn-danger form_submit", :disabled => false, :disable_with => "Please wait..." %> -->
+        </div>
+
+        <div class="col-md-4">           
+           
+        </div>
+        
+    </div>
+        
 <% end %>
 <hr>
 
-<h4>Activities:</h4>
+<% end %>
+
+</div>
+
+
+
+
+<table class="table table-borderless">
+    
+    <tbody>
+
+        <tr>
+            <th> <i class="fas fa-clock"></i> <strong>Start time :</strong></th>
+            <td class="text-left">
+                <%= @event.start_time.to_time.strftime('%e %B %Y at %l:%M %p') %>
+            </td>
+        </tr>
+
+        <tr>
+            <th> <i class="fas fa-clock"></i> <strong>End time :</strong></th>
+            <td class="text-left">
+                <%= @event.end_time.to_time.strftime('%e %B %Y at %l:%M %p') %>
+            </td>
+        </tr>
+
+        <tr>
+            <th> <i class="fas fa-clipboard-list"></i> <strong> Description: </strong></th>
+            <td><div class="text-left" style = "width:800px; word-wrap: break-word"> <%= @event.description %> </div> </td>
+        </tr>
+
+    </tbody>
+
+
+</table>
+
+
+<hr>
+
+<hr>
+
+<h4>Activities :</h4>
     <table class="table table-hover">
         <thead>
             <tr>

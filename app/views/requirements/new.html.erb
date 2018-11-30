@@ -1,5 +1,13 @@
-<h1>New Requirement</h1>
+
+
+<h2  class="text-center" style="color:#1a001a;" > <i class="far fa-plus-square"></i> New Requirement</h2>
+
+
+<div class="text-center">
+
+	<%= link_to '<button type="button" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Back to the event</button>'.html_safe, :back %>
+	
+</div>
 
 <%= render 'form', requirement: @requirement %>
 
-<%= link_to 'Back', requirements_path %>

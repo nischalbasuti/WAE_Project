@@ -1,32 +1,86 @@
-<%= form_with(model: requirement, local: true) do |form| %>
-  <% if requirement.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(requirement.errors.count, "error") %> prohibited this requirement from being saved:</h2>
+<style>
+#message_area {
+  width: 545px;
+  height: 100px;
+}
 
-      <ul>
-      <% requirement.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+#edit-req {
+  
+    border: 2px solid grey;
+    width: 600px;
+    height: 380px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -290px;
+    margin-left: -290px;
+    padding-top: 20px;
+    padding-right: 30px;
+    padding-bottom: 50px;
+    padding-left: 20px;
+}
+
+</style>
+
+
+
+<div id="edit-req">
+
+  <%= form_with(model: requirement, local: true) do |form| %>
+    <% if requirement.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(requirement.errors.count, "error") %> prohibited this requirement from being saved:</h2>
+
+        <ul>
+        <% requirement.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.hidden_field :activity_id %>
+
+      <%= form.label :activity_id do %>
+        <i class="far fa-calendar"></i></i> <b>Activity :</b> <%= @requirement.activity.name %>  
+        <%= form.hidden_field :activity_id ,:value => @requirement.activity_id %>
+      <% end %> <br />
+
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
+    <div class="field">
+      <!-- <%= form.label :title %> -->
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
+      <%= form.label :title do %>
+        <i class="fas fa-clipboard"></i> <b>Title :</b> 
+      <% end %> <br />
 
-  <div class="field">
-    <%= form.label :activity_id %>
-    <%= form.text_field :activity_id %>
-  </div>
+      <%= form.text_field :title , :class=> "form-control"%>
+    </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+    <br>
+
+    <div class="field">
+      <!-- <%= form.label :description %> -->
+
+      <%= form.label :description do %>
+        <i class="fas fa-clipboard-list"></i> <b>Description :</b> 
+      <% end %> <br />
+
+      <%= form.text_area :description , :id => "message_area"  , :class=> "form-control" %>
+    </div>    
+
+    <br>
+
+    <div class="actions">
+      <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait...") do %>
+        <i class="fas fa-pen"></i> Submit 
+      <% end %>
+    </div>
+
+  <% end %> 
+
+</div>
+
+
