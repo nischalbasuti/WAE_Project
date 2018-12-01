@@ -1,9 +1,21 @@
 <div class="simple-calendar">
+  <center>
   <div class="calendar-heading">
-    <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %>
-    <span class="calendar-title"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></span>
-    <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view %>
+    
+    <!-- <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %> -->
+
+    <%= link_to '<button type="button" class="btn btn-default"><i class="fas fa-angle-double-left"></i> </button>'.html_safe, calendar.url_for_previous_view %>
+
+    <span class="calendar-title">  <strong> <i class="fas fa-calendar-minus"></i> Events of  <%= t('date.month_names')[start_date.month] %> <%= start_date.year %> </strong> </span> 
+
+    <!-- <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view %> -->
+    <%= link_to '<button type="button" class="btn btn-default"><i class="fas fa-angle-double-right"></i> </button>'.html_safe, calendar.url_for_next_view %>
+
+
   </div>
+ </center>
+
+ <br>
 
   <table class="table table-striped">
     <thead>

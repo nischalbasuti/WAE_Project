@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  
+
+  resources :profiles do
+    get 'events/:events', action: :events, on: :collection
+  end
   resources :departments
   resources :forums do
     collection do
@@ -11,6 +14,7 @@ Rails.application.routes.draw do
   end
   resources :requirements do
       collection do
+      get :unapproved
       get :approve
     end
   end
@@ -60,8 +64,6 @@ Rails.application.routes.draw do
   get 'events/manage'
   get 'user_management/profile'
   get 'user_management/edit'
-  get 'requirements/approve'
-  get 'requirements/unapprove'
   post '/profile/update'
   post 'users/sign_up'
   post 'user_management/edit'

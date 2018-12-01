@@ -14,6 +14,8 @@ class ProfileController < ApplicationController
 	end
 
   def events
-    @events = current_user.events
+  	# @e = Event.order(:name).page params[:page]
+    @events = current_user.events.order(:name).page params[:page]
+
   end
 end

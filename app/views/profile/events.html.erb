@@ -1,50 +1,65 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p> -->
+<style>
+#head {
+    background-color: #b1eabe;
+    width: 300px;
+    /*border-radius: 10%;*/
+    padding: 15px;
+    /*margin: 25px;*/
+    text-align: center;
+}
+</style>
+<h3 id="head" > <i  class="far fa-calendar-check"></i> Registered Events</h3>
 
-<h1>Events you're registered to</h1>
+<hr>
 
-<%= month_calendar events: @events do |date, events| %>
+<% if params[:view] == "table" %>
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th><div style = "width:330px; word-wrap: break-word"> Name</th>
+        <!-- <th>Description</th> -->
+        <th colspan="2"><div class="text-center">Time </div></th>
+        <!-- <th>End time</th> -->
+        <!-- <th colspan="3"></th> -->
+      </tr>
+    </thead>
 
-    <div class="date">
-        <%= date.day %>
-    </div>
+    <tbody>
+      <% @events.each do |event| %>
+        <tr>
+          <td><%= link_to event.name, event %></td>
+          <!-- <td><%= event.description %></td> -->
+          <td colspan="2"> <div class="text-center"> <%= event.start_time.to_time.strftime('%e %B %Y at %l:%M %p') %> &nbsp; <b>to</b> &nbsp; <%= event.end_time.to_time.strftime('%e %B %Y at %l:%M %p') %> </div> </td>
+          <!-- <td></td> -->
+          <!-- <% if user_signed_in?  %>
+              <% if current_user.admin? or current_user.chair? %>
+                  <td><%= link_to 'Edit', edit_event_path(event) %></td>
+                  <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
+          <% end %> -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <br>
+  <%= month_calendar events: @events do |date, events| %>
 
-  <% events.each do |event| %>
-      <div class="event">
-          <%= link_to event.name, event %>
-      </div>
-      <br>
+        <div class="date">
+            <%= date.day %>
+        </div>
+
+      <% events.each do |event| %>
+          <div class="event">
+              <%= link_to event.name, event %>
+          </div>
+          <br>
+      <% end %>
   <% end %>
 <% end %>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Start time</th>
-      <th>End time</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<hr>
 
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= link_to event.name, event %></td>
-        <td><%= event.description %></td>
-        <td><%= event.start_time %></td>
-        <td><%= event.end_time %></td>
-        <% if user_signed_in?  %>
-            <% if current_user.admin? or current_user.chair? %>
-                <td><%= link_to 'Edit', edit_event_path(event) %></td>
-                <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <% end %>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
-
-<%= link_to 'New Event', new_event_path %>
+<!-- <%= link_to 'New Event', new_event_path %> -->
