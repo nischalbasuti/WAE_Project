@@ -12,8 +12,7 @@
  *
  *= require jquery-ui
  *= require commontator/application
-
- 
+ *= require simple_calendar
  */
 
 @import "bootstrap"
@@ -53,3 +52,61 @@ h1, h2, h3, h4, h5, h6
 .notice
   padding: 0px
   margin: 0px
+
+.calendar-title 
+  font-size: 25px
+
+.simple-calendar 
+  td, th
+    border-radius: 5px
+    background-color: #31b0d5
+    // background-color: #369
+    color: white
+    border: 5px solid white
+
+  .fa-plus
+    color: #31b0d5
+
+  // .event
+  //   background: #2176ff
+  //   color: white
+  //   margin: 1px
+    
+  .date
+    color: grey
+  
+  .day 
+    font-weight: bold
+  // .wday-0 {}
+  // .wday-1 {}
+  // .wday-2 {}
+  // .wday-3 {}
+  // .wday-4 {}
+  // .wday-5 {}
+  // .wday-6 {}
+
+  .today
+    background: #c6ffcf
+  .past 
+    background: #ffdbdb
+  .future
+    background: #dbe8ff
+
+  // .start-date
+
+  .prev-month
+    color: grey
+    background: #e0e0e0
+    a
+      color: grey
+  .next-month
+    color: grey
+    background: #e0e0e0
+    a
+      color: grey
+  // .current-month
+
+  // .has-events
+  //   background: red
+
+

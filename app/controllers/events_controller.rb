@@ -24,6 +24,8 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = Event.new
+    @event.start_time = DateTime.parse(params[:start_date])
+    @event.end_time = DateTime.parse(params[:start_date])
   end
 
   # GET /events/1/edit

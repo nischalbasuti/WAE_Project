@@ -6,7 +6,30 @@
     <%= link_to '<button type="button" class="btn btn-info"><i class="far fa-calendar-plus"></i> <strong>New Event </strong> </button>'.html_safe, new_event_path %>  
 
     <%= link_to '<button type="button" class="btn btn-warning"><i class="far fa-calendar-check"></i> <strong>Registered Events </strong> </button>'.html_safe, "/profile/events" %>  
+<% end %>
+<hr>
 
+<style type="text/css" media="screen"></style>
+
+<%# <%= week_calendar number_of_weeks: 2, events: @events do |date, events| %1> %>
+<%= month_calendar events: @events do |date, events| %>
+
+    <% if current_user.admin? or current_user.chair? %>
+        <span class="new_event" style="float:right;">
+        <a href='<%= "/events/new?start_date=#{date}"%>'><i class='fas fa-plus'></i></a>
+        </span>
+    <% end %>
+
+    <div class="date">
+        <%= date.day %>
+    </div>
+
+    <% events.each do |event| %>
+        <div class="event">
+            <%= link_to event.name, event %>
+        </div>
+        <br>
+    <% end %>
 <% end %>
 
 <br><br>
