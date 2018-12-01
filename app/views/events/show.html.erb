@@ -162,6 +162,8 @@
                 <tr>                    
                     <td colspan="5" class="table-secondary text-left">
                         <div id="update_btn" style="float:right;display:none;">
+                            <%= link_to "Discard Changes",  "", remote:false, :onclick => "#", :class => "btn"%> 
+
                             <%= link_to "Update Activities",  "", remote:true, :onclick => "return updateActivities(#{@event.id})", :class => "btn btn-success"%> 
                         </div>
                     </td>
