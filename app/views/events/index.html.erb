@@ -1,9 +1,9 @@
 
-<h2 class="text-center"> <i class="far fa-calendar-alt"></i> Events</h2>
+<!-- <h2 class="text-center"> <i class="far fa-calendar-alt"></i> Events</h2> -->
 
 <% if user_signed_in? %>
     <!-- <%= link_to "Registered Events", "/profile/events" %> -->
-    <%= link_to '<button type="button" class="btn btn-info"><i class="far fa-calendar-plus"></i> <strong>New Event </strong> </button>'.html_safe, new_event_path %>  
+    <%= link_to '<button type="button" class="btn btn-success"><i class="far fa-calendar-plus"></i> <strong>New Event </strong> </button>'.html_safe, new_event_path %>  
 
     <%= link_to '<button type="button" class="btn btn-warning"><i class="far fa-calendar-check"></i> <strong>Registered Events </strong> </button>'.html_safe, "/profile/events" %>  
 <% end %>
@@ -32,8 +32,7 @@
     <% end %>
 <% end %>
 
-<br><br>
-
+<!-- 
 <table class="table table-hover">
   <thead>
     <tr>
@@ -65,3 +64,4 @@
 
 <br>
 
+-->
