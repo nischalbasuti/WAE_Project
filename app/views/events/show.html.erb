@@ -147,7 +147,7 @@
 
                     <td><%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_activity_path(activity) %> 
                         <!--<%= link_to 'Edit', edit_activity_path(activity) %> --> </td>
-                    <td><%= link_to '<button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Destroy </button>'.html_safe, activity_path , method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <td><%= link_to '<button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Destroy </button>'.html_safe, "/activities/#{activity.id}" , method: :delete, data: { confirm: 'Are you sure?' } %>
 
                         <!-- <%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %> --> </td>
                     <% end %>
