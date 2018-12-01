@@ -52,6 +52,10 @@ class ActivitiesController < ApplicationController
         format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
         format.json { render :show, status: :created, location: @activity }
       else
+        if not @activity.valid_dates?
+          flash[:alert] = "Dates should be between
+          #{@activity.event.start_time} and #{@activity.event.start_time}"
+        end
         format.html { render :new }
         format.json { render json: @activity.errors, status: :unprocessable_entity }
       end
@@ -66,9 +70,11 @@ class ActivitiesController < ApplicationController
         
            format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }
            format.json { render :show, status: :ok, location: @activity }
-             
-        
       else
+        if not @activity.valid_dates?
+          flash[:alert] = "Dates should be between
+          #{@activity.event.start_time} and #{@activity.event.start_time}"
+        end
         format.html { render :edit }
         format.json { render json: @activity.errors, status: :unprocessable_entity }
       end
