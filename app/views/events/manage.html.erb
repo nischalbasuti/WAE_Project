@@ -19,29 +19,35 @@
             <table class="table ">
                 <% user.user_events.where(event: @event).each do |user_event| %>
                     <tr>
-                        <%= form_tag(:action => 'delete_user_event', :class => 'form') do |f| %>
-                            <%= hidden_field_tag 'user_id', user.id  %>
-                            <%= hidden_field_tag 'event_id', @event.id  %>
-                            <%= hidden_field_tag 'role', user_event[:role]  %>
+                        <td>
+                            <%= form_tag(:action => 'delete_user_event', :class => 'form') do %>
+                                <%= hidden_field_tag 'user_id', user.id  %>
+                                <%= hidden_field_tag 'event_id', @event.id  %>
+                                <%= hidden_field_tag 'role', user_event[:role]  %>
 
-                            <td>
-                                <%= user_event[:role] %>
-                            </td>
-                            <td>
-                                <%= submit_tag "remove role", :id => "submit", :name => "submit", :class => "form_submit btn btn-danger", :disabled => false, :disable_with => "Please wait..." %>
+                                <div style="float:left;">
+                                    <%= user_event[:role] %>
+                                </div>
+                                <div style="float:right;">
+                                    <%= submit_tag "remove role", :id => "submit", :name => "submit", :class => "form_submit btn btn-danger", :disabled => false, :disable_with => "Please wait..." %>
+                                </div>
                             </td>
                         <% end %>
                     </tr>
                 <% end %>
                 <tr>
-                    <%= form_tag(:action => 'update_user_event', :class => 'form') do |f| %>
-                        <%= hidden_field_tag 'user_id', user.id  %>
-                        <%= hidden_field_tag 'event_id', @event.id  %>
-                        <td>
-                            <%= select_tag(:role, options_for_select(@role_options, user.user_events.first[:role]), :class=> "form-control event_role") %>
-                        </td>
-                        <td>
-                            <%= submit_tag "Add role", :id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait..." %>
+                    <td>
+                        <%= form_tag(:action => 'update_user_event', :class => 'form') do %>
+                            <%= hidden_field_tag 'user_id', user.id  %>
+                            <%= hidden_field_tag 'event_id', @event.id  %>
+                            <div style="float:left;">
+                                <%= select_tag(:role, options_for_select(@role_options, user.user_events.first[:role]), :class=> "form-control event_role") %>
+                            </div>
+
+                            <div style="float:right;">
+                                <%= submit_tag "Add role", :id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait..." %>
+                            </div>
+
                         </td>
                     <% end %>
                 </tr>
@@ -53,26 +59,3 @@
   </table>
 </p>
 
-<script charset="utf-8">
-//    function update_user_event_roles(userid, eventid, role) {
-//        let data = {
-//            user_id: userid,
-//            event_id: eventid,
-//            role: role
-//        }
-//        console.log(data)
-//        function success_callback(data, textStatus, jqXHR) {
-//            alert("Changes successfully saved.")
-//            console.log(data, textStatus)
-//        }
-//        $.ajax({
-//            type: "POST",
-//            url: '/events/update_user_event',
-//            data: JSON.stringify(data),
-//            success: success_callback,
-//            dataType: "json",
-//            contentType: "application/json",
-//            processData: true
-//        });
-//    }
-</script>

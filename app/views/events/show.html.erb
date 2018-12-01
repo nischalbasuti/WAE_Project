@@ -31,14 +31,13 @@
 
 <div class="text-center">
     
-<% if current_user.admin? or current_user.chair? %>
-
     <%= link_to '<button type="button" class="btn btn-warning"><i class="fas fa-angle-double-left"></i> Back </button>'.html_safe, events_path%>
-    <%= link_to '<button type="button" class="btn"><i class="fas fa-user-edit"></i> Manage Event </button>'.html_safe, '/events/manage?id='+@event.id.to_s %>  
-    <!-- <%= link_to "Manage Event", '/events/manage?id='+@event.id.to_s %> --> 
-    <%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_event_path(@event) %>  
-    <!-- <%= link_to 'Edit', edit_event_path(@event) %> -->
-<% end %>
+    <% if current_user.admin? or current_user.chair? %>
+        <%= link_to '<button type="button" class="btn"><i class="fas fa-user-edit"></i> Manage Event </button>'.html_safe, '/events/manage?id='+@event.id.to_s %>  
+        <!-- <%= link_to "Manage Event", '/events/manage?id='+@event.id.to_s %> --> 
+        <%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_event_path(@event) %>  
+        <!-- <%= link_to 'Edit', edit_event_path(@event) %> -->
+    <% end %>
 
 </div>
 
@@ -46,6 +45,7 @@
 
 <div>
 
+    <%# checking if current_user is registered to this event. %>
     <% if current_user.user_events.where(user: current_user,event: @event).count == 0 %>
       <%= form_tag(:action => 'register', :class => 'form') do %>
         <%= hidden_field_tag 'user_id', current_user.id%>
@@ -111,7 +111,9 @@
 
 <h3 class="text-center" style="color:#1a001a;" > <i class="fas fa-location-arrow"></i> Activities of <%= @event.name %></h3>
 
-<%= link_to '<button type="button" class="btn btn-primary"><i class="fas fa-plus-square"></i> Add new Activity</button>'.html_safe, "/activities/new?event_id=#{@event.id}" %>
+<% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
+    <%= link_to '<button type="button" class="btn btn-primary"><i class="fas fa-plus-square"></i> Add new Activity</button>'.html_safe, "/activities/new?event_id=#{@event.id}" %>
+<% end %>
 
 <!-- <%= link_to 'Add Activity', "/activities/new?event_id=#{@event.id}", :class=> "btn" %> -->
 
@@ -123,7 +125,7 @@
                 
                 <th><div style = "width:250px; word-wrap: break-word"> Start time</th>
                 <th><div style = "width:250px; word-wrap: break-word">End time</th>
-                <% if current_user.admin? or current_user.chair? %>
+                    <% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
                     
                     <th colspan="2"></th>
                     
@@ -143,11 +145,11 @@
                     <td class="startTime"><%= activity.start_time.to_time.strftime('%e %B %Y at %l:%M %p') %></td>
                     <td class="endTime"><%= activity.end_time.to_time.strftime('%e %B %Y at %l:%M %p') %></td>
 
-                    <% if current_user.admin? or current_user.chair? %>
+                    <% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
 
                     <td><%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_activity_path(activity) %> 
                         <!--<%= link_to 'Edit', edit_activity_path(activity) %> --> </td>
-                    <td><%= link_to '<button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Destroy </button>'.html_safe, activity_path , method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <td><%= link_to '<button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Destroy </button>'.html_safe, "/activities/#{activity.id}" , method: :delete, data: { confirm: 'Are you sure?' } %>
 
                         <!-- <%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %> --> </td>
                     <% end %>
@@ -155,11 +157,13 @@
                 </tr>
             <% end %>
         </tbody>
-        <% if current_user.admin? or current_user.chair? %>
+        <% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
             <tbody>
                 <tr>                    
                     <td colspan="5" class="table-secondary text-left">
-                        <%= link_to "Update Activities",  "", remote:true, :onclick => "return updateActivities(#{@event.id})", :class => "btn btn-success"%> 
+                        <div id="update_btn" style="float:right;display:none;">
+                            <%= link_to "Update Activities",  "", remote:true, :onclick => "return updateActivities(#{@event.id})", :class => "btn btn-success"%> 
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -170,7 +174,9 @@
 
 <h3 class="text-center" style="color:#1a001a;" > <i class="fas fa-chalkboard-teacher"></i> Forums of <%= @event.name %></h3>
 
-<%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-plus-circle"></i> Create new Forum</button>'.html_safe, "/forums/new?event_id=#{@event.id}" %>
+<% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
+    <%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-plus-circle"></i> Create new Forum</button>'.html_safe, "/forums/new?event_id=#{@event.id}" %>
+<% end %>
 
 <!-- <%= link_to "Create New Forum", "/forums/new?event_id=#{@event.id}" %> -->
 <br><br>
@@ -186,7 +192,7 @@
 
 <!-- The following is some bad hackey code, apologies to future me. -->
 
-<% if current_user.admin? or current_user.chair? %>
+<% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
     <script charset="utf-8">
 
         // Sort elements and swap start and end times of affected arrays.
@@ -197,6 +203,8 @@
                 
             },
             stop: (event, ui) => {
+                $('#update_btn').css("display", "")
+                $(".ui-sortable-handle").css("background", "lightsalmon")
                 currentState = $('#activity-rows').sortable("toArray")
                 // console.log(window.startState[ui.item.startPos], currentState[ui.item.index()]);
 
@@ -217,6 +225,18 @@
 
                     b.querySelector(".startTime").innerHTML = b.getAttribute('startTime')
                     b.querySelector(".endTime").innerHTML = b.getAttribute('endTime')
+
+
+                    // let aStartTime = new Date( a.getAttribute('startTime') )
+                    // let aEndTime = new Date( a.getAttribute('endTime') )
+
+                    // let bStartTime = new Date( b.getAttribute('startTime') )
+                    // let bEndTime = new Date( b.getAttribute('endTime') )
+                    // a.querySelector(".startTime").innerHTML = aStartTime.toTimeString()
+                    // a.querySelector(".endTime").innerHTML = aEndTime.toDateString()
+
+                    // b.querySelector(".startTime").innerHTML = bStartTime.toDateString()
+                    // b.querySelector(".endTime").innerHTML = bEndTime.toDateString()
                 }
 
                 // Swap the moved element with the destination element, then move the
@@ -264,6 +284,7 @@
             function successCallback(data, textStatus, jqXHR) {
                 alert(data.message)
                 console.log(data, textStatus)
+                $(".ui-sortable-handle").css("background", "lightgreen")
             }
             $.ajax({
                 type: "POST",
