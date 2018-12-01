@@ -12,6 +12,14 @@ class RequirementsController < ApplicationController
     flash.alert = "The requirement has been approved!"
   end
 
+  def unapproved
+    # @requirement = Requirement.find_by_id(params[:id])
+    @requirement.satisfied = false
+    @requirement.save
+    redirect_back(fallback_location: activity_path(@requirement.activity_id))
+    flash.alert = "The requirement has been unapproved!"    
+  end
+
   def index
     @requirements = Requirement.all
   end

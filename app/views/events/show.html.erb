@@ -2,6 +2,8 @@
     table { 
         border-collapse: separate; 
         border-spacing: 0 10px; 
+        /*table-layout: fixed;*/
+        /*word-wrap:break-word;*/
     }
     td, th {
         border: solid 1px grey;
@@ -21,10 +23,7 @@
         border-top-right-radius: 30px; 
     }
 
-    #td-fix {
-        table-layout: fixed;
-        word-wrap:break-word;
-    }
+    
 
 </style>
 
@@ -47,61 +46,38 @@
 
 <div>
 
-<% if current_user.user_events.where(user: current_user,event: @event).count == 0 %>
-  <%= form_tag(:action => 'register', :class => 'form') do %>
-    <%= hidden_field_tag 'user_id', current_user.id%>
-    <%= hidden_field_tag 'event_id', @event.id%>
-    <%= submit_tag "Register", :id => "submit", :name => "submit", :class => "btn btn-success form_submit", :disabled => false, :disable_with => "Please wait..." %>
-  <% end %>
-
-<% else %>
-
-    <div class="row">
-
-        <div class="col-md-4">           
-           
+    <% if current_user.user_events.where(user: current_user,event: @event).count == 0 %>
+      <%= form_tag(:action => 'register', :class => 'form') do %>
+        <%= hidden_field_tag 'user_id', current_user.id%>
+        <%= hidden_field_tag 'event_id', @event.id%>
+        <!-- <%= submit_tag "Register the event!", :id => "submit", :name => "submit", :class => "btn btn-success form_submit", :disabled => false, :disable_with => "Please wait..." %> -->
+        <div class="actions">
+              <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-info", :disabled => false, :disable_with => "Please wait...") do %>
+                <i class="fas fa-user-plus"></i> Register the event! 
+              <% end %>
         </div>
+      <% end %>
+    <hr>
+    <% else %>
 
-        <div class="col-md-2">
-            
-            <button class="btn btn-success"> <i class="fas fa-check-circle"></i> <strong>You registered!</strong> </button>
-            
+        <%= form_tag(:action => 'unregister', :class => 'form') do %>
+        <%= hidden_field_tag 'user_id', current_user.id%>
+        <%= hidden_field_tag 'event_id', @event.id%>
+
+        <div class="actions">
+              <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-danger", :disabled => false, :disable_with => "Please wait...") do %>
+                <i class="far fa-calendar-times"></i> Unregister the event! 
+              <% end %>
         </div>
+        <!-- <%= submit_tag "Unregister", :id => "submit", :name => "submit", :class => "btn btn-danger form_submit", :disabled => false, :disable_with => "Please wait..." %> -->
 
-        <div class="col-md-1">
-            
-           <p class="text-center"> <strong>or</strong>  </p>
-            
-        </div>
+                
+    <% end %>
+    <hr>
 
-        <div class="col-md-1">
-            <%= form_tag(:action => 'unregister', :class => 'form') do %>
-            <%= hidden_field_tag 'user_id', current_user.id%>
-            <%= hidden_field_tag 'event_id', @event.id%>
-
-            <div class="actions">
-                  <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-danger", :disabled => false, :disable_with => "Please wait...") do %>
-                    <i class="far fa-calendar-times"></i> Unregister! 
-                  <% end %>
-            </div>
-            <!-- <%= submit_tag "Unregister", :id => "submit", :name => "submit", :class => "btn btn-danger form_submit", :disabled => false, :disable_with => "Please wait..." %> -->
-        </div>
-
-        <div class="col-md-4">           
-           
-        </div>
-        
-    </div>
-        
-<% end %>
-<hr>
-
-<% end %>
+    <% end %>
 
 </div>
-
-
-
 
 <table class="table table-borderless">
     
@@ -128,25 +104,29 @@
 
     </tbody>
 
-
 </table>
 
 
 <hr>
 
-<hr>
+<h3 class="text-center" style="color:#1a001a;" > <i class="fas fa-location-arrow"></i> Activities of <%= @event.name %></h3>
 
-<h4>Activities :</h4>
+<%= link_to '<button type="button" class="btn btn-primary"><i class="fas fa-plus-square"></i> Add new Activity</button>'.html_safe, "/activities/new?event_id=#{@event.id}" %>
+
+<!-- <%= link_to 'Add Activity', "/activities/new?event_id=#{@event.id}", :class=> "btn" %> -->
+
+
     <table class="table table-hover">
         <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Start time</th>
-                <th>End time</th>
+            <tr class="table-secondary">
+                <th><div style = "width:330px; word-wrap: break-word"> Name</th>
+                
+                <th><div style = "width:250px; word-wrap: break-word"> Start time</th>
+                <th><div style = "width:250px; word-wrap: break-word">End time</th>
                 <% if current_user.admin? or current_user.chair? %>
-                    <th></th>
-                    <th></th>
+                    
+                    <th colspan="2"></th>
+                    
                 <% end %>
             </tr>
         </thead>
@@ -159,37 +139,42 @@
                     endTime='<%= activity.end_time %>'>
 
                     <td><%= link_to activity.name, activity %></td>
-                    <td><%= activity.description %></td>
-                    <td class="startTime"><%= activity.start_time %></td>
-                    <td class="endTime"><%= activity.end_time %></td>
-                    <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
-                    <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    
+                    <td class="startTime"><%= activity.start_time.to_time.strftime('%e %B %Y at %l:%M %p') %></td>
+                    <td class="endTime"><%= activity.end_time.to_time.strftime('%e %B %Y at %l:%M %p') %></td>
+
+                    <% if current_user.admin? or current_user.chair? %>
+
+                    <td><%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_activity_path(activity) %> 
+                        <!--<%= link_to 'Edit', edit_activity_path(activity) %> --> </td>
+                    <td><%= link_to '<button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Destroy </button>'.html_safe, activity_path , method: :delete, data: { confirm: 'Are you sure?' } %>
+
+                        <!-- <%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %> --> </td>
+                    <% end %>
+
                 </tr>
             <% end %>
         </tbody>
         <% if current_user.admin? or current_user.chair? %>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><%= link_to "Update Activities",  "", remote:true, :onclick => "return updateActivities(#{@event.id})", :class => "btn btn-success"%></td>
+                <tr>                    
+                    <td colspan="5" class="table-secondary text-left">
+                        <%= link_to "Update Activities",  "", remote:true, :onclick => "return updateActivities(#{@event.id})", :class => "btn btn-success"%> 
+                    </td>
                 </tr>
             </tbody>
         <% end %>
     </table>
-<%= link_to 'Add Activity', "/activities/new?event_id=#{@event.id}", :class=> "btn" %>
-
-<br>
 
 <hr>
 
-<h4>Forums:</h4>
+<h3 class="text-center" style="color:#1a001a;" > <i class="fas fa-chalkboard-teacher"></i> Forums of <%= @event.name %></h3>
 
-<%= link_to "Create New Forum", "/forums/new?event_id=#{@event.id}" %>
+<%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-plus-circle"></i> Create new Forum</button>'.html_safe, "/forums/new?event_id=#{@event.id}" %>
 
+<!-- <%= link_to "Create New Forum", "/forums/new?event_id=#{@event.id}" %> -->
+<br><br>
+  
 <ul>
     <% @event.forums.each do |forum| %>
         <li>

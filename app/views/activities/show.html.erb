@@ -108,7 +108,8 @@
         <td class="text-center">
           
               <% if requirement.satisfied == true %>
-                  <p style="color:green;"><i class="fas fa-check-circle"></i> Approved</p>
+                  <!-- <p style="color:green;"><i class="fas fa-check-circle"></i> Approved</p> -->
+                  <%= link_to '<button type="button" class="btn btn-danger"><i class="fas fa-check-square"></i> Unapprove</button>'.html_safe, requirements_unapprove_path(requirement)%>
               <% else %>               
                   <!-- non-satisfied -->
                   <%= link_to '<button type="button" class="btn btn-success"><i class="fas fa-check-square"></i> Approve</button>'.html_safe, "/requirements/approve?id=#{requirement.id}"%>          

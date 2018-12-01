@@ -1,15 +1,9 @@
 <style>
 
 #user-detail {
-  
     border: 2px solid grey;
     width: 400px;
     height: 200px;
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    margin-top: -180px;
-    margin-left: -195px;
 }
 </style>
 
@@ -25,43 +19,46 @@
   
 </div>
 
-
-
-<div class="text-center" id="user-detail">
-
 <br>
 
-    <table class="table table-borderless">
-      
-      <tbody>
 
-        <tr>
-          <th width="10"></th>
-          <th class="text-left" width="150"><i class="fas fa-envelope"></i> Email :</th>
-          <td class="text-left"><%= current_user.email %></td>
-        </tr>
+<center>
+  <div class="text-center" id="user-detail">
+
+  <br>
+
+      <table class="table table-borderless">
         
-        <tr>
-          <th width="10"></th>
-          <th class="text-left" width="150"><i class="fas fa-building"></i> Dapartment :</th>
-          <td class="text-left">
-              <% if not current_user.department.nil? %>
-                  <%= current_user.department[:name] %>
-              <% end %>
-          </td>
-        </tr>
+        <tbody>
 
-        <tr>
-          <th width="10"></th>
-          <th class="text-left" width="150"><i class="fas fa-flag"></i> Nationality :</th>
-          <td class="text-left"><%= current_user.nationality %></td>
-        </tr>
+          <tr>
+            <th width="10"></th>
+            <th class="text-left" width="150"><i class="fas fa-envelope"></i> Email :</th>
+            <td class="text-left"><%= current_user.email %></td>
+          </tr>
+          
+          <tr>
+            <th width="10"></th>
+            <th class="text-left" width="150"><i class="fas fa-building"></i> Dapartment :</th>
+            <td class="text-left">
+                <% if not current_user.department.nil? %>
+                    <%= current_user.department[:name] %>
+                <% end %>
+            </td>
+          </tr>
 
-      </tbody>
-      
-    </table>
-  
-</div>
+          <tr>
+            <th width="10"></th>
+            <th class="text-left" width="150"><i class="fas fa-flag"></i> Nationality :</th>
+            <td class="text-left"><%= current_user.nationality %></td>
+          </tr>
+
+        </tbody>
+        
+      </table>
+    
+  </div>
+</center>
 
 
 

@@ -61,6 +61,7 @@ Rails.application.routes.draw do
   get 'user_management/profile'
   get 'user_management/edit'
   get 'requirements/approve'
+  get 'requirements/unapprove'
   post '/profile/update'
   post 'users/sign_up'
   post 'user_management/edit'
