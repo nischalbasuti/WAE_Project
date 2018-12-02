@@ -61,7 +61,7 @@
                     <% end %>
                 </div>
             <% end %>
-            <hr>
+            
         <% else %>
 
             <%= form_tag(:action => 'unregister', :class => 'form') do %>
@@ -156,9 +156,9 @@
                     <% if user_signed_in? %>
                         <% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
 
-                            <td><%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_activity_path(activity) %> 
+                            <td><%= link_to '<button type="button" class="btn btn-info" data-placement="top" title="Edit Activity"><i class="fas fa-edit"></i> </button>'.html_safe, edit_activity_path(activity) %> 
                             <!--<%= link_to 'Edit', edit_activity_path(activity) %> --> </td>
-                        <td><%= link_to '<button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Destroy </button>'.html_safe, "/activities/#{activity.id}" , method: :delete, data: { confirm: 'Are you sure?' } %>
+                        <td><%= link_to '<button type="button" class="btn btn-danger" data-placement="top" title="Destroy Activity" ><i class="fas fa-trash"></i>  </button>'.html_safe, "/activities/#{activity.id}" , method: :delete, data: { confirm: 'Are you sure?' } %>
 
                         <!-- <%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %> --> </td>
                 <% end %>
