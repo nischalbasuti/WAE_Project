@@ -49,6 +49,9 @@ class Ability
       can :read, Forum do |f|
         f.user? user
       end
+      can :manage, Forum do |f|
+        user.coordinator? f.event
+      end
 
       can :read, Activity
       can :create, Activity # TODO: check in controller is user can create the
