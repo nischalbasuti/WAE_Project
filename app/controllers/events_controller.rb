@@ -74,11 +74,28 @@ class EventsController < ApplicationController
     end
   end
 
+  # GET /events/manage?id=1
   def manage
       @event = Event.find(params[:id])
+      @privilage_options = UserEvent.PRIVILAGE_LEVEL_HASH.map do |k, v|
+        [ v, k ]
+      end
       @role_options = UserEvent.ROLES.map do |role|
         [ role, role ]
       end
+  end
+
+  def update_coordinator_privilage
+    user = User.find(params[:user_id])
+    user_event = user.user_events.find(params[:user_event_id])
+
+    privilage_level = params[:privilage_level]
+
+    user_event.privilage_level = privilage_level
+
+    user_event.save
+    
+    redirect_back fallback_location: '/'
   end
 
   def update_user_event

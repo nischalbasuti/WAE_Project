@@ -31,8 +31,26 @@
                                 <div style="float:right;">
                                     <%= submit_tag "remove role", :id => "submit", :name => "submit", :class => "form_submit btn btn-danger", :disabled => false, :disable_with => "Please wait..." %>
                                 </div>
-                            </td>
-                        <% end %>
+                            <% end %>
+                            <br>
+                            <% if user_event.role == 'coordinator' %>
+                                <div style="color:grey;">
+                                    <hr>
+                                    <%= form_tag(:action => 'update_coordinator_privilage', :class => 'form') do %>
+                                        <%= hidden_field_tag 'user_id', user.id  %>
+                                        <%= hidden_field_tag 'user_event_id', user_event.id  %>
+                                        <span style="float:left">
+                                            Privilage level: <%= UserEvent.PRIVILAGE_LEVEL_HASH[user_event.privilage_level] %>
+                                            <%= select_tag(:privilage_level, options_for_select(@privilage_options, user.user_events.first[:privilage_level]), :class=> "form-control event_role") %>
+                                        </span>
+                                        <br>
+                                        <span style="float:right">
+                                            <%= submit_tag "Update Privilages", :id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait..." %>
+                                        </span>
+                                    <% end %>
+                                </div>
+                            <% end %>
+                        </td>
                     </tr>
                 <% end %>
                 <tr>

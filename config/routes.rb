@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :events do
     collection do
       get :manage
+      post :update_coordinator_privilage
       post :update_user_event
       post :delete_user_event
       post :register
@@ -61,7 +62,6 @@ Rails.application.routes.draw do
   get 'user_management/user_manage_features'
   get 'user_management/user_statistics'
   get 'user_management/basic_user_page'
-  get 'events/manage'
   get 'user_management/profile'
   get 'user_management/edit'
   post '/profile/update'
