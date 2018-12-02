@@ -1,27 +1,65 @@
-<%= form_with(model: forum, local: true) do |form| %>
-  <% if forum.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(forum.errors.count, "error") %> prohibited this forum from being saved:</h2>
+<style>
 
-      <ul>
-      <% forum.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+#edit-forum {
+    border: 2px solid grey;
+    width: 600px;
+    /*height: 500px;*/
+    padding: 15px;
+}
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
+</style>
 
-  <div class="field">
-    <%= form.label :event_id %>
-    <%= form.text_field :event_id %>
-  </div>
+<div class="text-center">
+    <div class="text-left" style="display: inline-block;">
+            
+      <div id="edit-forum">
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+          <%= form_with(model: forum, local: true) do |form| %>
+              <% if forum.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(forum.errors.count, "error") %> prohibited this forum from being saved:</h2>
+
+                  <ul>
+                  <% forum.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                  </ul>
+                </div>
+              <% end %>
+
+              
+
+              <div class="field">
+               <!--  <%= form.label :event_id %>
+                <%= form.text_field :event_id %> -->
+
+                <%= form.hidden_field :event_id %>
+                <%= form.label :event_id do %>
+                    <i class="far fa-calendar"></i></i> <b>Event :</b> <%= @forum.event.name %>  
+                    <%= form.hidden_field :event_id ,:value => @forum.event_id %>
+                <% end %> <br />
+
+              </div>
+
+              <div class="field">
+                <!-- <%= form.label :title %> -->
+                <%= form.label :title do %>
+                    <i class="fas fa-pen-alt"></i> <b>Title :</b> 
+                <% end %> <br />
+                <%= form.text_field :title , :class=> "form-control"  %>
+              </div>
+
+              <br>
+
+              <div class="actions">
+                  <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait...") do %>
+                      <i class="fas fa-pen"></i> Submit 
+                  <% end %>
+              </div>
+
+          <% end %>
+
+      </div> 
+
+   </div>
+</div>

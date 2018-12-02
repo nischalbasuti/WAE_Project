@@ -4,66 +4,63 @@
   
     border: 2px solid grey;
     width: 600px;
-    height: 280px;
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    margin-top: -290px;
-    margin-left: -290px;
-    padding-top: 20px;
-    padding-right: 30px;
-    padding-bottom: 50px;
-    padding-left: 20px;
-}
+    /*height: 500px;*/
+    padding: 15px;
 
 </style>
 
-<div id="edit-dept">
-  
-  <%= form_with(model: department, local: true) do |form| %>
-    <% if department.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(department.errors.count, "error") %> prohibited this department from being saved:</h2>
+<div class="text-center">
 
-        <ul>
-        <% department.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+  <div class="text-left" style="display: inline-block;">
 
-    <div class="field">
-      <!-- <%= form.label :name %> -->
-      <%= form.label :name do %>
-        <i class="fas fa-clipboard"></i> <b>Name :</b> 
-      <% end %> <br />
+    <div id="edit-dept">
+      
+      <%= form_with(model: department, local: true) do |form| %>
 
-      <%= form.text_field :name  , :class=> "form-control"%>
-    </div>
+          <% if department.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(department.errors.count, "error") %> prohibited this department from being saved:</h2>
 
-    <br>
+              <ul>
+              <% department.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-    <div class="field">
-      <!-- <%= form.label :code %> -->
-      <%= form.label :code do %>
-        <i class="fas fa-bookmark"></i> <b>Code :</b> 
-      <% end %> <br />
+          <div class="field">
+            <!-- <%= form.label :name %> -->
+            <%= form.label :name do %>
+              <i class="fas fa-clipboard"></i> <b>Name :</b> 
+            <% end %> <br />
 
-      <%= form.text_field :code , :class=> "form-control" %>
-    </div>
+            <%= form.text_field :name  , :class=> "form-control"%>
+          </div>
 
-    <br>
+        <br>
 
-    <div class="actions">
-      <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait...") do %>
-        <i class="fas fa-pen"></i> Submit 
+          <div class="field">
+            <!-- <%= form.label :code %> -->
+            <%= form.label :code do %>
+              <i class="fas fa-bookmark"></i> <b>Code :</b> 
+            <% end %> <br />
+
+            <%= form.text_field :code , :class=> "form-control" %>
+          </div>
+
+        <br>
+
+          <div class="actions">
+            <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait...") do %>
+              <i class="fas fa-pen"></i> Submit 
+            <% end %>
+          </div>
+        
       <% end %>
+
     </div>
-
     
-  <% end %>
-
+  </div>
 </div>
-
 

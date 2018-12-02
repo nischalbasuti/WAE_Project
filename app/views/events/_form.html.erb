@@ -1,44 +1,81 @@
-<div style="width:400px;">
-    <%= form_with(model: event, local: true) do |form| %>
-        <% if event.errors.any? %>
-            <div id="error_explanation">
-                <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+<style>
 
-                <ul>
-                    <% event.errors.full_messages.each do |message| %>
-                        <li><%= message %></li>
+#edit {
+    border: 2px solid grey;
+    width: 600px;
+    /*height: 500px;*/
+    padding: 20px;
+    /*margin: 10px;*/
+}
+
+</style>
+
+<div class="text-center">
+    <div class="text-left" style="display: inline-block;">
+
+        <div id="edit">
+
+                <%= form_with(model: event, local: true) do |form| %>
+                    <% if event.errors.any? %>
+                        <div id="error_explanation">
+                            <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+                            <ul>
+                                <% event.errors.full_messages.each do |message| %>
+                                    <li><%= message %></li>
+                                <% end %>
+                            </ul>
+                        </div>
                     <% end %>
-                </ul>
-            </div>
-        <% end %>
 
-        <div class="field">
-            <%= form.label :name %>
-            <%= form.text_field :name, :class => "form-control" %>
+                    <div class="field">
+                        
+                        <%= form.label :name do %>
+                            <i class="fas fa-clipboard" ></i> <b>Name :</b>  
+                        <% end %> <br />
+                        <%= form.text_field :name, :class => "form-control" %>
+                    </div>
+
+                    <br>
+
+                    <div class="field">
+                        
+                        <%= form.label :description do %>
+                            <i class="fas fa-pen-alt"></i> <b>Description :</b> 
+                        <% end %> <br />
+                        <%= form.text_area :description, :class => "form-control" %>
+                    </div>
+
+                    <br>
+
+                    <div class="field">
+                        <%= form.label :start_time do %>
+                            <i class="fas fa-clock"></i> <b>Start time :</b> 
+                        <% end %> <br />
+                        <%= form.datetime_field :start_time, :class => "form-control" %>
+                    </div>
+
+                    br
+
+                    <div class="field">
+                        <%= form.label :end_time do %>
+                            <i class="fas fa-clock"></i> <b>End time :</b> 
+                        <% end %> <br />
+                        <%= form.datetime_field :end_time, :class => "form-control" %>
+                    </div>
+
+                    <br>
+
+                    <div class="actions">
+
+                        <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait...") do %>
+                            <i class="fas fa-pen"></i> Submit
+                        <% end %>
+
+                    </div>
+                <% end %>
         </div>
 
-        <div class="field">
-            <%= form.label :description %>
-            <%= form.text_area :description, :class => "form-control" %>
-        </div>
+    </div>
 
-        <div class="field">
-            <%= form.label :start_time %>
-            <%= form.datetime_field :start_time, :class => "form-control" %>
-        </div>
-
-        <div class="field">
-            <%= form.label :end_time %>
-            <%= form.datetime_field :end_time, :class => "form-control" %>
-        </div>
-
-        <br>
-        <div class="actions">
-
-            <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait...") do %>
-                <i class="fas fa-pen"></i> Create Event
-            <% end %>
-
-        </div>
-    <% end %>
 </div>
