@@ -44,6 +44,9 @@ class EventsController < ApplicationController
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
+        if not @event.valid_dates?
+          flash[:alert] = "Invalid Dates"
+        end
         format.html { render :new }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
@@ -58,6 +61,9 @@ class EventsController < ApplicationController
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else
+        if not @event.valid_dates?
+          flash[:alert] = "Invalid Dates"
+        end
         format.html { render :edit }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end

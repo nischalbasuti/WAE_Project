@@ -19,7 +19,7 @@
 <%= month_calendar events: @events do |date, events| %>
 
     <% if user_signed_in? %>
-        <% if current_user.admin? or current_user.chair? %>
+        <% if (current_user.admin? or current_user.chair?) and (date >= DateTime.now)  %>
             <span class="new_event" style="float:right;">
                 <a href='<%= "/events/new?start_date=#{date}"%>'><i class='fas fa-plus'></i></a>
             </span>
