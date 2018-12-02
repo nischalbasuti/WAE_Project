@@ -23,6 +23,12 @@ Rails.application.routes.draw do
       post :update_activities
     end
   end
+  resources :user_management do
+    collection do
+      get :ban
+      get :unban
+    end
+  end
   resources :events do
     collection do
       get :manage

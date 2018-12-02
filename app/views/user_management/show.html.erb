@@ -1,10 +1,10 @@
 
 <html>
 <br>
-<h3 class="text-center">  The list of users.</h3>
+<h2 class="text-center"> <i class="fas fa-users"></i> Users</h2>
 <br>
   <table class="table table-hover">
-    <tr>
+    <tr class="table-secondary">
       <th width=200>E-mail</th>
       <th width=200>The date of registration</th>
       <th width=200>Ban</th>
@@ -19,22 +19,21 @@
         <td><%= user.created_at.to_date %></td>
         <td>
           <% if user.banned? %>
-              <%= link_to "unban user", {:action => :unban, :id => user.id}, :class => "btn btn-success"%>
+              <!-- <%= link_to "unban user", {:action => :unban, :id => user.id}, :class => "btn btn-success"%> -->
+              <%= link_to '<button type="button" class="btn btn-success" data-placement="top" title="Unban user" ><i class="fas fa-user-check"></i> </button>'.html_safe, "/user_management/unban?id=#{user.id}"%>
           <% else %>
-              <%= link_to "ban user", {:action => :ban, :id => user.id}, :class => "btn btn-danger"%>
+              <!-- <%= link_to "ban user", {:action => :ban, :id => user.id}, :class => "btn btn-danger"%> -->
+              <%= link_to '<button type="button" class="btn btn-danger" data-placement="top" title="Ban user" > <i class="fas fa-user-slash"></i> </button>'.html_safe, "/user_management/ban?id=#{user.id}"%>
           <% end %>
         </td>
         <td class="user_role">
-            <%= select_tag(:global_role, options_for_select(@role_options, user.global_role), :class=> "global_role") %>
+            <%= select_tag(:global_role, options_for_select(@role_options, user.global_role), :class=> "global_role" , :class => 'form-control') %>
         </td>
       </tr>
 
     <% end %>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>
+      <tr class="text-right">
+        <td colspan="4">
             <!-- TODO: Hide when no changes to role. -->
             <%= link_to "save roles",  "", remote:true, :onclick => 'return post_update_users()', :class => "btn btn-success"%>
         </td>
