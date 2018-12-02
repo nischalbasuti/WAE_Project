@@ -32,11 +32,13 @@
 <div class="text-center">
     
     <%= link_to '<button type="button" class="btn btn-warning"><i class="fas fa-angle-double-left"></i> Back </button>'.html_safe, events_path%>
-    <% if current_user.admin? or current_user.chair? %>
-        <%= link_to '<button type="button" class="btn"><i class="fas fa-user-edit"></i> Manage Event </button>'.html_safe, '/events/manage?id='+@event.id.to_s %>  
-        <!-- <%= link_to "Manage Event", '/events/manage?id='+@event.id.to_s %> --> 
-        <%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_event_path(@event) %>  
-        <!-- <%= link_to 'Edit', edit_event_path(@event) %> -->
+    <% if user_signed_in? %>
+        <% if current_user.admin? or current_user.chair? %>
+            <%= link_to '<button type="button" class="btn"><i class="fas fa-user-edit"></i> Manage Event </button>'.html_safe, '/events/manage?id='+@event.id.to_s %>  
+            <!-- <%= link_to "Manage Event", '/events/manage?id='+@event.id.to_s %> --> 
+            <%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_event_path(@event) %>  
+            <!-- <%= link_to 'Edit', edit_event_path(@event) %> -->
+        <% end %>
     <% end %>
 
 </div>
@@ -46,33 +48,36 @@
 <div>
 
     <%# checking if current_user is registered to this event. %>
-    <% if current_user.user_events.where(user: current_user,event: @event).count == 0 %>
-      <%= form_tag(:action => 'register', :class => 'form') do %>
-        <%= hidden_field_tag 'user_id', current_user.id%>
-        <%= hidden_field_tag 'event_id', @event.id%>
-        <!-- <%= submit_tag "Register the event!", :id => "submit", :name => "submit", :class => "btn btn-success form_submit", :disabled => false, :disable_with => "Please wait..." %> -->
-        <div class="actions">
-              <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-info", :disabled => false, :disable_with => "Please wait...") do %>
-                <i class="fas fa-user-plus"></i> Register the event! 
-              <% end %>
-        </div>
-      <% end %>
-    <hr>
-    <% else %>
 
-        <%= form_tag(:action => 'unregister', :class => 'form') do %>
-        <%= hidden_field_tag 'user_id', current_user.id%>
-        <%= hidden_field_tag 'event_id', @event.id%>
+    <% if user_signed_in? %>
+        <% if current_user.user_events.where(user: current_user,event: @event).count == 0 %>
+            <%= form_tag(:action => 'register', :class => 'form') do %>
+                <%= hidden_field_tag 'user_id', current_user.id%>
+                <%= hidden_field_tag 'event_id', @event.id%>
+                <!-- <%= submit_tag "Register the event!", :id => "submit", :name => "submit", :class => "btn btn-success form_submit", :disabled => false, :disable_with => "Please wait..." %> -->
+                <div class="actions">
+                    <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-info", :disabled => false, :disable_with => "Please wait...") do %>
+                        <i class="fas fa-user-plus"></i> Register the event! 
+                    <% end %>
+                </div>
+            <% end %>
+            <hr>
+        <% else %>
 
-        <div class="actions">
-              <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-danger", :disabled => false, :disable_with => "Please wait...") do %>
-                <i class="far fa-calendar-times"></i> Unregister the event! 
-              <% end %>
-        </div>
-        <!-- <%= submit_tag "Unregister", :id => "submit", :name => "submit", :class => "btn btn-danger form_submit", :disabled => false, :disable_with => "Please wait..." %> -->
+            <%= form_tag(:action => 'unregister', :class => 'form') do %>
+                <%= hidden_field_tag 'user_id', current_user.id%>
+                <%= hidden_field_tag 'event_id', @event.id%>
 
-                
-    <% end %>
+                <div class="actions">
+                    <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-danger", :disabled => false, :disable_with => "Please wait...") do %>
+                        <i class="far fa-calendar-times"></i> Unregister the event! 
+                    <% end %>
+                </div>
+                <!-- <%= submit_tag "Unregister", :id => "submit", :name => "submit", :class => "btn btn-danger form_submit", :disabled => false, :disable_with => "Please wait..." %> -->
+
+
+            <% end %>
+        <% end %>
     <hr>
 
     <% end %>
@@ -111,10 +116,11 @@
 
 <h3 class="text-center" style="color:#1a001a;" > <i class="fas fa-location-arrow"></i> Activities of <%= @event.name %></h3>
 
-<% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
-    <%= link_to '<button type="button" class="btn btn-primary"><i class="fas fa-plus-square"></i> Add new Activity</button>'.html_safe, "/activities/new?event_id=#{@event.id}" %>
+<% if user_signed_in? %>
+    <% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
+        <%= link_to '<button type="button" class="btn btn-primary"><i class="fas fa-plus-square"></i> Add new Activity</button>'.html_safe, "/activities/new?event_id=#{@event.id}" %>
+    <% end %>
 <% end %>
-
 <!-- <%= link_to 'Add Activity', "/activities/new?event_id=#{@event.id}", :class=> "btn" %> -->
 
 
@@ -125,11 +131,13 @@
                 
                 <th><div style = "width:250px; word-wrap: break-word"> Start time</th>
                 <th><div style = "width:250px; word-wrap: break-word">End time</th>
-                    <% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
-                    
-                    <th colspan="2"></th>
-                    
-                <% end %>
+                    <% if user_signed_in? %>
+                        <% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
+
+                            <th colspan="2"></th>
+
+                        <% end %>
+                    <% end %>
             </tr>
         </thead>
 
@@ -145,30 +153,34 @@
                     <td class="startTime"><%= activity.start_time.to_time.strftime('%e %B %Y at %l:%M %p') %></td>
                     <td class="endTime"><%= activity.end_time.to_time.strftime('%e %B %Y at %l:%M %p') %></td>
 
-                    <% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
+                    <% if user_signed_in? %>
+                        <% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
 
-                    <td><%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_activity_path(activity) %> 
-                        <!--<%= link_to 'Edit', edit_activity_path(activity) %> --> </td>
-                    <td><%= link_to '<button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Destroy </button>'.html_safe, "/activities/#{activity.id}" , method: :delete, data: { confirm: 'Are you sure?' } %>
+                            <td><%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_activity_path(activity) %> 
+                            <!--<%= link_to 'Edit', edit_activity_path(activity) %> --> </td>
+                        <td><%= link_to '<button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Destroy </button>'.html_safe, "/activities/#{activity.id}" , method: :delete, data: { confirm: 'Are you sure?' } %>
 
                         <!-- <%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %> --> </td>
-                    <% end %>
+                <% end %>
+            <% end %>
 
                 </tr>
             <% end %>
         </tbody>
-        <% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
-            <tbody>
-                <tr>                    
-                    <td colspan="5" class="table-secondary text-left">
-                        <div id="update_btn" style="float:right;display:none;">
-                            <%= link_to "Discard Changes",  "", remote:false, :onclick => "#", :class => "btn"%> 
+        <% if user_signed_in? %>
+            <% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
+                <tbody>
+                    <tr>                    
+                        <td colspan="5" class="table-secondary text-left">
+                            <div id="update_btn" style="float:right;display:none;">
+                                <%= link_to "Discard Changes",  "", remote:false, :onclick => "#", :class => "btn"%> 
 
-                            <%= link_to "Update Activities",  "", remote:true, :onclick => "return updateActivities(#{@event.id})", :class => "btn btn-success"%> 
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
+                                <%= link_to "Update Activities",  "", remote:true, :onclick => "return updateActivities(#{@event.id})", :class => "btn btn-success"%> 
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            <% end %>
         <% end %>
     </table>
 
@@ -176,8 +188,10 @@
 
 <h3 class="text-center" style="color:#1a001a;" > <i class="fas fa-chalkboard-teacher"></i> Forums of <%= @event.name %></h3>
 
-<% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
-    <%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-plus-circle"></i> Create new Forum</button>'.html_safe, "/forums/new?event_id=#{@event.id}" %>
+<% if user_signed_in? %>
+    <% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
+        <%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-plus-circle"></i> Create new Forum</button>'.html_safe, "/forums/new?event_id=#{@event.id}" %>
+    <% end %>
 <% end %>
 
 <!-- <%= link_to "Create New Forum", "/forums/new?event_id=#{@event.id}" %> -->
@@ -194,111 +208,112 @@
 
 <!-- The following is some bad hackey code, apologies to future me. -->
 
-<% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
-    <script charset="utf-8">
+<% if user_signed_in? %>
+    <% if current_user.admin? or current_user.chair? or current_user.coordinator? @event %>
+        <script charset="utf-8">
 
-        // Sort elements and swap start and end times of affected arrays.
-        $('#activity-rows').sortable({
-            start: (event, ui) => {
-                ui.item.startPos = ui.item.index();
-                window.startState = $('#activity-rows').sortable("toArray")
-                
-            },
-            stop: (event, ui) => {
-                $('#update_btn').css("display", "")
-                $(".ui-sortable-handle").css("background", "lightsalmon")
-                currentState = $('#activity-rows').sortable("toArray")
-                // console.log(window.startState[ui.item.startPos], currentState[ui.item.index()]);
+            // Sort elements and swap start and end times of affected arrays.
+            $('#activity-rows').sortable({
+                start: (event, ui) => {
+                    ui.item.startPos = ui.item.index();
+                    window.startState = $('#activity-rows').sortable("toArray")
+
+                },
+                stop: (event, ui) => {
+                    $('#update_btn').css("display", "")
+                    $(".ui-sortable-handle").css("background", "lightsalmon")
+                    currentState = $('#activity-rows').sortable("toArray")
+                    // console.log(window.startState[ui.item.startPos], currentState[ui.item.index()]);
 
 
-                function swapStartAndEndTime(a, b) {
-                    // Swap start and end time
-                    function swapAttributes(attribute, a, b) {
-                        tmp = a.getAttribute(attribute)
-                        a.setAttribute(attribute, b.getAttribute(attribute))
-                        b.setAttribute(attribute, tmp)
+                    function swapStartAndEndTime(a, b) {
+                        // Swap start and end time
+                        function swapAttributes(attribute, a, b) {
+                            tmp = a.getAttribute(attribute)
+                            a.setAttribute(attribute, b.getAttribute(attribute))
+                            b.setAttribute(attribute, tmp)
+                        }
+                        swapAttributes("startTime", a, b)
+                        swapAttributes("endTime", a, b)
+
+                        // Set the html of start and end time columns of the row.
+                        a.querySelector(".startTime").innerHTML = a.getAttribute('startTime')
+                        a.querySelector(".endTime").innerHTML = a.getAttribute('endTime')
+
+                        b.querySelector(".startTime").innerHTML = b.getAttribute('startTime')
+                        b.querySelector(".endTime").innerHTML = b.getAttribute('endTime')
+
+
+                        // let aStartTime = new Date( a.getAttribute('startTime') )
+                        // let aEndTime = new Date( a.getAttribute('endTime') )
+
+                        // let bStartTime = new Date( b.getAttribute('startTime') )
+                        // let bEndTime = new Date( b.getAttribute('endTime') )
+                        // a.querySelector(".startTime").innerHTML = aStartTime.toTimeString()
+                        // a.querySelector(".endTime").innerHTML = aEndTime.toDateString()
+
+                        // b.querySelector(".startTime").innerHTML = bStartTime.toDateString()
+                        // b.querySelector(".endTime").innerHTML = bEndTime.toDateString()
                     }
-                    swapAttributes("startTime", a, b)
-                    swapAttributes("endTime", a, b)
 
-                    // Set the html of start and end time columns of the row.
-                    a.querySelector(".startTime").innerHTML = a.getAttribute('startTime')
-                    a.querySelector(".endTime").innerHTML = a.getAttribute('endTime')
+                    // Swap the moved element with the destination element, then move the
+                    // swap all the other elements up/down one by one.
+                    let startEle = document.getElementById(window.startState[ui.item.startPos]);
+                    let destEle  = document.getElementById(window.startState[ui.item.index()]);
+                    swapStartAndEndTime(startEle, destEle);
 
-                    b.querySelector(".startTime").innerHTML = b.getAttribute('startTime')
-                    b.querySelector(".endTime").innerHTML = b.getAttribute('endTime')
-
-
-                    // let aStartTime = new Date( a.getAttribute('startTime') )
-                    // let aEndTime = new Date( a.getAttribute('endTime') )
-
-                    // let bStartTime = new Date( b.getAttribute('startTime') )
-                    // let bEndTime = new Date( b.getAttribute('endTime') )
-                    // a.querySelector(".startTime").innerHTML = aStartTime.toTimeString()
-                    // a.querySelector(".endTime").innerHTML = aEndTime.toDateString()
-
-                    // b.querySelector(".startTime").innerHTML = bStartTime.toDateString()
-                    // b.querySelector(".endTime").innerHTML = bEndTime.toDateString()
+                    if(ui.item.startPos < ui.item.index()) {
+                        for (let i = ui.item.index()-1; i > ui.item.startPos; i--) {
+                            let startEle = document.getElementById(currentState[i])
+                            let destEle  = document.getElementById(currentState[i-1])
+                            swapStartAndEndTime(startEle, destEle);
+                        }
+                        } else {
+                        for (let i = ui.item.index()+1; i < ui.item.startPos; i++) {
+                            let startEle = document.getElementById(currentState[i])
+                            let destEle  = document.getElementById(currentState[i+1])
+                            swapStartAndEndTime(startEle, destEle);
+                        }
+                    }
                 }
-
-                // Swap the moved element with the destination element, then move the
-                // swap all the other elements up/down one by one.
-                let startEle = document.getElementById(window.startState[ui.item.startPos]);
-                let destEle  = document.getElementById(window.startState[ui.item.index()]);
-                swapStartAndEndTime(startEle, destEle);
-
-                if(ui.item.startPos < ui.item.index()) {
-                    for (let i = ui.item.index()-1; i > ui.item.startPos; i--) {
-                        let startEle = document.getElementById(currentState[i])
-                        let destEle  = document.getElementById(currentState[i-1])
-                        swapStartAndEndTime(startEle, destEle);
-                    }
-                } else {
-                    for (let i = ui.item.index()+1; i < ui.item.startPos; i++) {
-                        let startEle = document.getElementById(currentState[i])
-                        let destEle  = document.getElementById(currentState[i+1])
-                        swapStartAndEndTime(startEle, destEle);
-                    }
-                }
-            }
-        });
-        // window.startState = $('#activity-rows').sortable("getArray")
-
-        function buildUpdateActivitiesRequestData(event_id) {
-            let activityRows = [];
-            for (const row of document.getElementsByClassName('activity-row')) {
-                let rowObj = {};
-                rowObj.id = row.getAttribute("id");
-                rowObj.startTime = row.getAttribute("startTime");
-                rowObj.endTime = row.getAttribute("endTime");
-
-                activityRows.push(rowObj);
-            }
-            return {
-                'event_id': event_id,
-                'activities': activityRows
-            }
-
-        }
-
-        function updateActivities(event_id) {
-            let data = buildUpdateActivitiesRequestData(event_id);
-            function successCallback(data, textStatus, jqXHR) {
-                alert(data.message)
-                console.log(data, textStatus)
-                $(".ui-sortable-handle").css("background", "lightgreen")
-            }
-            $.ajax({
-                type: "POST",
-                url: '/activities/update_activities',
-                data: JSON.stringify(data),
-                success: successCallback,
-                dataType: "json",
-                contentType: "application/json",
-                processData: true
             });
-        }
-    </script>
+            // window.startState = $('#activity-rows').sortable("getArray")
 
+            function buildUpdateActivitiesRequestData(event_id) {
+                let activityRows = [];
+                for (const row of document.getElementsByClassName('activity-row')) {
+                    let rowObj = {};
+                    rowObj.id = row.getAttribute("id");
+                    rowObj.startTime = row.getAttribute("startTime");
+                    rowObj.endTime = row.getAttribute("endTime");
+
+                    activityRows.push(rowObj);
+                }
+                return {
+                    'event_id': event_id,
+                    'activities': activityRows
+                }
+
+            }
+
+            function updateActivities(event_id) {
+                let data = buildUpdateActivitiesRequestData(event_id);
+                function successCallback(data, textStatus, jqXHR) {
+                    alert(data.message)
+                    console.log(data, textStatus)
+                    $(".ui-sortable-handle").css("background", "lightgreen")
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '/activities/update_activities',
+                    data: JSON.stringify(data),
+                    success: successCallback,
+                    dataType: "json",
+                    contentType: "application/json",
+                    processData: true
+                });
+            }
+        </script>
+
+    <% end %>
 <% end %>
-
