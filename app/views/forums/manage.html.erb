@@ -25,7 +25,11 @@
         <%= form_tag(:action => 'update_forum_commenter', :class => 'form') do |f| %>
             <%= hidden_field_tag 'forum_id', @forum.id  %>
             <td>
-                <%= select_tag(:role, options_for_select(@role_options, @forum.forum_commenters.first[:role]), :class=> "form-control event_role") %>
+                <% if @forum.forum_commenters.length > 0 %>
+                    <%= select_tag(:role, options_for_select(@role_options, @forum.forum_commenters.first[:role]), :class=> "form-control event_role") %>
+                <% else %>
+                    <%= select_tag(:role, options_for_select(@role_options), :class=> "form-control event_role") %>
+                <% end %>
             </td>
             <td>
                 <%= submit_tag "Add role", :id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait..." %>
