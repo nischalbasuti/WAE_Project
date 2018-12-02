@@ -67,7 +67,7 @@
 
   <thead>
     <tr class="text-center" >
-      <th>Title</th>
+      <th width="350px">Title</th>
       <!-- <th>Description</th> -->
       
       <th>Status</th>
@@ -100,12 +100,12 @@
 
       <% if current_user.representitive? requirement.activity.event or current_user.privilage_level(requirement.activity.event) >= 2 or current_user.admin? or current_user.chair? %>
 
-        <td> 
+        <td class="text-center"> 
             <%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_requirement_path(requirement) %>    
         </td>
 
-        <td>
-          <%= link_to '<button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Destroy </button>'.html_safe, requirement_path , method: :delete, data: { confirm: 'Are you sure?' } %>
+        <td class="text-center">
+          <%= link_to '<button type="button" class="btn btn-danger" data-placement="top" title="Delete Requirement" ><i class="fas fa-trash"></i>  </button>'.html_safe, requirement_path , method: :delete, data: { confirm: 'Are you sure?' } %>
 
         </td>
 
