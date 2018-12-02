@@ -27,7 +27,7 @@
           <% end %>
         </td>
         <td class="user_role">
-            <%= select_tag(:global_role, options_for_select(@role_options, user.global_role), :class=> "global_role" , :class => 'form-control') %>
+            <%= select_tag(:global_role, options_for_select(@role_options, user.global_role), :class => 'form-control global_role') %>
         </td>
       </tr>
 
@@ -50,6 +50,7 @@
 
               user.id = user_row.id
               user.global_role = user_row.querySelector('.global_role').value
+              console.log(JSON.stringify(user))
 
               users.push(user)
           }
