@@ -14,6 +14,7 @@
 <hr>
 
 <% if params[:view] == "table" %>
+    <%= link_to "calendar view", "?view=calendar" %>
   <table class="table table-sm">
     <thead>
       <tr>
@@ -44,7 +45,7 @@
   </table>
   
 <% else %>
-  <br>
+    <%= link_to "table view", "?view=table" %>
   <%= month_calendar events: @events do |date, events| %>
 
         <div class="date">
