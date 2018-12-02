@@ -4,13 +4,13 @@
 <% if user_signed_in? %>
     <!-- <%= link_to "Registered Events", "/profile/events" %> -->
 
-    <% if current_user.admin? or current_user.chair?  %>
-        <%= link_to '<button type="button" class="btn btn-info"><i class="far fa-calendar-plus"></i> <strong>New Event </strong> </button>'.html_safe, new_event_path %>  
-    <% end %>
+        <% if current_user.admin? or current_user.chair?  %>
+            <%= link_to '<button type="button" class="btn btn-info"><i class="far fa-calendar-plus"></i> <strong>New Event </strong> </button>'.html_safe, new_event_path %>  
+        <% end %>
 
-
-    <%= link_to '<button type="button" class="btn btn-warning"><i class="far fa-calendar-check"></i> <strong>Registered Events </strong> </button>'.html_safe, "/profile/events" %>  
+        <%= link_to '<button type="button" class="btn btn-warning"><i class="far fa-calendar-check"></i> <strong>Registered Events </strong> </button>'.html_safe, "/profile/events" %>  
 <% end %>
+
 <hr>
 
 <style type="text/css" media="screen"></style>
@@ -26,17 +26,17 @@
         <% end %>
     <% end %>
 
-    <div class="date">
-        <%= date.day %>
-    </div>
-
-    <% events.each do |event| %>
-        <div class="event">
-            <%= link_to event.name, event %>
+        <div class="date">
+            <%= date.day %>
         </div>
-        <br>
+
+        <% events.each do |event| %>
+            <div class="event">
+                <%= link_to event.name, event %>
+            </div>
+            <br>
+        <% end %>
     <% end %>
-<% end %>
 
 <!-- 
 <table class="table table-hover">

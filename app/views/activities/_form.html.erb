@@ -3,89 +3,92 @@
 #edit {
     border: 2px solid grey;
     width: 600px;
-    height: 500px;
+    /*height: 500px;*/
+    padding: 15px;
 }
 
 </style>
 
-<center>
-    <div id="edit">
+<div class="text-center">
+    <div class="text-left" style="display: inline-block;">
+            
+      <div id="edit">
 
         <%= form_with(model: activity, local: true) do |form| %>
-            <% if activity.errors.any? %>
-                <div id="error_explanation">
-                    <h2><%= pluralize(activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
 
-                    <ul>
-                        <% activity.errors.full_messages.each do |message| %>
-                            <li><%= message %></li>
-                        <% end %>
-                    </ul>
+                <% if activity.errors.any? %>
+                    <div id="error_explanation">
+                        <h2><%= pluralize(activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
+
+                        <ul>
+                            <% activity.errors.full_messages.each do |message| %>
+                                <li><%= message %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                <% end %>
+
+                <div class="field">
+                    <%# <%= form.label :event_id %1> %>
+                    <%= form.hidden_field :event_id %>
+
+                    <%= form.label :event_id do %>
+                        <i class="far fa-calendar"></i></i> <b>Event :</b> <%= @activity.event.name %>  
+                        <%= form.hidden_field :event_id ,:value => @activity.event_id %>
+                    <% end %> <br />
                 </div>
-            <% end %>
 
-            <div class="field">
-                <%# <%= form.label :event_id %1> %>
-                <%= form.hidden_field :event_id %>
+                <div class="field">
+                    <!--<%= form.label :name %> -->
+                    <%= form.label :name do %>
+                        <i class="fas fa-clipboard" ></i> <b>Name :</b>  
+                    <% end %> <br />
 
-                <%= form.label :event_id do %>
-                    <i class="far fa-calendar"></i></i> <b>Event :</b> <%= @activity.event.name %>  
-            <%= form.hidden_field :event_id ,:value => @activity.event_id %>
-        <% end %> <br />
-    </div>
+                    <%= form.text_field :name , :class=> "form-control" %>
+                </div>
 
-    <div class="field">
-        <!--<%= form.label :name %> -->
-        <%= form.label :name do %>
-            <i class="fas fa-clipboard"></i> <b>Name :</b> 
-        <% end %> <br />
+                <div class="field">
+                    <!-- <%= form.label :description %> -->
+                    <%= form.label :description do %>
+                        <i class="fas fa-pen-alt"></i> <b>Description :</b> 
+                    <% end %> <br />
 
-        <%= form.text_field :name , :class=> "form-control" %>
-    </div>
+                    <%= form.text_area :description , :class=> "form-control" %>
+                </div>
 
-    <div class="field">
-        <!-- <%= form.label :description %> -->
-        <%= form.label :description do %>
-            <i class="fas fa-pen-alt"></i> <b>Description :</b> 
-        <% end %> <br />
+            <br>
 
-        <%= form.text_area :description , :class=> "form-control" %>
-    </div>
+                <div class="field">
+                    <!-- <%= form.label :start_time %> -->
+                    <%= form.label :start_time do %>
+                        <i class="fas fa-clock"></i> <b>Start time :</b> 
+                    <% end %> <br />
+                    <%= form.datetime_field :start_time , :class=> "form-control"%>
 
-    <br>
+                </div>
 
-    <div class="field">
-        <!-- <%= form.label :start_time %> -->
-        <%= form.label :start_time do %>
-            <i class="fas fa-clock"></i> <b>Start time :</b> 
-        <% end %> <br />
-        <%= form.datetime_field :start_time , :class=> "form-control"%>
+            <br>
 
-    </div>
+                <div class="field">
+                    <!-- <%= form.label :end_time %> -->
+                    <%= form.label :end_time do %>
+                        <i class="fas fa-clock"></i> <b>End time :</b> 
+                    <% end %> <br />
 
+                    <%= form.datetime_field :end_time , :class=> "form-control"%>
+                </div>
 
+            <br>
 
-    <br>
+                <div class="actions">
+                    <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait...") do %>
+                        <i class="fas fa-pen"></i> Submit 
+                    <% end %>
+                </div>
 
-    <div class="field">
-        <!-- <%= form.label :end_time %> -->
-        <%= form.label :end_time do %>
-            <i class="fas fa-clock"></i> <b>End time :</b> 
-        <% end %> <br />
-
-        <%= form.datetime_field :end_time , :class=> "form-control"%>
-    </div>
-
-    <br>
-
-    <div class="actions">
-        <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait...") do %>
-            <i class="fas fa-pen"></i> Submit 
         <% end %>
-    </div>
 
-<% end %>
+    </div> 
 
-    </div>
-</center>
-
+   </div>
+</div>

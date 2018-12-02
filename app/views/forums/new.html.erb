@@ -1,13 +1,69 @@
+<style>
+
+#edit-forum {
+    border: 2px solid grey;
+    width: 600px;
+    /*height: 500px;*/
+    padding: 15px;
+}
+
+</style>
+
+<h2  class="text-center" style="color:#1a001a;" > <i class="far fa-plus-square"></i> New Forum</h2>
+
+<div class="text-center">
+	
+	<%= link_to '<button type="button" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Back to the event</button>'.html_safe, :back %>
+
+</div>
+
+<br>
+
+<div class="text-center">
+    <div class="text-left" style="display: inline-block;">
+            
+      	<div id="edit-forum">
+
+			<%= form_tag '/forums/new_forum',:name => 'new_forum_form'  do  %>
+				
+				<div class="field">				    
+				    <%= label_tag :event_id do %>
+				        <i class="far fa-calendar"></i></i> <b>Event :</b> <%= @event.name %>  
+				        
+				    <% end %> <br />
+				    <%= hidden_field_tag "event_id", @event.id %>
+
+			    </div>
+
+			    <br>
+
+			   <!-- <%= hidden_field_tag "event_id", @event.id %> -->
+			   	<div class="field">
+				    <%= label_tag :title do %>
+				        <i class="fas fa-pen-alt"></i> <b>Title :</b> 
+				    <% end %> <br /> 
+				    <%= text_field_tag :title , "", class: 'form-control'  %>
+			  	</div>
+
+			   <!-- <%= text_field_tag :title, '', :placeholder => "Title" %> -->
+
+			   <br>
+
+			   <div class="actions">
+                  <%= button_tag(:id => "submit", :name => "submit", :class => "form_submit btn btn-success", :disabled => false, :disable_with => "Please wait...") do %>
+                      <i class="fas fa-pen"></i> Submit 
+                  <% end %>
+              </div>
+
+			<% end %>
+		</div>
+	</div>
+</div>	
+
+   <!-- <%= link_to 'Back', forums_path %>
+
+ 
 <h1>
     <%= link_to @event.name, "/events/#{@event.id}" %>
 
-</h1>
-<h4>New Forum</h4>
-
-<%= form_tag '/forums/new_forum', :name => 'new_forum_form'  do %>
-   <%= hidden_field_tag "event_id", @event.id %>
-   <%= text_field_tag :title, '', :placeholder => "Title" %>
-   <%= submit_tag "Create Forum", :id => "submit", :name => "submit", :class => "form_submit", :disabled => false, :disable_with => "Please wait..." %> 
-<% end %>
-
-<%= link_to 'Back', forums_path %>
+</h1> -->
