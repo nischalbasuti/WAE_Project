@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     collection do
       get :ban
       get :unban
+      get :profile
+      get :statistic_users
     end
   end
   resources :events do
