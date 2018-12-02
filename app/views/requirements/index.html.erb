@@ -19,8 +19,10 @@
         <td><%= requirement.description %></td>
         <td> <%= link_to requirement.activity.name, requirement.activity %> </td>
         <td><%= link_to 'Show', requirement %></td>
-        <td><%= link_to 'Edit', edit_requirement_path(requirement) %></td>
-        <td><%= link_to 'Destroy', requirement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_user.representitive? requirement.event or current_user.privilage_level(requirement.event) >= 0 or current_user.admin? or current_user.chair? %>
+            <td><%= link_to 'Edit', edit_requirement_path(requirement) %></td>
+            <td><%= link_to 'Destroy', requirement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -46,7 +46,9 @@
 </table>
 
 
-<%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_activity_path(@activity) %>  
+<% if current_user.privilage_level(@activity.event) >= 1 or current_user.admin? or current_user.chair? %>
+    <%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_activity_path(@activity) %>  
+<% end %>
 
 <%= link_to '<button type="button" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Back to the event</button>'.html_safe, event_path(@activity.event_id) %>  
 
@@ -55,7 +57,9 @@
 
 <h3 class="text-center" style="color:#1a001a;" > <i class="fas fa-clipboard-list"></i> Requirements of <%= @activity.name %></h3>
 
-<%= link_to '<button type="button" class="btn btn-success"><i class="fas fa-plus-square"></i> Add new requirement</button>'.html_safe, "/requirements/new?activity_id=#{@activity.id}" %>
+<% if current_user.representitive? @activity.event or current_user.privilage_level(@activity.event) >= 2 or current_user.admin? or current_user.chair? %>
+    <%= link_to '<button type="button" class="btn btn-success"><i class="fas fa-plus-square"></i> Add new requirement</button>'.html_safe, "/requirements/new?activity_id=#{@activity.id}" %>
+<% end %>
 <br>
 <br>
 
@@ -89,12 +93,12 @@
 
           <% else %> 
               <!-- non-satisfied -->
-               <p style="color:red;"><i class="fas fa-times-circle"></i></i> Not approve</p>  
+               <p style="color:red;"><i class="fas fa-times-circle"></i></i> Not Approved</p>  
 
           <% end %>
         </td>
 
-      <% if current_user.admin? or current_user.chair? %> 
+      <% if current_user.representitive? requirement.activity.event or current_user.privilage_level(requirement.activity.event) >= 2 or current_user.admin? or current_user.chair? %>
 
         <td> 
             <%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_requirement_path(requirement) %>    

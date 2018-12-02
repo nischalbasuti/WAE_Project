@@ -61,6 +61,15 @@ class User < ApplicationRecord
     self.user_events.where(event: event, role: 'coordinator').count >= 1
   end
 
+  def privilage_level event
+    # TODO use an if to check if null
+    begin
+      return self.user_events.where(event: event, role: 'coordinator').first.privilage_level
+    rescue
+      return -1
+    end
+  end
+
   def volunteer? event
     self.user_events.where(event: event, role: 'volunteer').count >= 1
   end

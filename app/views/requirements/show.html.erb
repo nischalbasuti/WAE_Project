@@ -47,7 +47,9 @@
 
 </table>
 
+<% if current_user.representitive? @requirement.activity.event or current_user.privilage_level(@requirement.activity.event) >= 2 or current_user.admin? or current_user.chair? %>
 <%= link_to '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i> Edit </button>'.html_safe, edit_requirement_path(@requirement) %>  
+<% end %>
 
 <%= link_to '<button type="button" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Back to the event</button>'.html_safe, activity_path(@requirement.activity_id) %>  
 
