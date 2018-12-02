@@ -6,7 +6,7 @@
 </center>
 
 <hr>
-<h4> <i class="fas fa-chalkboard"></i> <%= @forum.title %> 
+<h4> <i class="fas fa-chalkboard"></i> <%= @forum.title %> </h4>
 <% if user_signed_in? %>
     <% if current_user.admin? or current_user.chair? or current_user.coordinator? @forum.event%>
         &nbsp; 
