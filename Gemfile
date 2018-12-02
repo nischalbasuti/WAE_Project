@@ -113,3 +113,5 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 gem "simple_calendar", "~> 2.0"
 
 gem 'kaminari'
+
+gem 'ed25519'
